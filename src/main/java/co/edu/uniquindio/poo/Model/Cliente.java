@@ -1,15 +1,17 @@
 package co.edu.uniquindio.poo.Model;
 
+import java.util.LinkedList;
+
 public class Cliente {
     private String nombre;
     private String telfono;
-    private Reserva reserva;
+    private LinkedList<Reserva> reservas;
 
 
-    public Cliente(String nombre, String telfono, Reserva reserva) {
+    public Cliente(String nombre, String telfono) {
         this.nombre = nombre;
         this.telfono = telfono;
-        this.reserva = reserva;
+        this.reservas = new LinkedList<>();
     }
 
 
@@ -33,12 +35,14 @@ public class Cliente {
     }
 
 
-    public Reserva getReserva() {
-        return reserva;
+    public LinkedList<Reserva> getReservas() {
+        return reservas;
     }
 
 
-    public void setReserva(Reserva reserva) {
-        this.reserva = reserva;
-    }   
+    public void setReservas(LinkedList<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
+    
 }

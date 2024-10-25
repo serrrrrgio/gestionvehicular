@@ -6,8 +6,8 @@ public class Camioneta extends Vehiculo{
     private double capacidadCargaToneladas;
 
     public Camioneta(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion,
-            double capacidadCargaToneladas) {
-        super(numeroMatricula, marca, modelo, fechaFabricacion);
+            double capacidadCargaToneladas, Reserva reserva) {
+        super(numeroMatricula, marca, modelo, fechaFabricacion, reserva);
         this.capacidadCargaToneladas = capacidadCargaToneladas;
     }
 

@@ -8,8 +8,8 @@ public class Moto extends Vehiculo{
     private TipoCaja TipoCaja;
 
     public Moto(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion,
-            co.edu.uniquindio.poo.Model.TipoCaja tipoCaja) {
-        super(numeroMatricula, marca, modelo, fechaFabricacion);
+            TipoCaja tipoCaja, Reserva reserva) {
+        super(numeroMatricula, marca, modelo, fechaFabricacion, reserva);
         TipoCaja = tipoCaja;
     }
 
@@ -19,12 +19,6 @@ public class Moto extends Vehiculo{
 
     public void setTipoCaja(TipoCaja tipoCaja) {
         TipoCaja = tipoCaja;
-    }
-    
-    public Moto(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion){
-        super(numeroMatricula, marca, modelo, fechaFabricacion);
-
-
     }
 
     @Override
