@@ -4,28 +4,41 @@ import java.time.LocalDate;
 
 public class Moto extends Vehiculo {
 
-    private TipoCaja TipoCaja;
+    private TipoCaja tipoCaja;
+    private double tarifaAdicional;
 
     public Moto(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion,
-            TipoCaja tipoCaja, Reserva reserva, double tarifaBase) {
+            Reserva reserva, double tarifaBase, TipoCaja tipoCaja) {
         super(numeroMatricula, marca, modelo, fechaFabricacion, reserva, tarifaBase);
-        TipoCaja = tipoCaja;
+        this.tipoCaja = tipoCaja;
+
+        if (tipoCaja.equals(TipoCaja.AUTOMATICA)){
+            this.tarifaAdicional = 2000;
+        }
+        else{
+            this.tarifaAdicional = 0;
+        }
     }
 
     public TipoCaja getTipoCaja() {
-        return TipoCaja;
+        return tipoCaja;
     }
 
     public void setTipoCaja(TipoCaja tipoCaja) {
-        TipoCaja = tipoCaja;
+        this.tipoCaja = tipoCaja;
+    }
+
+    
+    public double getTarifaAdicional() {
+        return tarifaAdicional;
+    }
+
+    public void setTarifaAdicional(double tarifaAdicional) {
+        this.tarifaAdicional = tarifaAdicional;
     }
 
     @Override
     public double calcularCosto() {
-
-        return 0;
+        return tarifaBase + tarifaAdicional;
     }
-
-
-
 }
