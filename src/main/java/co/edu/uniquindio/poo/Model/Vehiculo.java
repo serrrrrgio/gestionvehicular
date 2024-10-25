@@ -6,13 +6,13 @@ public abstract class Vehiculo {
     public String numeroMatricula;
     public String marca;
     public String modelo;
-    public LocalDate anoFabricacion;
+    public LocalDate fechaFabricacion;
     
-    public Vehiculo(String numeroMatricula, String marca, String modelo, LocalDate anoFabricacion) {
+    public Vehiculo(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion) {
         this.numeroMatricula = numeroMatricula;
         this.marca = marca;
         this.modelo = modelo;
-        this.anoFabricacion = anoFabricacion;
+        this.fechaFabricacion = fechaFabricacion;
     }
 
     public String getNumeroMatricula() {
@@ -39,14 +39,22 @@ public abstract class Vehiculo {
         this.modelo = modelo;
     }
 
-    public LocalDate getAnoFabricacion() {
-        return anoFabricacion;
+    public LocalDate getFechaFabricacion() {
+        return fechaFabricacion;
     }
 
-    public void setAnoFabricacion(LocalDate anoFabricacion) {
-        this.anoFabricacion = anoFabricacion;
+    public void setAnoFabricacion(LocalDate fechaFabricacion) {
+        this.fechaFabricacion = fechaFabricacion;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehiculo [numeroMatricula=" + numeroMatricula + ", marca=" + marca + ", modelo=" + modelo
+                + ", anoFabricacion=" + fechaFabricacion + "]";
     }
     
+
+    public abstract void calcularCosto();
 
 
 }
