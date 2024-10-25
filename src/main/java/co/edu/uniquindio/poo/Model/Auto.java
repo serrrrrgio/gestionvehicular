@@ -5,8 +5,8 @@ import java.time.LocalDate;
 public class Auto extends Vehiculo {
     private int numeroPuertas;
 
-public Auto(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion, int numeroPuertas) {
-    super(numeroMatricula, marca, modelo, fechaFabricacion);
+public Auto(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion, int numeroPuertas, Reserva reserva) {
+    super(numeroMatricula, marca, modelo, fechaFabricacion, reserva);
     this.numeroPuertas = numeroPuertas;
 }
 
