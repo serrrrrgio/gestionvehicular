@@ -43,7 +43,7 @@ public abstract class Vehiculo {
         return fechaFabricacion;
     }
 
-    public void setAnoFabricacion(LocalDate fechaFabricacion) {
+    public void setFechaFabricacion(LocalDate fechaFabricacion) {
         this.fechaFabricacion = fechaFabricacion;
     }
 
