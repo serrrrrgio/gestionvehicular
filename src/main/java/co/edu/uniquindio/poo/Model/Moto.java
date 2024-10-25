@@ -21,8 +21,11 @@ public class Moto extends Vehiculo {
     }
 
     @Override
-    public void calcularCosto() {
+    public double calcularCosto() {
 
+        return 0;
     }
+
+
 
 }

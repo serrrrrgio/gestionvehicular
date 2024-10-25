@@ -18,10 +18,11 @@ public class Camioneta extends Vehiculo {
     public void setCapacidadCargaToneladas(double capacidadCargaToneladas) {
         this.capacidadCargaToneladas = capacidadCargaToneladas;
     }
-
+    
     @Override
-    public void calcularCosto() {
+    public double calcularCosto() {
 
+        return 0;
     }
 
 }

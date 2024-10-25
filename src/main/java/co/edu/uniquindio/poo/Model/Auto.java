@@ -20,9 +20,10 @@ public class Auto extends Vehiculo {
     }
 
     @Override
-    public void calcularCosto() {
-
-
+    public double calcularCosto() {
+        return 0;
     }
+
+
 
 }

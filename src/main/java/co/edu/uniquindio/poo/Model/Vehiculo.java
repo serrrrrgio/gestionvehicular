@@ -59,7 +59,7 @@ public abstract class Vehiculo {
         this.reserva = reserva;
     }
 
-    public abstract void calcularCosto();
+    public abstract double calcularCosto();
 
     public double getTarifaBase() {
         return tarifaBase;
