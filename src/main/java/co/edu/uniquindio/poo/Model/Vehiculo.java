@@ -47,12 +47,6 @@ public abstract class Vehiculo {
         this.fechaFabricacion = fechaFabricacion;
     }
 
-    @Override
-    public String toString() {
-        return "Vehiculo [numeroMatricula=" + numeroMatricula + ", marca=" + marca + ", modelo=" + modelo
-                + ", anoFabricacion=" + fechaFabricacion + "]";
-    }
-    
 
     public abstract void calcularCosto();
 
