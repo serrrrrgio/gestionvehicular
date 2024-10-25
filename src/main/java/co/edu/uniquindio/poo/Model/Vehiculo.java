@@ -7,12 +7,15 @@ public abstract class Vehiculo {
     public String marca;
     public String modelo;
     public LocalDate fechaFabricacion;
-    
-    public Vehiculo(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion) {
+    public Reserva reserva;
+
+
+    public Vehiculo(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion, Reserva reserva) {
         this.numeroMatricula = numeroMatricula;
         this.marca = marca;
         this.modelo = modelo;
         this.fechaFabricacion = fechaFabricacion;
+        this.reserva = reserva;
     }
 
     public String getNumeroMatricula() {
@@ -47,8 +50,18 @@ public abstract class Vehiculo {
         this.fechaFabricacion = fechaFabricacion;
     }
 
+    public Reserva getReserva() {
+        return reserva;
+    }
+
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
+    }
+
 
     public abstract void calcularCosto();
+
+    
 
 
 }
