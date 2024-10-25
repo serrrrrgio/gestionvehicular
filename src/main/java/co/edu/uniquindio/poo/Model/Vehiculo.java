@@ -8,14 +8,15 @@ public abstract class Vehiculo {
     public String modelo;
     public LocalDate fechaFabricacion;
     public Reserva reserva;
+    public double tarifaBase;
 
-
-    public Vehiculo(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion, Reserva reserva) {
+    public Vehiculo(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion, Reserva reserva,
+            double tarifaBase) {
         this.numeroMatricula = numeroMatricula;
         this.marca = marca;
         this.modelo = modelo;
         this.fechaFabricacion = fechaFabricacion;
-        this.reserva = reserva;
+        this.tarifaBase = tarifaBase;
     }
 
     public String getNumeroMatricula() {
@@ -58,10 +59,14 @@ public abstract class Vehiculo {
         this.reserva = reserva;
     }
 
-
     public abstract void calcularCosto();
 
-    
+    public double getTarifaBase() {
+        return tarifaBase;
+    }
 
+    public void setTarifaBase(double tarifaBase) {
+        this.tarifaBase = tarifaBase;
+    }
 
 }
