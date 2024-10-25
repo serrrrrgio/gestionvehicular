@@ -21,7 +21,7 @@ public class Auto extends Vehiculo {
 
     @Override
     public double calcularCosto() {
-        return 0;
+        return tarifaBase * reserva.getDias();
     }
 
 
