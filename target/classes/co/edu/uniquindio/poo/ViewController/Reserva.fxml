@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="770.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="247.0" layoutY="63.0" prefHeight="40.0" prefWidth="276.0" text="Realize su Reserva">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="92.0" layoutY="131.0" text="Escoja un vehiculo para reservar:">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+      <TableView layoutX="92.0" layoutY="193.0" prefHeight="200.0" prefWidth="366.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="Marca" />
+          <TableColumn prefWidth="75.0" text="Modelo" />
+            <TableColumn prefWidth="159.0" text="Fecha de Fabricación" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
