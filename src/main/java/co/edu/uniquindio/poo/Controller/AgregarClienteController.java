@@ -166,7 +166,7 @@ public class AgregarClienteController {
 
     @FXML
     public void abrirAgregarReserva(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo");
+        cambiarEscena("/co/edu/uniquindio/poo/ViewController/Reserva.fxml", "Elegir Vehículo");
     }
 
     @FXML

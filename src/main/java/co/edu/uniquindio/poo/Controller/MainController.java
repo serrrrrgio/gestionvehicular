@@ -38,6 +38,7 @@ public class MainController {
                 MotoController controller = loader.getController();
                 if (controller != null) {
                     controller.setMainController(this); // Pasar la instancia de MainController
+                    controller.setMotos(motos); // Pasar la lista de motos
                 } else {
                     System.err.println("Error: No se pudo obtener el controlador de Moto.fxml.");
                 }
@@ -46,6 +47,7 @@ public class MainController {
             // Establecer el título y la escena
             stage.setTitle(titulo);
             stage.setScene(new Scene(root));
+            stage.show(); // Mostrar la nueva escena
         } catch (Exception e) {
             e.printStackTrace(); // Manejo de errores
         }
