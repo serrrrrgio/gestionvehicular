@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="264.0" layoutY="58.0" text="Escoja una opción">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="27.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnVehiculos" layoutX="342.0" layoutY="223.0" mnemonicParsing="false" text="Vehiculos" />
+      <Button fx:id="btnClientes" layoutX="348.0" layoutY="152.0" mnemonicParsing="false" text="Clientes" />
+      <Button fx:id="btnSalir" layoutX="360.0" layoutY="360.0" mnemonicParsing="false" text="Salir" />
+   </children>
+</AnchorPane>
