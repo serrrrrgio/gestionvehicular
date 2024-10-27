@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.Controller.MotoController">
    <children>
-      <TableView fx:id="tblListMoto" layoutX="31.0" layoutY="418.0" prefHeight="200.0" prefWidth="597.0">
+      <TableView fx:id="tblListMoto" layoutX="31.0" layoutY="455.0" prefHeight="200.0" prefWidth="597.0">
         <columns>
           <TableColumn fx:id="tbcMatricula" prefWidth="75.0" text="Matricula" />
           <TableColumn fx:id="tbcMarca" prefWidth="75.0" text="Marca" />
@@ -70,6 +70,9 @@
          </font>
       </Label>
       <ChoiceBox fx:id="choiceTipoCaja" layoutX="375.0" layoutY="334.0" prefWidth="150.0" />
-      <Button layoutX="516.0" layoutY="28.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+      <Button fx:id="btnRegresar" layoutX="516.0" layoutY="28.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+      <Button fx:id="btnAgregarMoto" layoutX="273.0" layoutY="389.0" mnemonicParsing="false" onAction="#agregarMoto" text="Agregar Moto" />
+      <Button fx:id="btnEliminarMoto" layoutX="136.0" layoutY="389.0" mnemonicParsing="false" onAction="#eliminarMoto" text="Eliminar Moto" />
+      <Button fx:id="btnActualizarMoto" layoutX="418.0" layoutY="389.0" mnemonicParsing="false" onAction="#actualizarMoto" text="Actualizar Moto" />
    </children>
 </AnchorPane>

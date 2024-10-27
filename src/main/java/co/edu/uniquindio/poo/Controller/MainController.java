@@ -7,18 +7,25 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import co.edu.uniquindio.poo.Model.Cliente;
+import co.edu.uniquindio.poo.Model.Moto;
 
 public class MainController {
 
     private ObservableList<Cliente> clientes; // Lista de clientes
+    private ObservableList<Moto> motos; // Lista de motos
 
     public MainController() {
-        // Inicializa la lista de clientes
-        this.clientes = FXCollections.observableArrayList(); // Aquí inicializamos la lista
+        // Inicializa las listas
+        this.clientes = FXCollections.observableArrayList();
+        this.motos = FXCollections.observableArrayList(); // Inicializa la lista de motos
     }
 
     public ObservableList<Cliente> getClientes() {
-        return clientes; // Método para obtener la lista de clientes
+        return clientes;
+    }
+
+    public ObservableList<Moto> getMotos() { // Método para obtener la lista de motos
+        return motos;
     }
 
     public void cambiarEscena(String fxml, String titulo, Stage stage) {
@@ -26,25 +33,21 @@ public class MainController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = loader.load();
 
-            // Si estamos abriendo AgregarCliente.fxml, pasamos la lista de clientes
-            if (fxml.equals("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml")) {
-                AgregarClienteController controller = loader.getController();
-                controller.setClientes(clientes); // Pasar la lista de clientes
+            // Si estamos abriendo Moto.fxml, pasamos la lista de motos
+            if (fxml.equals("/co/edu/uniquindio/poo/ViewController/Moto.fxml")) {
+                MotoController controller = loader.getController();
+                if (controller != null) {
+                    controller.setMainController(this); // Pasar la instancia de MainController
+                } else {
+                    System.err.println("Error: No se pudo obtener el controlador de Moto.fxml.");
+                }
             }
 
+            // Establecer el título y la escena
             stage.setTitle(titulo);
-            stage.setScene(new Scene(root)); // Establece la nueva escena
+            stage.setScene(new Scene(root));
         } catch (Exception e) {
-            e.printStackTrace(); // Imprime el error si ocurre una excepción
+            e.printStackTrace(); // Manejo de errores
         }
     }
 }
-
-/*
-Nota de Sergio:
-Creamos la clase MainController.java para hacer que manejar las diferentes
-pantallas de la app sea más fácil. Esta clase guarda una sola lista de clientes,
-así que podemos compartir info entre los controladores sin problemas. Al usar
-MainController, mantenemos la parte de navegar por la app separada de lo que 
-hace cada controlador. Esto hace que el código sea más fácil de entender y mantener.
-*/

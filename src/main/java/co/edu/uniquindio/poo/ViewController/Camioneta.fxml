@@ -89,6 +89,6 @@
             <TableColumn fx:id="tbcPorcentaje" prefWidth="75.0" text="Porcentaje" />
          </columns>
       </TableView>
-      <Button fx:id="btnRegresar" layoutX="688.0" layoutY="44.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+      <Button fx:id="btnRegresar" layoutX="688.0" layoutY="44.0" mnemonicParsing="false" text="Regresar" />
    </children>
 </AnchorPane>
