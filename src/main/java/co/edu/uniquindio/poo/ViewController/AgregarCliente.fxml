@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="594.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.Controller.AgregarClienteController">
    <children>
       <Label layoutX="307.0" layoutY="53.0" text="Agregar cliente">
          <font>
@@ -19,20 +19,22 @@
          </font>
       </Label>
       <TextField fx:id="txtNombre" layoutX="301.0" layoutY="162.0" />
-      <TextField fx:id="txtTelefono" layoutX="301.0" layoutY="229.0" />
-      <Label layoutX="110.0" layoutY="167.0" text="Nombre:" />
-      <Label layoutX="110.0" layoutY="234.0" text="Telefono:" />
-      <Button fx:id="btnAgregarCliente" layoutX="332.0" layoutY="289.0" mnemonicParsing="false" text="Agregar Cliente" />
-      <Button fx:id="btnActualizarCliente" layoutX="162.0" layoutY="289.0" mnemonicParsing="false" text="Actualizar CLiente" />
-      <Button fx:id="btnEliminarCliente" layoutX="488.0" layoutY="289.0" mnemonicParsing="false" text="Eliminar Cliente" />
-      <TableView layoutX="72.0" layoutY="351.0" prefHeight="195.0" prefWidth="471.0">
+      <TextField fx:id="txtTelefono" layoutX="301.0" layoutY="206.0" />
+      <Label layoutX="234.0" layoutY="167.0" text="Nombre:" />
+      <Label layoutX="232.0" layoutY="211.0" text="Telefono:" />
+      <Button fx:id="btnAgregarCliente" layoutX="332.0" layoutY="289.0" mnemonicParsing="false" onAction="#agregarCliente" text="Agregar Cliente" />
+      <Button fx:id="btnActualizarCliente" layoutX="162.0" layoutY="289.0" mnemonicParsing="false" onAction="#actualizarCliente" text="Actualizar Cliente" />
+      <Button fx:id="btnEliminarCliente" layoutX="488.0" layoutY="289.0" mnemonicParsing="false" onAction="#eliminarCliente" text="Eliminar Cliente" />
+      <TableView fx:id="tblListCliente" layoutX="72.0" layoutY="351.0" prefHeight="195.0" prefWidth="471.0">
         <columns>
-          <TableColumn prefWidth="140.0" text="Nombre" />
-          <TableColumn prefWidth="131.0" text="Telefono" />
-            <TableColumn minWidth="0.0" prefWidth="171.0" text="Reservas" />
+          <TableColumn fx:id="tbcNombre" prefWidth="140.0" text="Nombre" />
+          <TableColumn fx:id="tbcTelefono" prefWidth="131.0" text="Telefono" />
+            <TableColumn fx:id="tbcReservas" minWidth="0.0" prefWidth="171.0" text="Reservas" />
         </columns>
       </TableView>
-      <Button fx:id="BtnAgregarReserva" layoutX="582.0" layoutY="468.0" mnemonicParsing="false" text="Agregar Reserva" />
+      <Button fx:id="btnAgregarReserva" layoutX="582.0" layoutY="468.0" mnemonicParsing="false" onAction="#abrirAgregarReserva" text="Agregar Reserva" />
       <Label layoutX="559.0" layoutY="367.0" prefHeight="74.0" prefWidth="174.0" text="Seleccione un Cliente para Agregar reservas:" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="btnSalir" layoutX="614.0" layoutY="515.0" mnemonicParsing="false" onAction="#salirAplicacion" text="Salir" />
+      <Button fx:id="btnLimpiarCampos" layoutX="331.0" layoutY="244.0" mnemonicParsing="false" onAction="#limpiarCampos" text="Limpiar Campos" />
    </children>
 </AnchorPane>

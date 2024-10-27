@@ -4,12 +4,12 @@ import java.util.LinkedList;
 
 public class Cliente {
     private String nombre;
-    private String telfono;
+    private String telefono;
     private LinkedList<Reserva> reservas;
 
-    public Cliente(String nombre, String telfono) {
+    public Cliente(String nombre, String telefono) {
         this.nombre = nombre;
-        this.telfono = telfono;
+        this.telefono = telefono;
         this.reservas = new LinkedList<>();
     }
 
@@ -21,12 +21,12 @@ public class Cliente {
         this.nombre = nombre;
     }
 
-    public String getTelfono() {
-        return telfono;
+    public String getTelefono() {
+        return telefono;
     }
 
-    public void setTelfono(String telfono) {
-        this.telfono = telfono;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public LinkedList<Reserva> getReservas() {
@@ -36,5 +36,7 @@ public class Cliente {
     public void setReservas(LinkedList<Reserva> reservas) {
         this.reservas = reservas;
     }
+
+  
 
 }
