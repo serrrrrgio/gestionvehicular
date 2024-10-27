@@ -5,54 +5,70 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView layoutX="220.0" layoutY="445.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView layoutX="31.0" layoutY="422.0" prefHeight="200.0" prefWidth="597.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn prefWidth="75.0" text="Matricula" />
+          <TableColumn prefWidth="75.0" text="Marca" />
+            <TableColumn prefWidth="75.0" text="Modelo" />
+            <TableColumn prefWidth="126.0" text="Fecha fabricación" />
+            <TableColumn prefWidth="126.0" text="Tarifa base" />
+            <TableColumn prefWidth="126.0" text="Tipo caja" />
         </columns>
       </TableView>
-      <Label layoutX="332.0" layoutY="44.0" text="Motos">
+      <Label layoutX="287.0" layoutY="43.0" text="Motos">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
-      <TextField layoutX="363.0" layoutY="108.0" />
-      <TextField layoutX="363.0" layoutY="187.0" />
-      <TextField layoutX="363.0" layoutY="146.0" />
+      <TextField fx:id="txtMatricula" layoutX="363.0" layoutY="108.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="txtModelo" layoutX="363.0" layoutY="201.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="txtMarca" layoutX="363.0" layoutY="154.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
       <Label layoutX="160.0" layoutY="110.0" text="Número de matrícula">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="160.0" layoutY="148.0" text="Marca">
+      <Label layoutX="160.0" layoutY="160.0" text="Marca">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="160.0" layoutY="189.0" text="Modelo">
+      <Label layoutX="161.0" layoutY="207.0" text="Modelo">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="160.0" layoutY="227.0" text="Fecha fabricacion">
+      <Label layoutX="161.0" layoutY="249.0" text="Fecha fabricacion">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker layoutX="363.0" layoutY="225.0" />
-      <Label layoutX="160.0" layoutY="264.0" text="Tarifa base">
+      <DatePicker fx:id="datePickerFechaFabricacion" layoutX="363.0" layoutY="247.0" promptText="Ingrese una fecha" />
+      <Label layoutX="161.0" layoutY="288.0" text="Tarifa base">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="363.0" layoutY="262.0" />
-      <Label layoutX="156.0" layoutY="307.0" text="Tipo caja">
+      <TextField fx:id="txtTarifaBase" layoutX="363.0" layoutY="282.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Label layoutX="157.0" layoutY="336.0" text="Tipo caja">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
+      <ChoiceBox fx:id="choiceTipoCaja" layoutX="375.0" layoutY="334.0" onDragDetected="#onGetTipoCaja" prefWidth="150.0" />
    </children>
 </AnchorPane>
