@@ -1,7 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="-7.0" prefHeight="713.0" prefWidth="600.0">
+         <children>
+            <Label layoutX="241.0" layoutY="46.0" prefHeight="52.0" prefWidth="89.0" text="  Autos" textAlignment="JUSTIFY">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="74.0" layoutY="108.0" text="Numero de matricula:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="74.0" layoutY="151.0" text="Marca:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="74.0" layoutY="195.0" text="Modelo:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="74.0" layoutY="235.0" text="Fecha de fabricacion:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="74.0" layoutY="315.0" text="Tarifa base:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="256.0" layoutY="106.0" />
+            <TextField layoutX="256.0" layoutY="149.0" />
+            <TextField layoutX="256.0" layoutY="193.0" />
+            <DatePicker layoutX="256.0" layoutY="233.0" />
+            <TextField layoutX="256.0" layoutY="277.0" />
+            <Button layoutX="471.0" layoutY="41.0" mnemonicParsing="false" text="Regresar" />
+            <Label layoutX="74.0" layoutY="279.0" text="Numero de puertas:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="256.0" layoutY="315.0" />
+            <Button layoutX="86.0" layoutY="366.0" mnemonicParsing="false" text="Eliminar Auto" />
+            <Button layoutX="241.0" layoutY="366.0" mnemonicParsing="false" text="Agregar Auto" />
+            <Button layoutX="398.0" layoutY="366.0" mnemonicParsing="false" text="Actualizar auto" />
+            <TableView layoutX="23.0" layoutY="423.0" prefHeight="261.0" prefWidth="554.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Matricula" />
+                <TableColumn prefWidth="75.0" text="Marca" />
+                  <TableColumn prefWidth="75.0" text="Modelo" />
+                  <TableColumn prefWidth="114.0" text="Fecha de fabricacion" />
+                  <TableColumn prefWidth="86.0" text="Num puertas" />
+                  <TableColumn prefWidth="128.0" text="Tarifa base" />
+              </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
