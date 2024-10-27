@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.controller.SumaControlador">
    <children>
       <TableView layoutX="31.0" layoutY="422.0" prefHeight="200.0" prefWidth="597.0">
         <columns>
@@ -69,6 +69,6 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="choiceTipoCaja" layoutX="375.0" layoutY="334.0" onDragDetected="#onGetTipoCaja" prefWidth="150.0" />
+      <ChoiceBox fx:id="choiceTipoCaja" layoutX="375.0" layoutY="334.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
