@@ -12,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import co.edu.uniquindio.poo.Model.Cliente;
 import javafx.fxml.FXMLLoader;
@@ -59,6 +60,21 @@ public class AgregarClienteController {
         tbcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tbcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         tbcReservas.setCellValueFactory(new PropertyValueFactory<>("reservas"));
+
+        // Agregar listener para detectar selección de cliente
+        tblListCliente.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            clienteSeleccionado = newSelection; // Actualizar clienteSeleccionado
+            mostrarInformacionCliente(clienteSeleccionado); // Mostrar información en los campos
+        });
+
+        // Aplicar el TextFormatter al txtTelefono para permitir solo números
+        txtTelefono.setTextFormatter(new TextFormatter<String>(change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("\\d*")) { // Acepta solo dígitos
+                return change; // Permite el cambio
+            }
+            return null; // Rechaza el cambio
+        }));
     }
 
     public void setClientes(ObservableList<Cliente> clientes) {
@@ -70,6 +86,8 @@ public class AgregarClienteController {
         if (cliente != null) {
             txtNombre.setText(cliente.getNombre());
             txtTelefono.setText(cliente.getTelefono());
+        } else {
+            limpiarCampos(); // Limpiar campos si no hay cliente seleccionado
         }
     }
 
@@ -86,6 +104,14 @@ public class AgregarClienteController {
         if (nombre.isEmpty() || telefono.isEmpty()) {
             mostrarAlerta("Error", "Debe completar todos los campos");
             return;
+        }
+
+        // Verificar si el cliente ya existe
+        for (Cliente cliente : clientes) {
+            if (cliente.getNombre().equals(nombre) || cliente.getTelefono().equals(telefono)) {
+                mostrarAlerta("Error", "El cliente ya está registrado");
+                return;
+            }
         }
 
         Cliente cliente = new Cliente(nombre, telefono);
@@ -106,6 +132,14 @@ public class AgregarClienteController {
         if (nombre.isEmpty() || telefono.isEmpty()) {
             mostrarAlerta("Error", "Debe completar todos los campos");
             return;
+        }
+
+        // Verificar si el nuevo nombre o teléfono ya existe
+        for (Cliente cliente : clientes) {
+            if (!cliente.equals(clienteSeleccionado) && (cliente.getNombre().equals(nombre) || cliente.getTelefono().equals(telefono))) {
+                mostrarAlerta("Error", "El cliente ya está registrado");
+                return;
+            }
         }
 
         // Actualizar los datos del cliente seleccionado
