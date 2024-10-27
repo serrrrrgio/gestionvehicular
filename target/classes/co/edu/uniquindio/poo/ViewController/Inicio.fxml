@@ -5,15 +5,15 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.Controller.InicioController">
    <children>
       <Label layoutX="264.0" layoutY="58.0" text="Escoja una opción">
          <font>
             <Font name="Arial Rounded MT Bold" size="27.0" />
          </font>
       </Label>
-      <Button fx:id="btnVehiculos" layoutX="342.0" layoutY="223.0" mnemonicParsing="false" text="Vehiculos" />
-      <Button fx:id="btnClientes" layoutX="348.0" layoutY="152.0" mnemonicParsing="false" text="Clientes" />
-      <Button fx:id="btnSalir" layoutX="360.0" layoutY="360.0" mnemonicParsing="false" text="Salir" />
+      <Button fx:id="btnVehiculos" layoutX="342.0" layoutY="223.0" mnemonicParsing="false" onAction="#abrirElegirVehiculo" text="Vehiculos" />
+      <Button fx:id="btnClientes" layoutX="348.0" layoutY="152.0" mnemonicParsing="false" onAction="#abrirAgregarCliente" text="Clientes" />
+      <Button fx:id="btnSalir" layoutX="360.0" layoutY="360.0" mnemonicParsing="false" onAction="#salirAplicacion" text="Salir" />
    </children>
 </AnchorPane>
