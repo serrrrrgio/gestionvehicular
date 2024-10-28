@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Model.Moto;
-import javafx.scene.control.Alert;
 
 public class ElegirVehiculoController {
 
@@ -64,21 +63,11 @@ public class ElegirVehiculoController {
             // Si estamos abriendo la vista de Moto, pasamos la lista de motos
             if (fxml.equals("/co/edu/uniquindio/poo/ViewController/Moto.fxml")) {
                 if (motos.isEmpty()) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING);
-                    alert.setTitle("Advertencia");
-                    alert.setHeaderText("Lista de Motos Vacía");
-                    alert.setContentText("No hay motos disponibles para mostrar.");
-                    alert.showAndWait();
+                    App.mostrarAlerta("Advertencia, lista de motos vacía", "No hay motos para mostrar");
                 }
             }
         } catch (Exception e) {
-            // Mejor manejo de excepciones
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Ocurrió un error al cargar la escena");
-            alert.setContentText(e.getMessage());
-            alert.showAndWait();
-            e.printStackTrace(); // Imprimir la traza del error en la consola para depuración
+            e.printStackTrace();
         }
     }
 }

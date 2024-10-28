@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.Controller.CrearEmpresaController">
    <children>
       <Button fx:id="btnCrearEmpresa" layoutX="242.0" layoutY="220.0" mnemonicParsing="false" onAction="#crearEmpresa" text="Crear empresa" />
       <Label layoutX="141.0" layoutY="53.0" text="Empresa de gestión vehicular">

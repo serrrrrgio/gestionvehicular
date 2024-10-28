@@ -1,11 +1,9 @@
 package co.edu.uniquindio.poo.Controller;
-
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -102,14 +100,14 @@ public class AgregarClienteController {
         String telefono = txtTelefono.getText();
 
         if (nombre.isEmpty() || telefono.isEmpty()) {
-            mostrarAlerta("Error", "Debe completar todos los campos");
+            App.mostrarAlerta("Error", "Debe completar todos los campos");
             return;
         }
 
         // Verificar si el cliente ya existe
         for (Cliente cliente : clientes) {
             if (cliente.getNombre().equals(nombre) || cliente.getTelefono().equals(telefono)) {
-                mostrarAlerta("Error", "El cliente ya está registrado");
+                App.mostrarAlerta("Error", "El cliente ya está registrado");
                 return;
             }
         }
@@ -120,11 +118,11 @@ public class AgregarClienteController {
         limpiarCampos();
     }
 
-    
+
     @FXML
     public void actualizarCliente(ActionEvent event) {
         if (clienteSeleccionado == null) {
-            mostrarAlerta("Error", "Debe seleccionar un cliente para actualizar");
+            App.mostrarAlerta("Error", "Debe seleccionar un cliente para actualizar");
             return;
         }
 
@@ -132,14 +130,14 @@ public class AgregarClienteController {
         String telefono = txtTelefono.getText();
 
         if (nombre.isEmpty() || telefono.isEmpty()) {
-            mostrarAlerta("Error", "Debe completar todos los campos");
+            App.mostrarAlerta("Error", "Debe completar todos los campos");
             return;
         }
 
         // Verificar si el nuevo nombre o teléfono ya existe
         for (Cliente cliente : clientes) {
             if (!cliente.equals(clienteSeleccionado) && (cliente.getNombre().equals(nombre) || cliente.getTelefono().equals(telefono))) {
-                mostrarAlerta("Error", "El cliente ya está registrado");
+                App.mostrarAlerta("Error", "El cliente ya está registrado");
                 return;
             }
         }
@@ -156,7 +154,7 @@ public class AgregarClienteController {
     @FXML
     public void eliminarCliente(ActionEvent event) {
         if (clienteSeleccionado == null) {
-            mostrarAlerta("Error", "Debe seleccionar un cliente para eliminar");
+            App.mostrarAlerta("Error", "Debe seleccionar un cliente para eliminar");
             return;
         }
 
@@ -198,13 +196,5 @@ public class AgregarClienteController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
     }
 }

@@ -1,11 +1,10 @@
 package co.edu.uniquindio.poo.Controller;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
+
 
 import co.edu.uniquindio.poo.Model.TipoCaja;
 import co.edu.uniquindio.poo.App;
-import co.edu.uniquindio.poo.Model.Cliente;
 import co.edu.uniquindio.poo.Model.Moto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
