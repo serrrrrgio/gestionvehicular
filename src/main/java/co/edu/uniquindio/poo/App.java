@@ -38,46 +38,6 @@ public class App extends Application {
         }
     }
 
-    public void abrirAgregarCliente(Stage stage) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            stage.setTitle("Agregar Cliente");
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); // Manejo de errores
-        }
-    }
-
-    public void elegirVehiculo(Stage stage) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            stage.setTitle("Elegir Vehículo");
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace(); // Manejo de errores
-        }
-    }
-
-    public void abrirMoto(Stage stage) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/ViewController/Moto.fxml"));
-            Parent root = loader.load();
-            MotoController controller = loader.getController();
-            controller.setMainController(mainController); // Pasar la misma instancia de MainController
-
-            stage.setTitle("Gestión de Motos");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void main(String[] args) {
         launch(args);
