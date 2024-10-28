@@ -7,8 +7,6 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.collections.ObservableList;
-import co.edu.uniquindio.poo.Model.Cliente;
 
 public class InicioController {
 
@@ -21,29 +19,10 @@ public class InicioController {
     @FXML
     private Button btnSalir;
 
-    private ObservableList<Cliente> clientes; // Lista de clientes
-
-    // Este método se llamará al inicio de la aplicación para establecer la lista de clientes
-    public void setClientes(ObservableList<Cliente> clientes) {
-        this.clientes = clientes; // Asigna la lista de clientes al controlador
-    }
 
     @FXML
     public void abrirAgregarCliente(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml"));
-            Parent root = loader.load();
-
-            // Obtener el controlador de AgregarCliente
-            AgregarClienteController agregarClienteController = loader.getController();
-            agregarClienteController.setClientes(clientes); // Pasar la lista de clientes
-
-            Stage stage = (Stage) btnClientes.getScene().getWindow(); // Obtén la ventana actual
-            stage.setScene(new Scene(root)); // Establece la nueva escena
-            stage.setTitle("Agregar Cliente"); // Cambia el título
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar Cliente");
     }
 
     @FXML
