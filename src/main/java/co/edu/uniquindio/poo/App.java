@@ -6,7 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import co.edu.uniquindio.poo.Controller.MainController;
-import co.edu.uniquindio.poo.Controller.MotoController;
+
 
 public class App extends Application {
 
@@ -20,10 +20,6 @@ public class App extends Application {
             // Cargar la vista Inicio.fxml
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/ViewController/Inicio.fxml"));
             Parent root = loader.load();
-
-            // Aquí podrías pasar el mainController a Inicio.fxml si es necesario
-            // Puedes obtener el controlador de la vista y pasarle el mainController
-            // (en caso de que necesites acceder a él desde el controlador de Inicio)
 
             Scene scene = new Scene(root);
             primaryStage.setTitle("Gestión de Clientes y Vehículos");

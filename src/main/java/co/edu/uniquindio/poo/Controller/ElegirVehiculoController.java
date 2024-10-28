@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Model.Moto;
 import javafx.scene.control.Alert;
 
@@ -25,17 +26,11 @@ public class ElegirVehiculoController {
     @FXML
     private Button btnSalir; // Botón para salir y volver a la escena de inicio
 
-    private ObservableList<Moto> motos; // Lista de motos
+    ObservableList<Moto> motos;
 
     @FXML
     public void initialize() {
-        // Inicialización adicional si es necesario
-    }
-
-    // Método para establecer la lista de motos
-    public void setMotos(ObservableList<Moto> motos) {
-        this.motos = motos;
-        // Aquí podrías actualizar la interfaz de usuario si es necesario
+        motos = App.getMainController().getMotos();
     }
 
     @FXML
@@ -68,10 +63,7 @@ public class ElegirVehiculoController {
 
             // Si estamos abriendo la vista de Moto, pasamos la lista de motos
             if (fxml.equals("/co/edu/uniquindio/poo/ViewController/Moto.fxml")) {
-                MotoController motoController = loader.getController();
-                if (motos != null) {
-                    motoController.setMotos(motos); // Pasar la lista de motos al controlador de Moto
-                } else {
+                if (motos.isEmpty()) {
                     Alert alert = new Alert(Alert.AlertType.WARNING);
                     alert.setTitle("Advertencia");
                     alert.setHeaderText("Lista de Motos Vacía");

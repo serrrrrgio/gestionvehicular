@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="btnCrearEmpresa" layoutX="242.0" layoutY="220.0" mnemonicParsing="false" onAction="#crearEmpresa" text="Crear empresa" />
+      <Label layoutX="141.0" layoutY="53.0" text="Empresa de gestión vehicular">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="116.0" layoutY="146.0" text="Nombre">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtNombre" layoutX="214.0" layoutY="140.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3b4651" height="125.0" layoutY="275.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+   </children>
+</AnchorPane>

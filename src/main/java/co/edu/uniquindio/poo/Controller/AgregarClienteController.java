@@ -65,8 +65,8 @@ public class AgregarClienteController {
         tbcReservas.setCellValueFactory(new PropertyValueFactory<>("reservas"));
 
         // Agregar listener para detectar selección de cliente
-        tblListCliente.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            clienteSeleccionado = newSelection; // Actualizar clienteSeleccionado
+        tblListCliente.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            clienteSeleccionado = newValue; // Actualizar clienteSeleccionado
             mostrarInformacionCliente(clienteSeleccionado); // Mostrar información en los campos
         });
 
@@ -80,17 +80,20 @@ public class AgregarClienteController {
         }));
     }
 
-    public void setClientes() {
-        tblListCliente.setItems(clientes); // Establece la tabla para mostrar la lista de clientes
-    }
 
     private void mostrarInformacionCliente(Cliente cliente) {
         if (cliente != null) {
             txtNombre.setText(cliente.getNombre());
             txtTelefono.setText(cliente.getTelefono());
         } else {
-            limpiarCampos(); // Limpiar campos si no hay cliente seleccionado
+            // Limpiar campos si no hay cliente seleccionado
+            limpiarCampos(); 
         }
+    }
+
+    // Establece la tabla para mostrar la lista de clientes
+    public void setClientes() {
+        tblListCliente.setItems(clientes); 
     }
 
     @FXML
@@ -113,10 +116,11 @@ public class AgregarClienteController {
 
         Cliente cliente = new Cliente(nombre, telefono);
         clientes.add(cliente);
-        tblListCliente.refresh(); // Agregar cliente a la lista
-        limpiarCampos(); // Llamar a limpiar campos después de agregar
+        tblListCliente.refresh();
+        limpiarCampos();
     }
 
+    
     @FXML
     public void actualizarCliente(ActionEvent event) {
         if (clienteSeleccionado == null) {
@@ -141,8 +145,8 @@ public class AgregarClienteController {
         }
 
         // Actualizar los datos del cliente seleccionado
-        clienteSeleccionado.setNombre(nombre);
-        clienteSeleccionado.setTelefono(telefono);
+        clienteSeleccionado.setNombre(txtNombre.getText());
+        clienteSeleccionado.setTelefono(txtTelefono.getText());
 
         // Actualizar la tabla
         tblListCliente.refresh(); // Refrescar la tabla para mostrar los cambios
