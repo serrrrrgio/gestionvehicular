@@ -10,7 +10,7 @@ import co.edu.uniquindio.poo.Controller.MotoController;
 
 public class App extends Application {
 
-    private MainController mainController; // Atributo para el MainController
+    private static MainController mainController; // Atributo para el MainController
 
     @Override
     public void start(Stage primaryStage) {
@@ -36,6 +36,11 @@ public class App extends Application {
         } catch (Exception e) {
             e.printStackTrace(); // Manejo de errores
         }
+    }
+
+
+    public static MainController getMainController() {
+        return mainController; // Método para obtener el MainController
     }
 
 
