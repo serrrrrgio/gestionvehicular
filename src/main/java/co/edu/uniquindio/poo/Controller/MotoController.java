@@ -203,7 +203,7 @@ public class MotoController {
         //Se verifica que no exista una moto con la misma matrícula
         for (Moto moto : motos) {
             if (moto.getNumeroMatricula().equals(matricula)) {
-                mostrarAlerta("Error", "La moto ya está registrada");
+                mostrarAlerta("Error", "Ya existe una moto con este número de matrícula");
                 return;
             }
         }
