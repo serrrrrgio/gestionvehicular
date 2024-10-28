@@ -17,7 +17,7 @@ public class InicioController {
     private Button btnVehiculos;
 
     @FXML
-    private Button btnSalir;
+    private Button btnVolver;
 
 
     @FXML
@@ -31,9 +31,8 @@ public class InicioController {
     }
 
     @FXML
-    public void salirAplicacion(ActionEvent event) {
-        Stage stage = (Stage) btnSalir.getScene().getWindow();
-        stage.close(); // Cierra la aplicación
+    public void volver(ActionEvent event) {
+        cambiarEscena("/co/edu/uniquindio/poo/ViewController/CrearEmpresa.fxml", "Crear empresa");
     }
 
     private void cambiarEscena(String fxml, String titulo) {

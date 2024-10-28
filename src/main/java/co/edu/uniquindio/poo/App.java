@@ -19,11 +19,11 @@ public class App extends Application {
 
         try {
             // Cargar la vista Inicio.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/ViewController/Inicio.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/ViewController/CrearEmpresa.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
-            primaryStage.setTitle("Gestión de Clientes y Vehículos");
+            primaryStage.setTitle("CrearEmpresa");
             primaryStage.setScene(scene);
             primaryStage.setOnCloseRequest(event -> {
                 // Manejo del cierre si es necesario

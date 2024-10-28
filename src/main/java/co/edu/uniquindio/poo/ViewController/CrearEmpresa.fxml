@@ -6,25 +6,32 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.Controller.CrearEmpresaController">
    <children>
-      <Button fx:id="btnCrearEmpresa" layoutX="242.0" layoutY="220.0" mnemonicParsing="false" onAction="#crearEmpresa" text="Crear empresa" />
-      <Label layoutX="141.0" layoutY="53.0" text="Empresa de gestión vehicular">
+      <Button fx:id="btnCrearEmpresa" layoutX="230.0" layoutY="216.0" mnemonicParsing="false" onAction="#crearEmpresa" text="Crear empresa">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <Label layoutX="134.0" layoutY="52.0" text="Empresa de gestión vehicular">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Label>
-      <Label layoutX="116.0" layoutY="146.0" text="Nombre">
+      <Label layoutX="101.0" layoutY="146.0" text="Nombre">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtNombre" layoutX="214.0" layoutY="140.0">
+      <TextField fx:id="txtNombre" layoutX="188.0" layoutY="140.0">
          <font>
             <Font size="18.0" />
          </font>
       </TextField>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3b4651" height="125.0" layoutY="275.0" stroke="BLACK" strokeType="INSIDE" width="600.0" />
+      <Button fx:id="btnSalir" layoutX="506.0" layoutY="318.0" mnemonicParsing="false" onAction="#salirAplicacion" text="Salir">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

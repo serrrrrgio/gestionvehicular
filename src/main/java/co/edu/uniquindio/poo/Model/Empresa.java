@@ -1,19 +1,24 @@
 package co.edu.uniquindio.poo.Model;
-
-import java.util.LinkedList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Empresa {
     private String nombre;
-    private LinkedList<Vehiculo> vehiculos;
-    private LinkedList<Cliente> clientes;
-    private LinkedList<Reserva> reservas;
+    private ObservableList<Moto> motos;
+    private ObservableList<Auto> autos;
+    private ObservableList<Camioneta> camionetas;
+    private ObservableList<Cliente> clientes;
+    private ObservableList<Reserva> reservas;
 
-    public Empresa(String nombre, LinkedList<Vehiculo> vehiculos, LinkedList<Cliente> clientes,
-            LinkedList<Reserva> reservas) {
+
+
+    public Empresa(String nombre) {
         this.nombre = nombre;
-        this.vehiculos = vehiculos;
-        this.clientes = clientes;
-        this.reservas = reservas;
+        this.motos = FXCollections.observableArrayList();;
+        this.autos = FXCollections.observableArrayList();;
+        this.camionetas = FXCollections.observableArrayList();;
+        this.clientes = FXCollections.observableArrayList();;
+        this.reservas = FXCollections.observableArrayList();;
     }
 
     public String getNombre() {
@@ -24,28 +29,85 @@ public class Empresa {
         this.nombre = nombre;
     }
 
-    public LinkedList<Vehiculo> getVehiculos() {
-        return vehiculos;
+
+    public ObservableList<Moto> getMotos() {
+        return motos;
     }
 
-    public void setVehiculos(LinkedList<Vehiculo> vehiculos) {
-        this.vehiculos = vehiculos;
+    public void setMotos(ObservableList<Moto> motos) {
+        this.motos = motos;
     }
 
-    public LinkedList<Cliente> getClientes() {
+    public ObservableList<Auto> getAutos() {
+        return autos;
+    }
+
+    public void setAutos(ObservableList<Auto> autos) {
+        this.autos = autos;
+    }
+
+    public ObservableList<Camioneta> getCamionetas() {
+        return camionetas;
+    }
+
+    public void setCamionetas(ObservableList<Camioneta> camionetas) {
+        this.camionetas = camionetas;
+    }
+
+    public ObservableList<Cliente> getClientes() {
         return clientes;
     }
 
-    public void setClientes(LinkedList<Cliente> clientes) {
+    public void setClientes(ObservableList<Cliente> clientes) {
         this.clientes = clientes;
     }
 
-    public LinkedList<Reserva> getReservas() {
+    public ObservableList<Reserva> getReservas() {
         return reservas;
     }
 
-    public void setReservas(LinkedList<Reserva> reservas) {
+    public void setReservas(ObservableList<Reserva> reservas) {
         this.reservas = reservas;
+    }
+
+    public void agregarMoto(Moto moto){
+        motos.add(moto);
+    }
+
+    public void eliminarMoto(Moto moto){
+        motos.remove(moto);
+    }
+
+    public void agregarAuto(Auto auto){
+        autos.add(auto);
+    }
+
+    public void eliminarAuto(Auto auto){
+        autos.remove(auto);
+    }
+
+    public void agergarCamioneta(Camioneta camioneta){
+        camionetas.add(camioneta);
+    }
+
+    public void eliminarCamioneta(Camioneta camioneta){
+        camionetas.remove(camioneta);
+    }
+
+    public void agregarCliente(Cliente cliente){
+        clientes.add(cliente);
+    }
+
+    public void eliminarCliente(Cliente cliente){
+        clientes.remove(cliente);
+    }
+
+    public void agregarReserva(Reserva reserva){
+        reservas.add(reserva);
+    }
+
+    public void eliminarReserva(Reserva reserva){
+        reservas.remove(reserva);
     }
 
 }

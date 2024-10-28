@@ -19,6 +19,7 @@ public class AgregarClienteController {
 
 
     private ObservableList<Cliente> clientes;
+
     @FXML
     private TextField txtNombre;
 
@@ -56,7 +57,7 @@ public class AgregarClienteController {
 
     @FXML
     public void initialize() {
-        clientes = App.getMainController().getClientes();
+        clientes = App.getMainController().getEmpresa().getClientes();
         setClientes();
         tbcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tbcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));

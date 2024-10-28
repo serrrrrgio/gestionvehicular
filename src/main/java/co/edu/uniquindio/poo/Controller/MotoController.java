@@ -61,7 +61,7 @@ public class MotoController {
 
     @FXML
     public void initialize() {
-        motos = App.getMainController().getMotos();
+        motos = App.getMainController().getEmpresa().getMotos();
         setMotos();
         // Inicializar columnas de la tabla
         tbcMatricula.setCellValueFactory(cellData -> cellData.getValue().numeroMatriculaProperty());

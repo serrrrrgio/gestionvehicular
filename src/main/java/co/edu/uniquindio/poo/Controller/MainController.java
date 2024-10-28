@@ -4,41 +4,27 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import co.edu.uniquindio.poo.Model.Cliente;
 import co.edu.uniquindio.poo.Model.Moto;
+import co.edu.uniquindio.poo.Model.Empresa;
 
 public class MainController {
 
     private ObservableList<Cliente> clientes; // Lista de clientes
     private ObservableList<Moto> motos; // Lista de motos
+    private Empresa empresa;
 
     public MainController() {
-        // Inicializa las listas
-        this.clientes = FXCollections.observableArrayList();
-        this.motos = FXCollections.observableArrayList(); // Inicializa la lista de motos
+        this.empresa = null;
     }
 
-    public ObservableList<Cliente> getClientes() {
-        return clientes;
+    public Empresa getEmpresa() {
+        return empresa;
     }
 
-    public ObservableList<Moto> getMotos() { // Método para obtener la lista de motos
-        return motos;
+    public void setEmpresa(Empresa empresa) {
+        this.empresa = empresa;
     }
 
-    public void agregarMoto(Moto moto){
-        motos.add(moto);
-    }
-
-    public void eliminarMoto(Moto moto){
-        motos.remove(moto);
-    }
-
-    public void agregarCliente(Cliente cliente){
-        clientes.add(cliente);
-    }
-
-    public void eliminarCliente(Cliente cliente){
-        clientes.remove(cliente);
-    }
+    
 
 
 }

@@ -29,7 +29,6 @@ public class ElegirVehiculoController {
 
     @FXML
     public void initialize() {
-        motos = App.getMainController().getMotos();
     }
 
     @FXML
