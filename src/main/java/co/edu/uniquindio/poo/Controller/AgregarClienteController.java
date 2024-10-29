@@ -172,6 +172,7 @@ public class AgregarClienteController {
 
     @FXML
     public void abrirAgregarReserva(ActionEvent event) {
+        ReservaController.setCliente(clienteSeleccionado);
         App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Reserva.fxml", "Elegir Vehículo", event, getClass());
     }
 

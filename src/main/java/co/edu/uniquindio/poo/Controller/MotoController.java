@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.Model.TipoCaja;
 import co.edu.uniquindio.poo.App;
+import co.edu.uniquindio.poo.Model.Empresa;
 import co.edu.uniquindio.poo.Model.Moto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,10 +54,13 @@ public class MotoController {
 
     private Moto motoSeleccionada;
 
+    private Empresa empresa;
+
     private ObservableList<Moto> motos; // La lista de motos
 
     @FXML
     public void initialize() {
+        empresa = App.getEmpresa();
         motos = App.getEmpresa().getMotos();
         setMotos();
         
@@ -144,7 +148,7 @@ public class MotoController {
         Moto nuevaMoto = new Moto(matricula, marca, modelo, fechaFabricacion, null, tarifaBase, tipoCaja);
 
         // Agregar la moto a la lista de motos
-        motos.add(nuevaMoto);
+        empresa.agregarMoto(nuevaMoto);
 
         // Actualiza la tabla
         setMotos();
@@ -164,7 +168,7 @@ public class MotoController {
         }
 
         // Se remueve la moto de la lista
-        motos.remove(motoSeleccionada); 
+        empresa.eliminarMoto(motoSeleccionada); 
 
         // Se limpian los campos
         limpiarCampos(); 

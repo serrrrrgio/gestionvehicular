@@ -37,6 +37,10 @@ public class Cliente {
         this.reservas = reservas;
     }
 
+    public void agregarReserva(Reserva reserva){
+        reservas.add(reserva);
+    }
+
   
 
 }

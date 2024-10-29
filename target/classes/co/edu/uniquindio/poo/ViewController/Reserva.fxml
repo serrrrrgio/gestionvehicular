@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="1077.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="1077.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.Controller.ReservaController">
    <children>
       <Label layoutX="407.0" layoutY="59.0" prefHeight="40.0" prefWidth="276.0" text="Realize su Reserva">
          <font>
@@ -32,29 +32,17 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtdias" layoutX="407.0" layoutY="466.0" />
-      <Button fx:id="btnCalcularCostoReserva" layoutX="663.0" layoutY="464.0" mnemonicParsing="false" onAction="#calcularCosto" text="Calcular  costo" />
+      <TextField fx:id="txtDias" layoutX="407.0" layoutY="466.0" />
+      <Button fx:id="btnCalcularCostoReserva" layoutX="840.0" layoutY="415.0" mnemonicParsing="false" onAction="#calcularCosto" text="Calcular  costo" />
       <TextField fx:id="txtCostoReserva" editable="false" layoutX="804.0" layoutY="464.0" />
       <Button fx:id="btnAgregarReserva" layoutX="500.0" layoutY="539.0" mnemonicParsing="false" onAction="#generarReserva" text="Generar reserva" />
-      <TextField fx:id="txtCliente" editable="false" layoutX="804.0" layoutY="225.0" />
-      <Label layoutX="857.0" layoutY="194.0" text="CLIENTE">
+      <TextField fx:id="txtCliente" editable="false" layoutX="782.0" layoutY="316.0" prefHeight="31.0" prefWidth="233.0" />
+      <Label layoutX="857.0" layoutY="268.0" text="CLIENTE">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
       <Line endX="100.0" layoutX="539.0" layoutY="99.0" startX="-100.0" />
-      <Button layoutX="57.0" layoutY="44.0" mnemonicParsing="false" text="Regresar" />
-      <Label layoutX="787.0" layoutY="318.0" text="Fecha entrega">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <DatePicker fx:id="datePickerFechaEntrega" layoutX="910.0" layoutY="316.0" prefHeight="31.0" prefWidth="124.0" />
-      <Label layoutX="761.0" layoutY="373.0" text="Fecha devolución">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <DatePicker fx:id="datePickerFechaDevolucion" layoutX="910.0" layoutY="371.0" prefHeight="31.0" prefWidth="124.0" />
+      <Button fx:id="btnRegresar" layoutX="57.0" layoutY="44.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
    </children>
 </AnchorPane>
