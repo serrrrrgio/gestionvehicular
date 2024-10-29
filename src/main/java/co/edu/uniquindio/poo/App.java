@@ -6,16 +6,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
-import co.edu.uniquindio.poo.Controller.MainController;
+import co.edu.uniquindio.poo.Model.Empresa;
+
+
 
 
 public class App extends Application {
 
-    private static MainController mainController; // Atributo para el MainController
+    private static Empresa empresa;
 
     @Override
     public void start(Stage primaryStage) {
-        mainController = new MainController(); // Crear instancia de MainController
+        Empresa empresa = null;
 
         try {
             // Cargar la vista Inicio.fxml
@@ -36,8 +38,12 @@ public class App extends Application {
     }
 
 
-    public static MainController getMainController() {
-        return mainController; // Método para obtener el MainController
+    public static Empresa getEmpresa() {
+        return empresa; 
+    }
+
+    public static void setEmpresa(Empresa empresaNueva) {
+        empresa = empresaNueva;
     }
 
     public static void mostrarAlerta(String titulo, String mensaje) {

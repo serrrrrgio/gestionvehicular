@@ -36,12 +36,12 @@ public class CrearEmpresaController {
             return;
         } 
 
-        if(App.getMainController().getEmpresa() == null){
-            App.getMainController().setEmpresa(new Empresa(nombre));
+        if(App.getEmpresa() == null){
+            App.setEmpresa(new Empresa(nombre));
         }
 
         else{
-            App.getMainController().getEmpresa().setNombre(nombre);
+            App.getEmpresa().setNombre(nombre);
         }
 
         cambiarEscena("/co/edu/uniquindio/poo/ViewController/Inicio.fxml", "Inicio");

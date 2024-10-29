@@ -61,7 +61,7 @@ public class MotoController {
 
     @FXML
     public void initialize() {
-        motos = App.getMainController().getEmpresa().getMotos();
+        motos = App.getEmpresa().getMotos();
         setMotos();
         // Inicializar columnas de la tabla
         tbcMatricula.setCellValueFactory(cellData -> cellData.getValue().numeroMatriculaProperty());
@@ -202,9 +202,12 @@ public class MotoController {
 
         //Se verifica que no exista una moto con la misma matrícula
         for (Moto moto : motos) {
-            if (moto.getNumeroMatricula().equals(matricula)) {
-                mostrarAlerta("Error", "Ya existe una moto con este número de matrícula");
-                return;
+
+            if(!moto.equals(motoSeleccionada)){
+                if (moto.getNumeroMatricula().equals(matricula)) {
+                    mostrarAlerta("Error", "Ya existe una moto con este número de matrícula");
+                    return;
+                }
             }
         }
 

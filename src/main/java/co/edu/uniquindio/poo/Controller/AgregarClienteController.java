@@ -57,7 +57,7 @@ public class AgregarClienteController {
 
     @FXML
     public void initialize() {
-        clientes = App.getMainController().getEmpresa().getClientes();
+        clientes = App.getEmpresa().getClientes();
         setClientes();
         tbcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tbcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
@@ -137,9 +137,11 @@ public class AgregarClienteController {
 
         // Verificar si el nuevo nombre o teléfono ya existe
         for (Cliente cliente : clientes) {
-            if (!cliente.equals(clienteSeleccionado) && (cliente.getNombre().equals(nombre) || cliente.getTelefono().equals(telefono))) {
-                App.mostrarAlerta("Error", "El cliente ya está registrado");
-                return;
+            if(!cliente.equals(clienteSeleccionado)){
+                if (!cliente.equals(clienteSeleccionado) && (cliente.getNombre().equals(nombre) || cliente.getTelefono().equals(telefono))) {
+                    App.mostrarAlerta("Error", "El cliente ya está registrado");
+                    return;
+                } 
             }
         }
 
