@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import co.edu.uniquindio.poo.App;
 
 public class InicioController {
 
@@ -22,30 +23,18 @@ public class InicioController {
 
     @FXML
     public void abrirAgregarCliente(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar Cliente");
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar Cliente", event, getClass());
     }
 
     @FXML
     public void abrirElegirVehiculo(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo");
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo", event, getClass());
     }
 
     @FXML
     public void volver(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/CrearEmpresa.fxml", "Crear empresa");
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/CrearEmpresa.fxml", "Crear empresa", event, getClass());
     }
 
-    private void cambiarEscena(String fxml, String titulo) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-            Parent root = loader.load();
-            Stage stage = (Stage) btnClientes.getScene().getWindow(); 
-            stage.setTitle(titulo); 
-            stage.centerOnScreen();
-            stage.setScene(new Scene(root)); 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 

@@ -59,22 +59,26 @@ public class MotoController {
     public void initialize() {
         motos = App.getEmpresa().getMotos();
         setMotos();
-        // Inicializar columnas de la tabla
-        tbcMatricula.setCellValueFactory(cellData -> cellData.getValue().numeroMatriculaProperty());
-        tbcMarca.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
-        tbcModelo.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
-        tbcFechaFabricacion.setCellValueFactory(cellData -> cellData.getValue().fechaFabricacionProperty());
-        tbcTarifaBase.setCellValueFactory(cellData -> cellData.getValue().tarifaBaseProperty().asObject());
-        tbcTipoCaja.setCellValueFactory(cellData -> cellData.getValue().tipoCajaProperty());
-
-        // Llenar ChoiceBox con los valores del Enum TipoCaja
-        choiceTipoCaja.setItems(FXCollections.observableArrayList(TipoCaja.values()));
+        
+        inicializarData();
 
         // Agregar un listener para la selección de una moto en la tabla
         tblListMoto.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             motoSeleccionada = newValue;
             mostrarInformacionMoto(newValue);
         });
+    }
+
+    
+    public void inicializarData(){
+        tbcMatricula.setCellValueFactory(cellData -> cellData.getValue().numeroMatriculaProperty());
+        tbcMarca.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
+        tbcModelo.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
+        tbcFechaFabricacion.setCellValueFactory(cellData -> cellData.getValue().fechaFabricacionProperty());
+        tbcTarifaBase.setCellValueFactory(cellData -> cellData.getValue().tarifaBaseProperty().asObject());
+        tbcTipoCaja.setCellValueFactory(cellData -> cellData.getValue().tipoCajaProperty());
+        // Llenar ChoiceBox con los valores del Enum TipoCaja
+        choiceTipoCaja.setItems(FXCollections.observableArrayList(TipoCaja.values()));
     }
 
     // Método para cargar los datos de la moto seleccionada en los campos de texto
@@ -137,7 +141,7 @@ public class MotoController {
         }
 
         // Crear nueva moto y agregarla a la lista
-        Moto nuevaMoto = new Moto(matricula, marca, modelo, fechaFabricacion, tarifaBase, tipoCaja);
+        Moto nuevaMoto = new Moto(matricula, marca, modelo, fechaFabricacion, null, tarifaBase, tipoCaja);
 
         // Agregar la moto a la lista de motos
         motos.add(nuevaMoto);

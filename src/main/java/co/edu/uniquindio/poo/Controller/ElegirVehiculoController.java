@@ -3,10 +3,6 @@ package co.edu.uniquindio.poo.Controller;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Model.Moto;
@@ -33,40 +29,21 @@ public class ElegirVehiculoController {
 
     @FXML
     private void abrirMoto(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/Moto.fxml", "Moto");
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Moto.fxml", "Moto", event, getClass());
     }
 
     @FXML
     private void abrirAuto(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/Auto.fxml", "Auto");
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Auto.fxml", "Auto", event, getClass());
     }
 
     @FXML
     private void abrirCamion(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/Camioneta.fxml", "Camioneta");
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Camioneta.fxml", "Camioneta", event, getClass());
     }
 
     @FXML
     private void salir(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/Inicio.fxml", "Inicio");
-    }
-
-    private void cambiarEscena(String fxml, String titulo) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-            Parent root = loader.load();
-            Stage stage = (Stage) btnMoto.getScene().getWindow(); // Obtener la ventana actual
-            stage.setTitle(titulo);
-            stage.setScene(new Scene(root)); // Cambiar la escena
-
-            // Si estamos abriendo la vista de Moto, pasamos la lista de motos
-            if (fxml.equals("/co/edu/uniquindio/poo/ViewController/Moto.fxml")) {
-                if (motos.isEmpty()) {
-                    App.mostrarAlerta("Advertencia, lista de motos vacía", "No hay motos para mostrar");
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Inicio.fxml", "Inicio", event, getClass());
     }
 }

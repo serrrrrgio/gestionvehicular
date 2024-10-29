@@ -60,10 +60,10 @@ public class App extends Application {
         try {
             FXMLLoader loader = new FXMLLoader(clase.getResource(fxml));
             Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // Obtener la ventana actual
-            stage.setTitle(titulo); // Cambiar el título
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
+            stage.setTitle(titulo); 
+            stage.setScene(new Scene(root));
             stage.centerOnScreen();
-            stage.setScene(new Scene(root)); // Cambiar la escena
         } catch (Exception e) {
             e.printStackTrace();
         }

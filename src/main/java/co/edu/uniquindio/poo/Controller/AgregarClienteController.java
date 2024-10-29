@@ -2,18 +2,16 @@ package co.edu.uniquindio.poo.Controller;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TextFormatter;
-import javafx.stage.Stage;
+
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Model.Cliente;
-import javafx.fxml.FXMLLoader;
+
 
 public class AgregarClienteController {
 
