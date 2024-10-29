@@ -148,7 +148,7 @@ public class MotoController {
         Moto nuevaMoto = new Moto(matricula, marca, modelo, fechaFabricacion, null, tarifaBase, tipoCaja);
 
         // Agregar la moto a la lista de motos
-        empresa.agregarMoto(nuevaMoto);
+        empresa.agregarVehiculo(nuevaMoto);
 
         // Actualiza la tabla
         setMotos();
@@ -168,7 +168,7 @@ public class MotoController {
         }
 
         // Se remueve la moto de la lista
-        empresa.eliminarMoto(motoSeleccionada); 
+        empresa.eliminarVehiculo(motoSeleccionada); 
 
         // Se limpian los campos
         limpiarCampos(); 

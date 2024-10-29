@@ -40,7 +40,7 @@ public class Camioneta extends Vehiculo {
     }
 
     @Override
-    public double calcularCosto() {
+    public double calcularCosto(int dias) {
         return getTarifaBase() + (capacidadCargaToneladas.get() * (porcentaje.get() / 100));
     }
 }

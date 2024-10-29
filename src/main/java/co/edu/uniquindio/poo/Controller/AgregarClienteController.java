@@ -1,4 +1,5 @@
 package co.edu.uniquindio.poo.Controller;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,7 +80,7 @@ public class AgregarClienteController {
     private void inicializarData(){
         tbcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tbcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        tbcReservas.setCellValueFactory(new PropertyValueFactory<>("reservas"));
+        tbcReservas.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getReservas().size())));
     }
 
 

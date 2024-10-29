@@ -1,25 +1,19 @@
 package co.edu.uniquindio.poo.Controller;
 
-import javafx.beans.property.Property;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Model.Moto;
 import co.edu.uniquindio.poo.Model.Reserva;
-import co.edu.uniquindio.poo.Model.TipoCaja;
 import co.edu.uniquindio.poo.Model.Vehiculo;
 import co.edu.uniquindio.poo.Model.Cliente;
 import co.edu.uniquindio.poo.Model.Empresa;
@@ -43,7 +37,7 @@ public class ReservaController {
     private TableColumn<Vehiculo, LocalDate> tbcFechaFabricacion;
 
     @FXML
-    private TableColumn<Moto, Double> tbcTarifaBase;
+    private TableColumn<Vehiculo, Double> tbcTarifaBase;
 
     @FXML
     private TextField txtCliente;
@@ -103,6 +97,7 @@ public class ReservaController {
             cliente.agregarReserva(reserva);
             vehiculoSeleccionado.setReserva(reserva);
             empresa.agregarReserva(reserva);
+            empresa.eliminarVehiculo(vehiculoSeleccionado);
             App.mostrarAlerta("Reserva agregada exitosamente", "La reserva se ha agregado");
             App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar cliente", event, getClass());
         }
@@ -115,7 +110,6 @@ public class ReservaController {
         if (cadena == null || cadena.isEmpty()) {
             return false;
         }
-
         try {
             Integer.parseInt(cadena);
             return true;
@@ -129,8 +123,18 @@ public class ReservaController {
         tblListVehiculosDisponibles.setItems(vehiculos);
     }
 
+
     @FXML
     public void calcularCosto(){
+        if(validarDias(txtDias.getText())){
+            int dias = Integer.parseInt(txtDias.getText());
+            double costo = vehiculoSeleccionado.calcularCosto(dias);
+            txtCostoReserva.setText(String.valueOf(costo));
+        }
+        else{
+            App.mostrarAlerta("Días inválidos", "Por favor llene el campo de días");
+            return;
+        }
         
     }
     

@@ -81,41 +81,29 @@ public class Empresa {
     }
 
     public void agregarVehiculo(Vehiculo vehiculo){
+        if(vehiculo instanceof Moto){
+            motos.add((Moto)vehiculo);
+        }
+        else if(vehiculo instanceof Camioneta){
+            camionetas.add((Camioneta)vehiculo);
+        }
+        else if(vehiculo instanceof Auto){
+            autos.add((Auto)vehiculo);
+        }
         vehiculos.add(vehiculo);
     }
 
     public void eliminarVehiculo(Vehiculo vehiculo){
+        if(vehiculo instanceof Moto){
+            motos.remove((Moto)vehiculo);
+        }
+        else if(vehiculo instanceof Camioneta){
+            camionetas.remove((Camioneta)vehiculo);
+        }
+        else if(vehiculo instanceof Auto){
+            autos.remove((Auto)vehiculo);
+        }
         vehiculos.remove(vehiculo);
-    }
-
-    public void agregarMoto(Moto moto){
-        motos.add(moto);
-        vehiculos.add(moto);
-    }
-
-    public void eliminarMoto(Moto moto){
-        motos.remove(moto);
-        vehiculos.remove(moto);
-    }
-
-    public void agregarAuto(Auto auto){
-        autos.add(auto);
-        vehiculos.add(auto);
-    }
-
-    public void eliminarAuto(Auto auto){
-        autos.remove(auto);
-        vehiculos.remove(auto);
-    }
-
-    public void agregarCamioneta(Camioneta camioneta){
-        camionetas.add(camioneta);
-        vehiculos.add(camioneta);
-    }
-
-    public void eliminarCamioneta(Camioneta camioneta){
-        camionetas.remove(camioneta);
-        vehiculos.remove(camioneta);
     }
 
     public void agregarCliente(Cliente cliente){

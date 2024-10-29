@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Model.Auto;
+import co.edu.uniquindio.poo.Model.Empresa;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,11 +52,14 @@ public class AutoController {
 
     private Auto autoSeleccionado;
 
+    private Empresa empresa;
+
     private ObservableList<Auto> autos; // La lista de autos
 
     @FXML
     public void initialize() {
         autos = App.getEmpresa().getAutos();
+        empresa = App.getEmpresa();
         setAutos();
         // Inicializar columnas de la tabla
 
@@ -113,10 +117,10 @@ public class AutoController {
         String modelo = txtModelo.getText();
         LocalDate fechaFabricacion = datePickerFechaFabricacion.getValue();
         String tarifaBaseCadena = txtTarifaBase.getText();
-        String numeroPuertas = txtNumeroPuertas.getText();
+        String numeroPuertasCadena = txtNumeroPuertas.getText();
 
 
-        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertas)) {
+        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertasCadena)) {
             mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
@@ -130,6 +134,16 @@ public class AutoController {
             return;
         }
 
+        int numeroPuertas;
+        try {
+            numeroPuertas = Integer.parseInt(numeroPuertasCadena);
+        } catch (NumberFormatException e) {
+            mostrarAlerta("Formato de número puertas Inválido",
+                    "Por favor, ingresa un número válido para el número de puertas.");
+            return;
+        }
+        
+
         //Se verifica que no exista una auto con la misma matrícula
         for (Auto auto : autos) {
             if (auto.getNumeroMatricula().equals(matricula)) {
@@ -139,10 +153,10 @@ public class AutoController {
         }
 
         // Crear nueva auto y agregarla a la lista
-        Auto nuevoAuto = new Auto(matricula, marca, modelo, fechaFabricacion, 0, null, tarifaBase);
+        Auto nuevoAuto = new Auto(matricula, marca, modelo, fechaFabricacion, numeroPuertas, null, tarifaBase);
 
         // Agregar la auto a la lista de motos
-        autos.add(nuevoAuto);
+        empresa.agregarVehiculo(nuevoAuto);
 
         // Actualiza la tabla
         setAutos();
@@ -162,7 +176,7 @@ public class AutoController {
         }
 
         // Se remueve la auto de la lista
-        autos.remove(autoSeleccionado); 
+        empresa.eliminarVehiculo(autoSeleccionado); 
 
         // Se limpian los campos
         limpiarCampos(); 

@@ -13,7 +13,7 @@ public class Moto extends Vehiculo {
     }
 
     @Override
-    public double calcularCosto() {
+    public double calcularCosto(int dias) {
         return getTarifaBase();
     }
 
