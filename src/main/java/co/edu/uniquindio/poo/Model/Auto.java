@@ -1,17 +1,16 @@
 package co.edu.uniquindio.poo.Model;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+
 import java.time.LocalDate;
 
 public class Auto extends Vehiculo {
-    private SimpleDoubleProperty numeroPuertas;
+    private SimpleIntegerProperty numeroPuertas;
 
     public Auto(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion, int numeroPuertas,
                 Reserva reserva, double tarifaBase) {
         super(numeroMatricula, marca, modelo, fechaFabricacion, reserva, tarifaBase);
-        this.numeroPuertas = new SimpleDoubleProperty(numeroPuertas);
+        this.numeroPuertas = new SimpleIntegerProperty(numeroPuertas);
     }
 
     public int getNumeroPuertas() {
@@ -22,7 +21,7 @@ public class Auto extends Vehiculo {
         this.numeroPuertas.set(numeroPuertas);
     }
 
-    public SimpleDoubleProperty numeroPuertasProperty() {
+    public SimpleIntegerProperty numeroPuertasProperty() {
         return numeroPuertas;
     }
 
