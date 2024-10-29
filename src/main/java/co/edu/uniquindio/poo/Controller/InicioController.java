@@ -39,9 +39,10 @@ public class InicioController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
             Parent root = loader.load();
-            Stage stage = (Stage) btnClientes.getScene().getWindow(); // Obtén la ventana actual
-            stage.setTitle(titulo); // Cambia el título
-            stage.setScene(new Scene(root)); // Establece la nueva escena
+            Stage stage = (Stage) btnClientes.getScene().getWindow(); 
+            stage.setTitle(titulo); 
+            stage.centerOnScreen();
+            stage.setScene(new Scene(root)); 
         } catch (Exception e) {
             e.printStackTrace();
         }

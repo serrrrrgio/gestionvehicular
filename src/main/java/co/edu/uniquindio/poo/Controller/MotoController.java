@@ -11,10 +11,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 
 public class MotoController {
 
@@ -230,7 +226,7 @@ public class MotoController {
     // Método para regresar a la escena anterior
     @FXML
     public void regresar(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo");
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo", event, getClass());
     }
 
     // Método auxiliar para limpiar los campos de entrada
@@ -253,19 +249,5 @@ public class MotoController {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
-    }
-
-    // Método para cambiar de escena
-    private void cambiarEscena(String fxml, String titulo) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-            Parent root = loader.load();
-            Stage stage = (Stage) btnRegresar.getScene().getWindow(); // Obtener la ventana actual
-            stage.setTitle(titulo); // Cambiar el título
-            stage.setScene(new Scene(root)); // Cambiar la escena
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

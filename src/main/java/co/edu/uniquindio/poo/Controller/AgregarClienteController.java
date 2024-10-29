@@ -169,12 +169,12 @@ public class AgregarClienteController {
 
     @FXML
     public void abrirAgregarReserva(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/Reserva.fxml", "Elegir Vehículo");
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Reserva.fxml", "Elegir Vehículo", event, getClass());
     }
 
     @FXML
     public void salirAplicacion(ActionEvent event) {
-        cambiarEscena("/co/edu/uniquindio/poo/ViewController/Inicio.fxml", "Inicio");
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Inicio.fxml", "Inicio", event, getClass());
     }
 
     @FXML
@@ -189,15 +189,4 @@ public class AgregarClienteController {
         clienteSeleccionado = null; // Reiniciar la referencia al cliente seleccionado
     }
 
-    private void cambiarEscena(String fxml, String titulo) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
-            Parent root = loader.load();
-            Stage stage = (Stage) btnAgregarCliente.getScene().getWindow(); // Obtener la ventana actual
-            stage.setTitle(titulo); // Cambiar el título
-            stage.setScene(new Scene(root)); // Cambiar la escena
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

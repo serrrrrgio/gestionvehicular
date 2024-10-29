@@ -1,7 +1,9 @@
 package co.edu.uniquindio.poo;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -52,6 +54,19 @@ public class App extends Application {
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    public static void cambiarEscena(String fxml, String titulo, ActionEvent event, Class<?> clase){
+        try {
+            FXMLLoader loader = new FXMLLoader(clase.getResource(fxml));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); // Obtener la ventana actual
+            stage.setTitle(titulo); // Cambiar el título
+            stage.centerOnScreen();
+            stage.setScene(new Scene(root)); // Cambiar la escena
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
