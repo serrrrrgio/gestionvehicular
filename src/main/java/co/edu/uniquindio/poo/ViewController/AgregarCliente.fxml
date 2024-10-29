@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -36,5 +37,6 @@
       <Label layoutX="559.0" layoutY="367.0" prefHeight="74.0" prefWidth="174.0" text="Seleccione un Cliente para Agregar reservas:" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="btnSalir" layoutX="614.0" layoutY="515.0" mnemonicParsing="false" onAction="#salirAplicacion" text="Salir" />
       <Button fx:id="btnLimpiarCampos" layoutX="331.0" layoutY="244.0" mnemonicParsing="false" onAction="#limpiarCampos" text="Limpiar Campos" />
+      <Line endX="100.0" layoutX="395.0" layoutY="89.0" startX="-100.0" />
    </children>
 </AnchorPane>

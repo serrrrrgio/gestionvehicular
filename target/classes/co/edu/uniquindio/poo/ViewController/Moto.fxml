@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -17,7 +19,7 @@
             <TableColumn fx:id="tbcTipoCaja" prefWidth="126.0" text="Tipo caja" />
         </columns>
       </TableView>
-      <Label layoutX="287.0" layoutY="43.0" text="Motos">
+      <Label layoutX="287.0" layoutY="39.0" text="Motos">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
@@ -64,15 +66,16 @@
          <font>
             <Font size="18.0" />
          </font></TextField>
-      <Label layoutX="157.0" layoutY="336.0" text="Tipo caja">
+      <Label layoutX="160.0" layoutY="336.0" text="Tipo caja">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <ChoiceBox fx:id="choiceTipoCaja" layoutX="375.0" layoutY="334.0" prefWidth="150.0" />
-      <Button fx:id="btnRegresar" layoutX="516.0" layoutY="28.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+      <Button fx:id="btnRegresar" layoutX="31.0" layoutY="39.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
       <Button fx:id="btnAgregarMoto" layoutX="273.0" layoutY="389.0" mnemonicParsing="false" onAction="#agregarMoto" text="Agregar Moto" />
       <Button fx:id="btnEliminarMoto" layoutX="136.0" layoutY="389.0" mnemonicParsing="false" onAction="#eliminarMoto" text="Eliminar Moto" />
       <Button fx:id="btnActualizarMoto" layoutX="418.0" layoutY="389.0" mnemonicParsing="false" onAction="#actualizarMoto" text="Actualizar Moto" />
+      <Line endX="100.0" layoutX="329.0" layoutY="83.0" startX="-100.0" />
    </children>
 </AnchorPane>

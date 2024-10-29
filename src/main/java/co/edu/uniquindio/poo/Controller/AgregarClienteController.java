@@ -57,9 +57,8 @@ public class AgregarClienteController {
     public void initialize() {
         clientes = App.getEmpresa().getClientes();
         setClientes();
-        tbcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        tbcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        tbcReservas.setCellValueFactory(new PropertyValueFactory<>("reservas"));
+
+        inicializarData();
 
         // Agregar listener para detectar selección de cliente
         tblListCliente.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -75,6 +74,12 @@ public class AgregarClienteController {
             }
             return null; // Rechaza el cambio
         }));
+    }
+
+    private void inicializarData(){
+        tbcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        tbcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        tbcReservas.setCellValueFactory(new PropertyValueFactory<>("reservas"));
     }
 
 
