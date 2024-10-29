@@ -44,7 +44,7 @@
             <TextField fx:id="txtModelo" layoutX="256.0" layoutY="193.0" />
             <DatePicker fx:id="datePickerFechaFabricacion" layoutX="256.0" layoutY="233.0" />
             <TextField fx:id="txtNumeroPuertas" layoutX="256.0" layoutY="277.0" />
-            <Button fx:id="btnRegresar" layoutX="471.0" layoutY="41.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+            <Button fx:id="btnRegresar" layoutX="35.0" layoutY="41.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
             <Label layoutX="74.0" layoutY="279.0" text="Numero de puertas:">
                <font>
                   <Font size="18.0" />

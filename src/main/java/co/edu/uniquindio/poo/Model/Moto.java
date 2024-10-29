@@ -14,7 +14,7 @@ public class Moto extends Vehiculo {
 
     @Override
     public double calcularCosto() {
-        return getTarifaBase(); // Si necesitas agregar una tarifa adicional, puedes incluirla aquí
+        return getTarifaBase();
     }
 
     // Métodos getter y setter de propiedad

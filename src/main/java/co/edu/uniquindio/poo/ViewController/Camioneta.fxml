@@ -5,9 +5,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="686.0" prefWidth="794.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.Controller.CamionetaController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="867.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.Controller.CamionetaController">
    <children>
-      <Label layoutX="276.0" layoutY="39.0" text="Camionetas">
+      <Label layoutX="357.0" layoutY="39.0" text="Camionetas">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
@@ -63,7 +63,7 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="txtC" layoutX="370.0" layoutY="302.0">
+      <TextField fx:id="txtCapacidadCargaToneladas" layoutX="370.0" layoutY="308.0">
          <font>
             <Font size="18.0" />
          </font>
@@ -78,17 +78,20 @@
             <Font size="18.0" />
          </font>
       </TextField>
-      <TableView fx:id="tblListCamioneta" layoutX="35.0" layoutY="456.0" prefHeight="200.0" prefWidth="724.0">
+      <TableView fx:id="tblListCamioneta" layoutX="53.0" layoutY="554.0" prefHeight="200.0" prefWidth="724.0">
          <columns>
             <TableColumn fx:id="tbcMatricula" prefWidth="75.0" text="Matricula" />
             <TableColumn fx:id="tbcMarca" prefWidth="75.0" text="Marca" />
             <TableColumn fx:id="tbcModelo" prefWidth="75.0" text="Modelo" />
             <TableColumn fx:id="tbcFechaFabricacion" prefWidth="126.0" text="Fecha fabricación" />
-            <TableColumn fx:id="tbcCapacidad" prefWidth="126.0" text="Capacidad " />
+            <TableColumn fx:id="tbcCapacidadCargaToneladas" prefWidth="126.0" text="Capacidad " />
             <TableColumn fx:id="tbcTarifaBase" prefWidth="126.0" text="Tarifa base" />
             <TableColumn fx:id="tbcPorcentaje" prefWidth="75.0" text="Porcentaje" />
          </columns>
       </TableView>
-      <Button fx:id="btnRegresar" layoutX="688.0" layoutY="44.0" mnemonicParsing="false" text="Regresar" />
+      <Button fx:id="btnRegresar" layoutX="35.0" layoutY="39.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+      <Button fx:id="btnActualizarCamioneta" layoutX="561.0" layoutY="468.0" mnemonicParsing="false" onAction="#actualizarCamioneta" text="Actualizar Camoineta" />
+      <Button fx:id="btnAgregarCamioneta" layoutX="360.0" layoutY="468.0" mnemonicParsing="false" onAction="#agregarCamioneta" text="Agregar Camioneta" />
+      <Button fx:id="btnEliminarCamioneta" layoutX="166.0" layoutY="468.0" mnemonicParsing="false" onAction="#eliminarCamioneta" text="Eliminar Camioneta" />
    </children>
 </AnchorPane>
