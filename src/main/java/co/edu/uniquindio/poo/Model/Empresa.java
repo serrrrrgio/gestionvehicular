@@ -9,16 +9,18 @@ public class Empresa {
     private ObservableList<Camioneta> camionetas;
     private ObservableList<Cliente> clientes;
     private ObservableList<Reserva> reservas;
+    private ObservableList<Vehiculo> vehiculos;
 
 
 
     public Empresa(String nombre) {
         this.nombre = nombre;
-        this.motos = FXCollections.observableArrayList();;
-        this.autos = FXCollections.observableArrayList();;
-        this.camionetas = FXCollections.observableArrayList();;
-        this.clientes = FXCollections.observableArrayList();;
-        this.reservas = FXCollections.observableArrayList();;
+        this.motos = FXCollections.observableArrayList();
+        this.autos = FXCollections.observableArrayList();
+        this.camionetas = FXCollections.observableArrayList();
+        this.clientes = FXCollections.observableArrayList();
+        this.reservas = FXCollections.observableArrayList();
+        this.vehiculos = FXCollections.observableArrayList();
     }
 
     public String getNombre() {
@@ -70,28 +72,50 @@ public class Empresa {
         this.reservas = reservas;
     }
 
+    public ObservableList<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+
+    public void setVehiculos(ObservableList<Vehiculo> vehiculos) {
+        this.vehiculos = vehiculos;
+    }
+
+    public void agregarVehiculo(Vehiculo vehiculo){
+        vehiculos.add(vehiculo);
+    }
+
+    public void eliminarVehiculo(Vehiculo vehiculo){
+        vehiculos.remove(vehiculo);
+    }
+
     public void agregarMoto(Moto moto){
         motos.add(moto);
+        vehiculos.add(moto);
     }
 
     public void eliminarMoto(Moto moto){
         motos.remove(moto);
+        vehiculos.remove(moto);
     }
 
     public void agregarAuto(Auto auto){
         autos.add(auto);
+        vehiculos.add(auto);
     }
 
     public void eliminarAuto(Auto auto){
         autos.remove(auto);
+        vehiculos.remove(auto);
     }
 
-    public void agergarCamioneta(Camioneta camioneta){
+    public void agregarCamioneta(Camioneta camioneta){
         camionetas.add(camioneta);
+        vehiculos.add(camioneta);
     }
 
     public void eliminarCamioneta(Camioneta camioneta){
         camionetas.remove(camioneta);
+        vehiculos.remove(camioneta);
     }
 
     public void agregarCliente(Cliente cliente){
