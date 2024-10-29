@@ -5,8 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="713.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.Controller.AutoController">
    <children>
       <AnchorPane layoutX="-7.0" prefHeight="713.0" prefWidth="600.0">
          <children>
@@ -15,7 +14,7 @@
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
-            <Label layoutX="74.0" layoutY="108.0" text="Numero de matricula:">
+            <Label layoutX="74.0" layoutY="108.0" text="Número de matricula:">
                <font>
                   <Font size="18.0" />
                </font>
@@ -40,29 +39,29 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="256.0" layoutY="106.0" />
-            <TextField layoutX="256.0" layoutY="149.0" />
-            <TextField layoutX="256.0" layoutY="193.0" />
-            <DatePicker layoutX="256.0" layoutY="233.0" />
-            <TextField layoutX="256.0" layoutY="277.0" />
-            <Button layoutX="471.0" layoutY="41.0" mnemonicParsing="false" text="Regresar" />
+            <TextField fx:id="txtMatricula" layoutX="256.0" layoutY="106.0" />
+            <TextField fx:id="txtMarca" layoutX="256.0" layoutY="149.0" />
+            <TextField fx:id="txtModelo" layoutX="256.0" layoutY="193.0" />
+            <DatePicker fx:id="datePickerFechaFabricacion" layoutX="256.0" layoutY="233.0" />
+            <TextField fx:id="txtNumeroPuertas" layoutX="256.0" layoutY="277.0" />
+            <Button fx:id="btnRegresar" layoutX="35.0" layoutY="41.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
             <Label layoutX="74.0" layoutY="279.0" text="Numero de puertas:">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="256.0" layoutY="315.0" />
-            <Button layoutX="86.0" layoutY="366.0" mnemonicParsing="false" text="Eliminar Auto" />
-            <Button layoutX="241.0" layoutY="366.0" mnemonicParsing="false" text="Agregar Auto" />
-            <Button layoutX="398.0" layoutY="366.0" mnemonicParsing="false" text="Actualizar auto" />
-            <TableView layoutX="23.0" layoutY="423.0" prefHeight="261.0" prefWidth="554.0">
+            <TextField fx:id="txtTarifaBase" layoutX="256.0" layoutY="315.0" />
+            <Button fx:id="btnEliminarAuto" layoutX="86.0" layoutY="366.0" mnemonicParsing="false" onAction="#eliminarAuto" text="Eliminar Auto" />
+            <Button fx:id="btnAgregarAuto" layoutX="241.0" layoutY="366.0" mnemonicParsing="false" onAction="#agregarAuto" text="Agregar Auto" />
+            <Button fx:id="btnActualizarAuto" layoutX="398.0" layoutY="366.0" mnemonicParsing="false" onAction="#actualizarAuto" text="Actualizar auto" />
+            <TableView fx:id="tblListAuto" layoutX="23.0" layoutY="423.0" prefHeight="261.0" prefWidth="554.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="Matricula" />
-                <TableColumn prefWidth="75.0" text="Marca" />
-                  <TableColumn prefWidth="75.0" text="Modelo" />
-                  <TableColumn prefWidth="114.0" text="Fecha de fabricacion" />
-                  <TableColumn prefWidth="86.0" text="Num puertas" />
-                  <TableColumn prefWidth="128.0" text="Tarifa base" />
+                <TableColumn fx:id="tbcMatricula" prefWidth="75.0" text="Matricula" />
+                <TableColumn fx:id="tbcMarca" prefWidth="75.0" text="Marca" />
+                  <TableColumn fx:id="tbcModelo" prefWidth="75.0" text="Modelo" />
+                  <TableColumn fx:id="tbcFechaFabricacion" prefWidth="114.0" text="Fecha de fabricacion" />
+                  <TableColumn fx:id="tbcNumeroPuertas" prefWidth="86.0" text="Num puertas" />
+                  <TableColumn fx:id="tbcTarifaBase" prefWidth="128.0" text="Tarifa base" />
               </columns>
             </TableView>
          </children>

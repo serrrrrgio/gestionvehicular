@@ -1,8 +1,7 @@
 package co.edu.uniquindio.poo.Model;
 
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.SimpleObjectProperty;
+
 import java.time.LocalDate;
 
 public class Camioneta extends Vehiculo {
