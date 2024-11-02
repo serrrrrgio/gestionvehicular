@@ -21,7 +21,7 @@ public class App extends Application {
         try {
             // Cargar la vista Inicio.fxml
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/co/edu/uniquindio/poo/ViewController/CrearEmpresa.fxml"));
+                    getClass().getResource("CrearEmpresa.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);

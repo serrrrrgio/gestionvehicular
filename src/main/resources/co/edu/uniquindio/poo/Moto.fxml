@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="676.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.ViewController.MotoViewController">
+   <children>
+      <TableView fx:id="tblListMoto" layoutX="31.0" layoutY="455.0" prefHeight="200.0" prefWidth="597.0">
+        <columns>
+          <TableColumn fx:id="tbcMatricula" prefWidth="75.0" text="Matricula" />
+          <TableColumn fx:id="tbcMarca" prefWidth="75.0" text="Marca" />
+            <TableColumn fx:id="tbcModelo" prefWidth="75.0" text="Modelo" />
+            <TableColumn fx:id="tbcFechaFabricacion" prefWidth="126.0" text="Fecha fabricación" />
+            <TableColumn fx:id="tbcTarifaBase" prefWidth="126.0" text="Tarifa base" />
+            <TableColumn fx:id="tbcTipoCaja" prefWidth="126.0" text="Tipo caja" />
+        </columns>
+      </TableView>
+      <Label layoutX="287.0" layoutY="39.0" text="Motos">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtMatricula" layoutX="363.0" layoutY="108.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="txtModelo" layoutX="363.0" layoutY="201.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="txtMarca" layoutX="363.0" layoutY="154.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Label layoutX="160.0" layoutY="110.0" text="Número de matrícula">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="160.0" layoutY="160.0" text="Marca">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="161.0" layoutY="207.0" text="Modelo">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="161.0" layoutY="249.0" text="Fecha fabricacion">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="datePickerFechaFabricacion" layoutX="363.0" layoutY="247.0" promptText="Ingrese una fecha" />
+      <Label layoutX="161.0" layoutY="288.0" text="Tarifa base">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtTarifaBase" layoutX="363.0" layoutY="282.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <Label layoutX="160.0" layoutY="336.0" text="Tipo caja">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="choiceTipoCaja" layoutX="375.0" layoutY="334.0" prefWidth="150.0" />
+      <Button fx:id="btnRegresar" layoutX="31.0" layoutY="39.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+      <Button fx:id="btnAgregarMoto" layoutX="273.0" layoutY="389.0" mnemonicParsing="false" onAction="#agregarMoto" text="Agregar Moto" />
+      <Button fx:id="btnEliminarMoto" layoutX="136.0" layoutY="389.0" mnemonicParsing="false" onAction="#eliminarMoto" text="Eliminar Moto" />
+      <Button fx:id="btnActualizarMoto" layoutX="418.0" layoutY="389.0" mnemonicParsing="false" onAction="#actualizarMoto" text="Actualizar Moto" />
+      <Line endX="100.0" layoutX="329.0" layoutY="83.0" startX="-100.0" />
+   </children>
+</AnchorPane>

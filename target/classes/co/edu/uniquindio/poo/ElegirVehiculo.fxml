@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.ViewController.VehiculoViewController">
+   <children>
+      <Label layoutX="193.0" layoutY="66.0" text="Elija un vehículo">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnMoto" layoutX="99.0" layoutY="185.0" mnemonicParsing="false" onAction="#abrirMoto" prefHeight="49.0" prefWidth="87.0" text="Moto" />
+      <Button fx:id="btnAuto" layoutX="257.0" layoutY="185.0" mnemonicParsing="false" onAction="#abrirAuto" prefHeight="49.0" prefWidth="87.0" text="Auto" />
+      <Button fx:id="btnCamioneta" layoutX="407.0" layoutY="185.0" mnemonicParsing="false" onAction="#abrirCamion" prefHeight="49.0" prefWidth="107.0" text="Camioneta" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cbd3ca4a" height="110.0" layoutY="290.0" stroke="TRANSPARENT" strokeType="INSIDE" width="600.0" />
+      <Separator layoutX="200.0" layoutY="114.0" prefWidth="200.0" />
+      <Button fx:id="btnSalir" layoutX="276.0" layoutY="314.0" mnemonicParsing="false" onAction="#salir" text="Salir" />
+   </children>
+</AnchorPane>
