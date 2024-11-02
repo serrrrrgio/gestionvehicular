@@ -20,22 +20,22 @@ public class CrearEmpresaController {
 
     @FXML
     public void initialize() {
-        
+
     }
 
     @FXML
     public void crearEmpresa(ActionEvent event) {
         String nombre = txtNombre.getText();
-        if(nombre.isBlank()){
+        if (nombre.isBlank()) {
             App.mostrarAlerta("Campos vacíos", "Por favor ingrese el nombre de su empresa");
             return;
-        } 
+        }
 
-        if(App.getEmpresa() == null){
+        if (App.getEmpresa() == null) {
             App.setEmpresa(new Empresa(nombre));
         }
 
-        else{
+        else {
             App.getEmpresa().setNombre(nombre);
         }
 

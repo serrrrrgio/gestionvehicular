@@ -2,7 +2,6 @@ package co.edu.uniquindio.poo.Controller;
 
 import java.time.LocalDate;
 
-
 import co.edu.uniquindio.poo.Model.TipoCaja;
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Model.Empresa;
@@ -63,7 +62,7 @@ public class MotoController {
         empresa = App.getEmpresa();
         motos = App.getEmpresa().getMotos();
         setMotos();
-        
+
         inicializarData();
 
         // Agregar un listener para la selección de una moto en la tabla
@@ -73,8 +72,7 @@ public class MotoController {
         });
     }
 
-    
-    public void inicializarData(){
+    public void inicializarData() {
         tbcMatricula.setCellValueFactory(cellData -> cellData.getValue().numeroMatriculaProperty());
         tbcMarca.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
         tbcModelo.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
@@ -136,7 +134,7 @@ public class MotoController {
             return;
         }
 
-        //Se verifica que no exista una moto con la misma matrícula
+        // Se verifica que no exista una moto con la misma matrícula
         for (Moto moto : motos) {
             if (moto.getNumeroMatricula().equals(matricula)) {
                 mostrarAlerta("Error", "La moto ya está registrada");
@@ -157,7 +155,6 @@ public class MotoController {
         limpiarCampos();
     }
 
-
     // Método para eliminar una moto seleccionada
     @FXML
     public void eliminarMoto(ActionEvent event) {
@@ -168,12 +165,11 @@ public class MotoController {
         }
 
         // Se remueve la moto de la lista
-        empresa.eliminarVehiculo(motoSeleccionada); 
+        empresa.eliminarVehiculo(motoSeleccionada);
 
         // Se limpian los campos
-        limpiarCampos(); 
+        limpiarCampos();
     }
-
 
     // Método para actualizar los datos de una moto seleccionada
     @FXML
@@ -190,7 +186,7 @@ public class MotoController {
         String tarifaBaseCadena = txtTarifaBase.getText();
         TipoCaja tipoCaja = choiceTipoCaja.getValue();
 
-        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, tipoCaja)){
+        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, tipoCaja)) {
             mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
@@ -204,10 +200,10 @@ public class MotoController {
             return;
         }
 
-        //Se verifica que no exista una moto con la misma matrícula
+        // Se verifica que no exista una moto con la misma matrícula
         for (Moto moto : motos) {
 
-            if(!moto.equals(motoSeleccionada)){
+            if (!moto.equals(motoSeleccionada)) {
                 if (moto.getNumeroMatricula().equals(matricula)) {
                     mostrarAlerta("Error", "Ya existe una moto con este número de matrícula");
                     return;
@@ -224,17 +220,17 @@ public class MotoController {
         motoSeleccionada.setTipoCaja(choiceTipoCaja.getValue());
 
         // Refrescar la tabla para mostrar los cambios
-        tblListMoto.refresh(); 
+        tblListMoto.refresh();
 
         // Limpiar los campos después de actualizar
-        limpiarCampos(); 
+        limpiarCampos();
     }
-
 
     // Método para regresar a la escena anterior
     @FXML
     public void regresar(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo", event, getClass());
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo", event,
+                getClass());
     }
 
     // Método auxiliar para limpiar los campos de entrada
@@ -247,7 +243,7 @@ public class MotoController {
         choiceTipoCaja.setValue(null);
 
         // Deseleccionar la moto en la tabla
-        tblListMoto.getSelectionModel().clearSelection(); 
+        tblListMoto.getSelectionModel().clearSelection();
     }
 
     // Método para mostrar alertas

@@ -12,12 +12,10 @@ import javafx.scene.control.TextField;
 import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.App;
-import co.edu.uniquindio.poo.Model.Moto;
 import co.edu.uniquindio.poo.Model.Reserva;
 import co.edu.uniquindio.poo.Model.Vehiculo;
 import co.edu.uniquindio.poo.Model.Cliente;
 import co.edu.uniquindio.poo.Model.Empresa;
-
 
 public class ReservaController {
 
@@ -57,7 +55,7 @@ public class ReservaController {
     @FXML
     private Button btnAgregarReserva;
 
-    private ObservableList<Vehiculo> vehiculos; 
+    private ObservableList<Vehiculo> vehiculos;
 
     private Vehiculo vehiculoSeleccionado;
 
@@ -65,8 +63,7 @@ public class ReservaController {
 
     private static Cliente cliente;
 
-
-@FXML
+    @FXML
     public void initialize() {
         empresa = App.getEmpresa();
         vehiculos = empresa.getVehiculos();
@@ -75,14 +72,16 @@ public class ReservaController {
         inicializarData();
 
         // Agregar un listener para la selección de una moto en la tabla
-        tblListVehiculosDisponibles.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            vehiculoSeleccionado = newValue;
-        });
+        tblListVehiculosDisponibles.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    vehiculoSeleccionado = newValue;
+                });
         txtCliente.setText(cliente.getNombre());
     }
 
-    public void inicializarData(){
-        tbcVehiculo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getClass().getSimpleName()));
+    public void inicializarData() {
+        tbcVehiculo.setCellValueFactory(
+                cellData -> new SimpleStringProperty(cellData.getValue().getClass().getSimpleName()));
         tbcMarca.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
         tbcModelo.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
         tbcFechaFabricacion.setCellValueFactory(cellData -> cellData.getValue().fechaFabricacionProperty());
@@ -90,8 +89,8 @@ public class ReservaController {
     }
 
     @FXML
-    public void generarReserva(ActionEvent event){
-        if(validarDias(txtDias.getText())){
+    public void generarReserva(ActionEvent event) {
+        if (validarDias(txtDias.getText())) {
             int dias = Integer.parseInt(txtDias.getText());
             Reserva reserva = new Reserva(dias, cliente, vehiculoSeleccionado);
             cliente.agregarReserva(reserva);
@@ -99,11 +98,11 @@ public class ReservaController {
             empresa.agregarReserva(reserva);
             empresa.eliminarVehiculo(vehiculoSeleccionado);
             App.mostrarAlerta("Reserva agregada exitosamente", "La reserva se ha agregado");
-            App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar cliente", event, getClass());
-        }
-        else{
+            App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar cliente", event,
+                    getClass());
+        } else {
             App.mostrarAlerta("Error, días inválidos", "Por favor llene el campo de días");
-        }    
+        }
     }
 
     public boolean validarDias(String cadena) {
@@ -123,24 +122,23 @@ public class ReservaController {
         tblListVehiculosDisponibles.setItems(vehiculos);
     }
 
-
     @FXML
-    public void calcularCosto(){
-        if(validarDias(txtDias.getText())){
+    public void calcularCosto() {
+        if (validarDias(txtDias.getText())) {
             int dias = Integer.parseInt(txtDias.getText());
             double costo = vehiculoSeleccionado.calcularCosto(dias);
             txtCostoReserva.setText(String.valueOf(costo));
-        }
-        else{
+        } else {
             App.mostrarAlerta("Días inválidos", "Por favor llene el campo de días");
             return;
         }
-        
+
     }
-    
+
     @FXML
-    public void regresar(ActionEvent event){
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar cliente", event, getClass());
+    public void regresar(ActionEvent event) {
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar cliente", event,
+                getClass());
     }
 
     public static Cliente getCliente() {
@@ -151,5 +149,4 @@ public class ReservaController {
         ReservaController.cliente = cliente;
     }
 
-    
 }

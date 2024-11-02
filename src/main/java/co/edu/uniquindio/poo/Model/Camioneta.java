@@ -9,7 +9,7 @@ public class Camioneta extends Vehiculo {
     private SimpleDoubleProperty porcentaje;
 
     public Camioneta(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion,
-                     double capacidadCargaToneladas, Reserva reserva, double tarifaBase, double porcentaje) {
+            double capacidadCargaToneladas, Reserva reserva, double tarifaBase, double porcentaje) {
         super(numeroMatricula, marca, modelo, fechaFabricacion, reserva, tarifaBase);
         this.capacidadCargaToneladas = new SimpleDoubleProperty(capacidadCargaToneladas);
         this.porcentaje = new SimpleDoubleProperty(porcentaje);

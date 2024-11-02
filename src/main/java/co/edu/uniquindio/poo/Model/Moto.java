@@ -7,7 +7,8 @@ public class Moto extends Vehiculo {
     private SimpleObjectProperty<TipoCaja> tipoCaja;
 
     // Constructor de Moto ajustado a la firma solicitada
-    public Moto(String matricula, String marca, String modelo, LocalDate fechaFabricacion, Reserva reserva, double tarifaBase, TipoCaja tipoCaja) {
+    public Moto(String matricula, String marca, String modelo, LocalDate fechaFabricacion, Reserva reserva,
+            double tarifaBase, TipoCaja tipoCaja) {
         super(matricula, marca, modelo, fechaFabricacion, reserva, tarifaBase); // Llamada al constructor de Vehiculo
         this.tipoCaja = new SimpleObjectProperty<>(tipoCaja);
     }
@@ -31,4 +32,3 @@ public class Moto extends Vehiculo {
     }
 
 }
-

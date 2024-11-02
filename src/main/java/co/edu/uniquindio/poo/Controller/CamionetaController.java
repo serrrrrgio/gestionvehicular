@@ -2,9 +2,9 @@ package co.edu.uniquindio.poo.Controller;
 
 import java.time.LocalDate;
 
-
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Model.Camioneta;
+import co.edu.uniquindio.poo.Model.Empresa;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,8 +44,6 @@ public class CamionetaController {
     @FXML
     private TextField txtPorcentaje;
 
-
-
     @FXML
     private Button btnAgregarCamioneta;
     @FXML
@@ -57,13 +55,16 @@ public class CamionetaController {
 
     private Camioneta camionetaSeleccionada;
 
+    private Empresa empresa;
+
     private ObservableList<Camioneta> camionetas; // La lista de camionetas
 
     @FXML
     public void initialize() {
         camionetas = App.getEmpresa().getCamionetas();
+        empresa = App.getEmpresa();
         setCamionetas();
-        
+
         inicializarData();
 
         // Agregar un listener para la selección de una camioneta en la tabla
@@ -73,19 +74,20 @@ public class CamionetaController {
         });
     }
 
-    
-    public void inicializarData(){
+    public void inicializarData() {
         tbcMatricula.setCellValueFactory(cellData -> cellData.getValue().numeroMatriculaProperty());
         tbcMarca.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
         tbcModelo.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
         tbcFechaFabricacion.setCellValueFactory(cellData -> cellData.getValue().fechaFabricacionProperty());
         tbcTarifaBase.setCellValueFactory(cellData -> cellData.getValue().tarifaBaseProperty().asObject());
-        tbcCapacidadCargaToneladas.setCellValueFactory(cellData -> cellData.getValue().capacidadCargaToneladasProperty().asObject());
+        tbcCapacidadCargaToneladas
+                .setCellValueFactory(cellData -> cellData.getValue().capacidadCargaToneladasProperty().asObject());
         tbcPorcentaje.setCellValueFactory(cellData -> cellData.getValue().porcentajeProperty().asObject());
 
     }
 
-    // Método para cargar los datos de la camioneta seleccionada en los campos de texto
+    // Método para cargar los datos de la camioneta seleccionada en los campos de
+    // texto
     private void mostrarInformacionCamioneta(Camioneta camioneta) {
         if (camioneta != null) {
             txtMatricula.setText(camioneta.getNumeroMatricula());
@@ -125,7 +127,8 @@ public class CamionetaController {
         String capacidadCargaToneladasCadena = txtCapacidadCargaToneladas.getText();
         String porcentajeCadena = txtPorcentaje.getText();
 
-        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena, porcentajeCadena)) {
+        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena,
+                porcentajeCadena)) {
             mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
@@ -157,7 +160,7 @@ public class CamionetaController {
             return;
         }
 
-        //Se verifica que no exista una camioneta con la misma matrícula
+        // Se verifica que no exista una camioneta con la misma matrícula
         for (Camioneta camioneta : camionetas) {
             if (camioneta.getNumeroMatricula().equals(matricula)) {
                 mostrarAlerta("Error", "La camioneta ya está registrada");
@@ -166,10 +169,11 @@ public class CamionetaController {
         }
 
         // Crear nueva camioneta y agregarla a la lista
-        Camioneta nuevaMoto = new Camioneta(matricula, marca, modelo, fechaFabricacion, capacidadCargaToneladas, null, tarifaBase, porcentaje);
+        Camioneta nuevaCamioneta = new Camioneta(matricula, marca, modelo, fechaFabricacion, capacidadCargaToneladas,
+                null, tarifaBase, porcentaje);
 
         // Agregar la camioneta a la lista de camionetas
-        camionetas.add(nuevaMoto);
+        empresa.agregarVehiculo(nuevaCamioneta);
 
         // Actualiza la tabla
         setCamionetas();
@@ -177,7 +181,6 @@ public class CamionetaController {
         // Limpiar campos después de agregar
         limpiarCampos();
     }
-
 
     // Método para eliminar una camioneta seleccionada
     @FXML
@@ -189,12 +192,11 @@ public class CamionetaController {
         }
 
         // Se remueve la camioneta de la lista
-        camionetas.remove(camionetaSeleccionada); 
+        empresa.eliminarVehiculo(camionetaSeleccionada);
 
         // Se limpian los campos
-        limpiarCampos(); 
+        limpiarCampos();
     }
-
 
     // Método para actualizar los datos de una camioneta seleccionada
     @FXML
@@ -212,8 +214,8 @@ public class CamionetaController {
         String capacidadCargaToneladasCadena = txtCapacidadCargaToneladas.getText();
         String porcentajeCadena = txtPorcentaje.getText();
 
-
-        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena, porcentajeCadena)){
+        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena,
+                porcentajeCadena)) {
             mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
@@ -245,10 +247,10 @@ public class CamionetaController {
             return;
         }
 
-        //Se verifica que no exista una camioneta con la misma matrícula
+        // Se verifica que no exista una camioneta con la misma matrícula
         for (Camioneta camioneta : camionetas) {
 
-            if(!camioneta.equals(camionetaSeleccionada)){
+            if (!camioneta.equals(camionetaSeleccionada)) {
                 if (camioneta.getNumeroMatricula().equals(matricula)) {
                     mostrarAlerta("Error", "Ya existe una camioneta con este número de matrícula");
                     return;
@@ -266,17 +268,17 @@ public class CamionetaController {
         camionetaSeleccionada.setPorcentaje(porcentaje);
 
         // Refrescar la tabla para mostrar los cambios
-        tblListCamioneta.refresh(); 
+        tblListCamioneta.refresh();
 
         // Limpiar los campos después de actualizar
-        limpiarCampos(); 
+        limpiarCampos();
     }
-
 
     // Método para regresar a la escena anterior
     @FXML
     public void regresar(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo", event, getClass());
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo", event,
+                getClass());
     }
 
     // Método auxiliar para limpiar los campos de entrada
@@ -289,9 +291,8 @@ public class CamionetaController {
         txtCapacidadCargaToneladas.clear();
         txtPorcentaje.clear();
 
-
         // Deseleccionar la camioneta en la tabla
-        tblListCamioneta.getSelectionModel().clearSelection(); 
+        tblListCamioneta.getSelectionModel().clearSelection();
     }
 
     // Método para mostrar alertas

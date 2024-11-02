@@ -2,7 +2,6 @@ package co.edu.uniquindio.poo.Controller;
 
 import java.time.LocalDate;
 
-
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Model.Auto;
 import co.edu.uniquindio.poo.Model.Empresa;
@@ -65,7 +64,6 @@ public class AutoController {
 
         inicializarData();
 
-
         // Agregar un listener para la selección de una auto en la tabla
         tblListAuto.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             autoSeleccionado = newValue;
@@ -73,7 +71,7 @@ public class AutoController {
         });
     }
 
-    public void inicializarData(){
+    public void inicializarData() {
         tbcMatricula.setCellValueFactory(cellData -> cellData.getValue().numeroMatriculaProperty());
         tbcMarca.setCellValueFactory(cellData -> cellData.getValue().marcaProperty());
         tbcModelo.setCellValueFactory(cellData -> cellData.getValue().modeloProperty());
@@ -119,7 +117,6 @@ public class AutoController {
         String tarifaBaseCadena = txtTarifaBase.getText();
         String numeroPuertasCadena = txtNumeroPuertas.getText();
 
-
         if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertasCadena)) {
             mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
@@ -142,9 +139,8 @@ public class AutoController {
                     "Por favor, ingresa un número válido para el número de puertas.");
             return;
         }
-        
 
-        //Se verifica que no exista una auto con la misma matrícula
+        // Se verifica que no exista una auto con la misma matrícula
         for (Auto auto : autos) {
             if (auto.getNumeroMatricula().equals(matricula)) {
                 mostrarAlerta("Error", "La auto ya está registrada");
@@ -165,7 +161,6 @@ public class AutoController {
         limpiarCampos();
     }
 
-
     // Método para eliminar una auto seleccionada
     @FXML
     public void eliminarAuto(ActionEvent event) {
@@ -176,12 +171,11 @@ public class AutoController {
         }
 
         // Se remueve la auto de la lista
-        empresa.eliminarVehiculo(autoSeleccionado); 
+        empresa.eliminarVehiculo(autoSeleccionado);
 
         // Se limpian los campos
-        limpiarCampos(); 
+        limpiarCampos();
     }
-
 
     // Método para actualizar los datos de una auto seleccionada
     @FXML
@@ -198,8 +192,7 @@ public class AutoController {
         String tarifaBaseCadena = txtTarifaBase.getText();
         String numeroPuertasCadena = txtNumeroPuertas.getText();
 
-
-        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertasCadena)){
+        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertasCadena)) {
             mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
@@ -222,10 +215,10 @@ public class AutoController {
             return;
         }
 
-        //Se verifica que no exista una auto con la misma matrícula
+        // Se verifica que no exista una auto con la misma matrícula
         for (Auto auto : autos) {
 
-            if(!auto.equals(autoSeleccionado)){
+            if (!auto.equals(autoSeleccionado)) {
                 if (auto.getNumeroMatricula().equals(matricula)) {
                     mostrarAlerta("Error", "Ya existe una auto con este número de matrícula");
                     return;
@@ -241,19 +234,18 @@ public class AutoController {
         autoSeleccionado.setTarifaBase(tarifaBase);
         autoSeleccionado.setNumeroPuertas(numeroPuertas);
 
-
         // Refrescar la tabla para mostrar los cambios
-        tblListAuto.refresh(); 
+        tblListAuto.refresh();
 
         // Limpiar los campos después de actualizar
-        limpiarCampos(); 
+        limpiarCampos();
     }
-
 
     // Método para regresar a la escena anterior
     @FXML
     public void regresar(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo", event, getClass());
+        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo", event,
+                getClass());
     }
 
     // Método auxiliar para limpiar los campos de entrada
@@ -263,10 +255,10 @@ public class AutoController {
         txtModelo.clear();
         datePickerFechaFabricacion.setValue(null);
         txtTarifaBase.clear();
-        txtNumeroPuertas.clear( );
+        txtNumeroPuertas.clear();
 
         // Deseleccionar la auto en la tabla
-        tblListAuto.getSelectionModel().clearSelection(); 
+        tblListAuto.getSelectionModel().clearSelection();
     }
 
     // Método para mostrar alertas

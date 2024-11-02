@@ -1,4 +1,5 @@
 package co.edu.uniquindio.poo.Controller;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,9 +14,7 @@ import javafx.scene.control.TextFormatter;
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Model.Cliente;
 
-
 public class AgregarClienteController {
-
 
     private ObservableList<Cliente> clientes;
 
@@ -77,12 +76,12 @@ public class AgregarClienteController {
         }));
     }
 
-    private void inicializarData(){
+    private void inicializarData() {
         tbcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tbcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-        tbcReservas.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getReservas().size())));
+        tbcReservas.setCellValueFactory(
+                cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getReservas().size())));
     }
-
 
     private void mostrarInformacionCliente(Cliente cliente) {
         if (cliente != null) {
@@ -90,13 +89,13 @@ public class AgregarClienteController {
             txtTelefono.setText(cliente.getTelefono());
         } else {
             // Limpiar campos si no hay cliente seleccionado
-            limpiarCampos(); 
+            limpiarCampos();
         }
     }
 
     // Establece la tabla para mostrar la lista de clientes
     public void setClientes() {
-        tblListCliente.setItems(clientes); 
+        tblListCliente.setItems(clientes);
     }
 
     @FXML
@@ -123,7 +122,6 @@ public class AgregarClienteController {
         limpiarCampos();
     }
 
-
     @FXML
     public void actualizarCliente(ActionEvent event) {
         if (clienteSeleccionado == null) {
@@ -141,11 +139,12 @@ public class AgregarClienteController {
 
         // Verificar si el nuevo nombre o teléfono ya existe
         for (Cliente cliente : clientes) {
-            if(!cliente.equals(clienteSeleccionado)){
-                if (!cliente.equals(clienteSeleccionado) && (cliente.getNombre().equals(nombre) || cliente.getTelefono().equals(telefono))) {
+            if (!cliente.equals(clienteSeleccionado)) {
+                if (!cliente.equals(clienteSeleccionado)
+                        && (cliente.getNombre().equals(nombre) || cliente.getTelefono().equals(telefono))) {
                     App.mostrarAlerta("Error", "El cliente ya está registrado");
                     return;
-                } 
+                }
             }
         }
 
@@ -184,9 +183,9 @@ public class AgregarClienteController {
 
     @FXML
     private void limpiarCampos() {
-        txtNombre.clear();  // Limpiar el campo de texto para el nombre
+        txtNombre.clear(); // Limpiar el campo de texto para el nombre
         txtTelefono.clear(); // Limpiar el campo de texto para el teléfono
-        limpiarSeleccion();   // Deseleccionar el cliente en la tabla
+        limpiarSeleccion(); // Deseleccionar el cliente en la tabla
     }
 
     private void limpiarSeleccion() {

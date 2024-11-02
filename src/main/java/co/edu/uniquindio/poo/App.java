@@ -10,9 +10,6 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import co.edu.uniquindio.poo.Model.Empresa;
 
-
-
-
 public class App extends Application {
 
     private static Empresa empresa;
@@ -23,7 +20,8 @@ public class App extends Application {
 
         try {
             // Cargar la vista Inicio.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uniquindio/poo/ViewController/CrearEmpresa.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/co/edu/uniquindio/poo/ViewController/CrearEmpresa.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
@@ -39,9 +37,8 @@ public class App extends Application {
         }
     }
 
-
     public static Empresa getEmpresa() {
-        return empresa; 
+        return empresa;
     }
 
     public static void setEmpresa(Empresa empresaNueva) {
@@ -56,19 +53,26 @@ public class App extends Application {
         alert.showAndWait();
     }
 
-    public static void cambiarEscena(String fxml, String titulo, ActionEvent event, Class<?> clase){
+    public static void mostrarMensaje(String titulo, String header, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(header);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
+    public static void cambiarEscena(String fxml, String titulo, ActionEvent event, Class<?> clase) {
         try {
             FXMLLoader loader = new FXMLLoader(clase.getResource(fxml));
             Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow(); 
-            stage.setTitle(titulo); 
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle(titulo);
             stage.setScene(new Scene(root));
             stage.centerOnScreen();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     public static void main(String[] args) {
         launch(args);

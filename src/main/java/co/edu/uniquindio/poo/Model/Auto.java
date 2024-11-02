@@ -8,7 +8,7 @@ public class Auto extends Vehiculo {
     private SimpleIntegerProperty numeroPuertas;
 
     public Auto(String numeroMatricula, String marca, String modelo, LocalDate fechaFabricacion, int numeroPuertas,
-                Reserva reserva, double tarifaBase) {
+            Reserva reserva, double tarifaBase) {
         super(numeroMatricula, marca, modelo, fechaFabricacion, reserva, tarifaBase);
         this.numeroPuertas = new SimpleIntegerProperty(numeroPuertas);
     }

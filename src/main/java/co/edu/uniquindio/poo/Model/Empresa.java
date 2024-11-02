@@ -1,4 +1,5 @@
 package co.edu.uniquindio.poo.Model;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -10,8 +11,6 @@ public class Empresa {
     private ObservableList<Cliente> clientes;
     private ObservableList<Reserva> reservas;
     private ObservableList<Vehiculo> vehiculos;
-
-
 
     public Empresa(String nombre) {
         this.nombre = nombre;
@@ -30,7 +29,6 @@ public class Empresa {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
 
     public ObservableList<Moto> getMotos() {
         return motos;
@@ -80,45 +78,41 @@ public class Empresa {
         this.vehiculos = vehiculos;
     }
 
-    public void agregarVehiculo(Vehiculo vehiculo){
-        if(vehiculo instanceof Moto){
-            motos.add((Moto)vehiculo);
-        }
-        else if(vehiculo instanceof Camioneta){
-            camionetas.add((Camioneta)vehiculo);
-        }
-        else if(vehiculo instanceof Auto){
-            autos.add((Auto)vehiculo);
+    public void agregarVehiculo(Vehiculo vehiculo) {
+        if (vehiculo instanceof Moto) {
+            motos.add((Moto) vehiculo);
+        } else if (vehiculo instanceof Camioneta) {
+            camionetas.add((Camioneta) vehiculo);
+        } else if (vehiculo instanceof Auto) {
+            autos.add((Auto) vehiculo);
         }
         vehiculos.add(vehiculo);
     }
 
-    public void eliminarVehiculo(Vehiculo vehiculo){
-        if(vehiculo instanceof Moto){
-            motos.remove((Moto)vehiculo);
-        }
-        else if(vehiculo instanceof Camioneta){
-            camionetas.remove((Camioneta)vehiculo);
-        }
-        else if(vehiculo instanceof Auto){
-            autos.remove((Auto)vehiculo);
+    public void eliminarVehiculo(Vehiculo vehiculo) {
+        if (vehiculo instanceof Moto) {
+            motos.remove((Moto) vehiculo);
+        } else if (vehiculo instanceof Camioneta) {
+            camionetas.remove((Camioneta) vehiculo);
+        } else if (vehiculo instanceof Auto) {
+            autos.remove((Auto) vehiculo);
         }
         vehiculos.remove(vehiculo);
     }
 
-    public void agregarCliente(Cliente cliente){
+    public void agregarCliente(Cliente cliente) {
         clientes.add(cliente);
     }
 
-    public void eliminarCliente(Cliente cliente){
+    public void eliminarCliente(Cliente cliente) {
         clientes.remove(cliente);
     }
 
-    public void agregarReserva(Reserva reserva){
+    public void agregarReserva(Reserva reserva) {
         reservas.add(reserva);
     }
 
-    public void eliminarReserva(Reserva reserva){
+    public void eliminarReserva(Reserva reserva) {
         reservas.remove(reserva);
     }
 
