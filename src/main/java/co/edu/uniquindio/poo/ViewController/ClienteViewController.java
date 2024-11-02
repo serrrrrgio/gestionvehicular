@@ -9,14 +9,12 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TextFormatter;
 
 import co.edu.uniquindio.poo.App;
+import co.edu.uniquindio.poo.Controller.ClienteController;
 import co.edu.uniquindio.poo.Model.Cliente;
 
 public class ClienteViewController {
-
-    private ObservableList<Cliente> clientes;
 
     @FXML
     private TextField txtNombre;
@@ -51,31 +49,33 @@ public class ClienteViewController {
     @FXML
     private TableColumn<Cliente, String> tbcReservas;
 
-    private Cliente clienteSeleccionado; // Variable para almacenar el cliente seleccionado
+    private Cliente clienteSeleccionado;
+
+    private ClienteController clienteController;
 
     @FXML
     public void initialize() {
-        clientes = App.getEmpresa().getClientes();
+        clienteController = new ClienteController(App.getEmpresa());
+
         setClientes();
 
         inicializarData();
 
-        // Agregar listener para detectar selección de cliente
-        tblListCliente.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            clienteSeleccionado = newValue; // Actualizar clienteSeleccionado
-            mostrarInformacionCliente(clienteSeleccionado); // Mostrar información en los campos
-        });
+        agregarListener();
 
-        // Aplicar el TextFormatter al txtTelefono para permitir solo números
-        txtTelefono.setTextFormatter(new TextFormatter<String>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("\\d*")) { // Acepta solo dígitos
-                return change; // Permite el cambio
-            }
-            return null; // Rechaza el cambio
-        }));
+        mostrarInformacionCliente(clienteSeleccionado);
     }
 
+    // Agregar listener para detectar selección de cliente
+    private void agregarListener() {
+
+        tblListCliente.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            clienteSeleccionado = newValue; // Actualizar clienteSeleccionado
+
+        });
+    }
+
+    // Inicializar los datos de las columnas de la tabla
     private void inicializarData() {
         tbcNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tbcTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
@@ -83,6 +83,7 @@ public class ClienteViewController {
                 cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getReservas().size())));
     }
 
+    // Mostrar la información del cliente seleccionado
     private void mostrarInformacionCliente(Cliente cliente) {
         if (cliente != null) {
             txtNombre.setText(cliente.getNombre());
@@ -95,7 +96,7 @@ public class ClienteViewController {
 
     // Establece la tabla para mostrar la lista de clientes
     public void setClientes() {
-        tblListCliente.setItems(clientes);
+        tblListCliente.setItems(clienteController.obtenerCLientes());
     }
 
     @FXML
@@ -108,18 +109,21 @@ public class ClienteViewController {
             return;
         }
 
+        Cliente cliente = crearCliente();
+
         // Verificar si el cliente ya existe
-        for (Cliente cliente : clientes) {
-            if (cliente.getNombre().equals(nombre) || cliente.getTelefono().equals(telefono)) {
-                App.mostrarAlerta("Error", "El cliente ya está registrado");
-                return;
-            }
+        if (clienteController.agregarCliente(cliente)) {
+            setClientes();
+            tblListCliente.refresh();
+            limpiarCampos();
+        } else {
+            App.mostrarAlerta("Error", "Ya existe un cliente con el número de teléfono " + txtTelefono.getText());
         }
 
-        Cliente cliente = new Cliente(nombre, telefono);
-        clientes.add(cliente);
-        tblListCliente.refresh();
-        limpiarCampos();
+    }
+
+    public Cliente crearCliente() {
+        return new Cliente(txtNombre.getText(), txtTelefono.getText());
     }
 
     @FXML
@@ -137,24 +141,12 @@ public class ClienteViewController {
             return;
         }
 
-        // Verificar si el nuevo nombre o teléfono ya existe
-        for (Cliente cliente : clientes) {
-            if (!cliente.equals(clienteSeleccionado)) {
-                if (!cliente.equals(clienteSeleccionado)
-                        && (cliente.getNombre().equals(nombre) || cliente.getTelefono().equals(telefono))) {
-                    App.mostrarAlerta("Error", "El cliente ya está registrado");
-                    return;
-                }
-            }
+        if (clienteController.actualizarCliente(clienteSeleccionado, nombre, telefono)) {
+            setClientes();
+            tblListCliente.refresh(); // Refrescar la tabla para mostrar los cambios
+            limpiarCampos(); // Llamar a limpiar campos después de actualizar
         }
 
-        // Actualizar los datos del cliente seleccionado
-        clienteSeleccionado.setNombre(txtNombre.getText());
-        clienteSeleccionado.setTelefono(txtTelefono.getText());
-
-        // Actualizar la tabla
-        tblListCliente.refresh(); // Refrescar la tabla para mostrar los cambios
-        limpiarCampos(); // Llamar a limpiar campos después de actualizar
     }
 
     @FXML
@@ -164,8 +156,7 @@ public class ClienteViewController {
             return;
         }
 
-        // Eliminar el cliente seleccionado
-        clientes.remove(clienteSeleccionado);
+        clienteController.eliminarCliente(clienteSeleccionado);
         limpiarCampos(); // Llamar a limpiar campos después de eliminar
         limpiarSeleccion(); // Limpiar selección
     }
@@ -173,12 +164,12 @@ public class ClienteViewController {
     @FXML
     public void abrirAgregarReserva(ActionEvent event) {
         ReservaViewController.setCliente(clienteSeleccionado);
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Reserva.fxml", "Elegir Vehículo", event, getClass());
+        App.cambiarEscena("/co/edu/uniquindio/poo/Reserva.fxml", "Elegir Vehículo", event, getClass());
     }
 
     @FXML
     public void salirAplicacion(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Inicio.fxml", "Inicio", event, getClass());
+        App.cambiarEscena("/co/edu/uniquindio/poo/Inicio.fxml", "Inicio", event, getClass());
     }
 
     @FXML

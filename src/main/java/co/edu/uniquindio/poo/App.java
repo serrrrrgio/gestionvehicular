@@ -21,7 +21,7 @@ public class App extends Application {
         try {
             // Cargar la vista Inicio.fxml
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("CrearEmpresa.fxml"));
+                    getClass().getResource("Empresa.fxml"));
             Parent root = loader.load();
 
             Scene scene = new Scene(root);
@@ -60,7 +60,7 @@ public class App extends Application {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
-
+ 
     public static void cambiarEscena(String fxml, String titulo, ActionEvent event, Class<?> clase) {
         try {
             FXMLLoader loader = new FXMLLoader(clase.getResource(fxml));

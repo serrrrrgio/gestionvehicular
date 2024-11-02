@@ -18,19 +18,21 @@ public class InicioViewController {
 
     @FXML
     public void abrirAgregarCliente(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar Cliente", event,
+        App.cambiarEscena("/co/edu/uniquindio/poo/Cliente.fxml", "Agregar Cliente", event,
                 getClass());
     }
 
+    
     @FXML
     public void abrirElegirVehiculo(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo", event,
+        App.cambiarEscena("/co/edu/uniquindio/poo/Vehiculo.fxml", "Elegir Vehículo", event,
                 getClass());
     }
+
 
     @FXML
     public void volver(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/CrearEmpresa.fxml", "Crear empresa", event,
+        App.cambiarEscena("/co/edu/uniquindio/poo/Empresa.fxml", "Crear empresa", event,
                 getClass());
     }
 

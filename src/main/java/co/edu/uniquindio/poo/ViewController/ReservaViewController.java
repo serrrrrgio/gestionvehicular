@@ -98,7 +98,7 @@ public class ReservaViewController {
             empresa.agregarReserva(reserva);
             empresa.eliminarVehiculo(vehiculoSeleccionado);
             App.mostrarAlerta("Reserva agregada exitosamente", "La reserva se ha agregado");
-            App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar cliente", event,
+            App.cambiarEscena("/co/edu/uniquindio/poo/Cliente.fxml", "Agregar cliente", event,
                     getClass());
         } else {
             App.mostrarAlerta("Error, días inválidos", "Por favor llene el campo de días");
@@ -137,7 +137,7 @@ public class ReservaViewController {
 
     @FXML
     public void regresar(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar cliente", event,
+        App.cambiarEscena("/co/edu/uniquindio/poo/Cliente.fxml", "Agregar cliente", event,
                 getClass());
     }
 

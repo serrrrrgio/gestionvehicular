@@ -244,7 +244,7 @@ public class AutoViewController {
     // Método para regresar a la escena anterior
     @FXML
     public void regresar(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/ElegirVehiculo.fxml", "Elegir Vehículo", event,
+        App.cambiarEscena("/co/edu/uniquindio/poo/Vehiculo.fxml", "Elegir Vehículo", event,
                 getClass());
     }
 

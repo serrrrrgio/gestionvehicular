@@ -100,13 +100,44 @@ public class Empresa {
         vehiculos.remove(vehiculo);
     }
 
-    public void agregarCliente(Cliente cliente) {
-        clientes.add(cliente);
+    public boolean agregarCliente(Cliente cliente) {
+        boolean agregado = false;
+        if(!clienteExistente(cliente.getTelefono())){
+            clientes.add(cliente);
+            agregado = true;
+        }
+        return agregado;
+        
     }
 
     public void eliminarCliente(Cliente cliente) {
         clientes.remove(cliente);
     }
+
+    public boolean actualizarCliente(Cliente seleccionado, String nombre, String telefono){
+        boolean actualizado = true;
+        for(Cliente cliente: clientes){
+            if(cliente != seleccionado && cliente.getTelefono().equals(telefono)){
+                actualizado = false;
+                return actualizado;
+            }
+        }
+        seleccionado.setTelefono(telefono);
+        seleccionado.setNombre(nombre);
+        return actualizado;
+    }
+
+    public boolean clienteExistente(String telefono){
+        boolean existente = false;
+        for (Cliente cliente: clientes){
+            if(cliente.getTelefono().equals(telefono)){
+                existente = true;
+                break;
+            }
+        }
+        return existente;
+    }
+
 
     public void agregarReserva(Reserva reserva) {
         reservas.add(reserva);

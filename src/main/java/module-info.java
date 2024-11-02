@@ -6,4 +6,5 @@ module co.edu.uniquindio.poo {
     exports co.edu.uniquindio.poo;
     exports co.edu.uniquindio.poo.ViewController;
     opens co.edu.uniquindio.poo.ViewController to javafx.fxml;
+    opens co.edu.uniquindio.poo.Model to javafx.base;
 }

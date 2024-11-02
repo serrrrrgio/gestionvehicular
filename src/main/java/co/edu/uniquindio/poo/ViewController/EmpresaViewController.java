@@ -39,7 +39,7 @@ public class EmpresaViewController {
             App.getEmpresa().setNombre(nombre);
         }
 
-        App.cambiarEscena("Inicio.fxml", "Inicio", event, getClass());
+        App.cambiarEscena("/co/edu/uniquindio/poo/Inicio.fxml", "Inicio", event, getClass());
     }
 
     @FXML

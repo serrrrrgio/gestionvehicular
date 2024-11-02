@@ -29,21 +29,21 @@ public class VehiculoViewController {
 
     @FXML
     private void abrirMoto(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Moto.fxml", "Moto", event, getClass());
+        App.cambiarEscena("/co/edu/uniquindio/poo/Moto.fxml", "Moto", event, getClass());
     }
 
     @FXML
     private void abrirAuto(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Auto.fxml", "Auto", event, getClass());
+        App.cambiarEscena("/co/edu/uniquindio/poo/Auto.fxml", "Auto", event, getClass());
     }
 
     @FXML
     private void abrirCamion(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Camioneta.fxml", "Camioneta", event, getClass());
+        App.cambiarEscena("/co/edu/uniquindio/poo/Camioneta.fxml", "Camioneta", event, getClass());
     }
 
     @FXML
     private void salir(ActionEvent event) {
-        App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/Inicio.fxml", "Inicio", event, getClass());
+        App.cambiarEscena("/co/edu/uniquindio/poo/Inicio.fxml", "Inicio", event, getClass());
     }
 }
