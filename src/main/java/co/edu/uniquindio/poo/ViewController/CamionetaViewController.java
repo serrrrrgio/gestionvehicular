@@ -3,8 +3,10 @@ package co.edu.uniquindio.poo.ViewController;
 import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.App;
+import co.edu.uniquindio.poo.Controller.VehiculoController;
 import co.edu.uniquindio.poo.Model.Camioneta;
 import co.edu.uniquindio.poo.Model.Empresa;
+import co.edu.uniquindio.poo.Model.Vehiculo;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -54,23 +56,26 @@ public class CamionetaViewController {
     private Button btnRegresar;
 
     private Camioneta camionetaSeleccionada;
-
-    private Empresa empresa;
-
-    private ObservableList<Camioneta> camionetas; // La lista de camionetas
+    private VehiculoController vehiculoController;
 
     @FXML
     public void initialize() {
-        camionetas = App.getEmpresa().getCamionetas();
-        empresa = App.getEmpresa();
+        vehiculoController = new VehiculoController(App.getEmpresa());
         setCamionetas();
 
         inicializarData();
 
+        agregarListener();
+
+        mostrarInformacionCamioneta(camionetaSeleccionada);
+
+    }
+
+    public void agregarListener() {
         // Agregar un listener para la selección de una camioneta en la tabla
         tblListCamioneta.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             camionetaSeleccionada = newValue;
-            mostrarInformacionCamioneta(newValue);
+
         });
     }
 
@@ -106,7 +111,7 @@ public class CamionetaViewController {
 
     // Método para establecer la lista de camionetas
     public void setCamionetas() {
-        tblListCamioneta.setItems(camionetas);
+        tblListCamioneta.setItems(vehiculoController.obtenerCamionetas());
     }
 
     // Método para verificar si los campos están vacíos
@@ -129,7 +134,7 @@ public class CamionetaViewController {
 
         if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena,
                 porcentajeCadena)) {
-            mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
+            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
 
@@ -137,7 +142,7 @@ public class CamionetaViewController {
         try {
             tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
@@ -146,7 +151,7 @@ public class CamionetaViewController {
         try {
             capacidadCargaToneladas = Double.parseDouble(capacidadCargaToneladasCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
@@ -155,31 +160,31 @@ public class CamionetaViewController {
         try {
             porcentaje = Double.parseDouble(porcentajeCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
 
+        Camioneta camioneta = crearCamioneta();
+
         // Se verifica que no exista una camioneta con la misma matrícula
-        for (Camioneta camioneta : camionetas) {
-            if (camioneta.getNumeroMatricula().equals(matricula)) {
-                mostrarAlerta("Error", "La camioneta ya está registrada");
-                return;
-            }
+        if (vehiculoController.agregarVehiculo(camioneta)) {
+            // Actualiza la tabla
+            setCamionetas();
+
+            // Limpiar campos después de agregar
+            limpiarCampos();
         }
 
-        // Crear nueva camioneta y agregarla a la lista
-        Camioneta nuevaCamioneta = new Camioneta(matricula, marca, modelo, fechaFabricacion, capacidadCargaToneladas,
-                null, tarifaBase, porcentaje);
+        else {
+            App.mostrarAlerta("Alerta", "Ya existe una camioneta con el número de matrícula " + matricula);
+        }
+    }
 
-        // Agregar la camioneta a la lista de camionetas
-        empresa.agregarVehiculo(nuevaCamioneta);
-
-        // Actualiza la tabla
-        setCamionetas();
-
-        // Limpiar campos después de agregar
-        limpiarCampos();
+    public Camioneta crearCamioneta() {
+        return new Camioneta(txtMatricula.getText(), txtMarca.getText(), txtModelo.getText(),
+                datePickerFechaFabricacion.getValue(), Double.parseDouble(txtCapacidadCargaToneladas.getText()), null,
+                Double.parseDouble(txtTarifaBase.getText()), Double.parseDouble(txtPorcentaje.getText()));
     }
 
     // Método para eliminar una camioneta seleccionada
@@ -187,22 +192,24 @@ public class CamionetaViewController {
     public void eliminarCamioneta(ActionEvent event) {
         Camioneta camionetaSeleccionada = tblListCamioneta.getSelectionModel().getSelectedItem();
         if (camionetaSeleccionada == null) {
-            mostrarAlerta("No hay camioneta seleccionada", "Por favor, selecciona una camioneta para eliminar.");
+            App.mostrarAlerta("No hay camioneta seleccionada", "Por favor, selecciona una camioneta para eliminar.");
             return;
         }
 
         // Se remueve la camioneta de la lista
-        empresa.eliminarVehiculo(camionetaSeleccionada);
+        vehiculoController.eliminarVehiculo(camionetaSeleccionada);
 
         // Se limpian los campos
         limpiarCampos();
+
+        limpiarSeleccion();
     }
 
     // Método para actualizar los datos de una camioneta seleccionada
     @FXML
     public void actualizarCamioneta(ActionEvent event) {
         if (camionetaSeleccionada == null) {
-            mostrarAlerta("No hay camioneta seleccionada", "Por favor, selecciona una camioneta para actualizar.");
+            App.mostrarAlerta("No hay camioneta seleccionada", "Por favor, selecciona una camioneta para actualizar.");
             return;
         }
 
@@ -216,7 +223,7 @@ public class CamionetaViewController {
 
         if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena,
                 porcentajeCadena)) {
-            mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
+            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
 
@@ -224,7 +231,7 @@ public class CamionetaViewController {
         try {
             tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
@@ -233,7 +240,7 @@ public class CamionetaViewController {
         try {
             capacidadCargaToneladas = Double.parseDouble(capacidadCargaToneladasCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
@@ -242,36 +249,23 @@ public class CamionetaViewController {
         try {
             porcentaje = Double.parseDouble(porcentajeCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
 
-        // Se verifica que no exista una camioneta con la misma matrícula
-        for (Camioneta camioneta : camionetas) {
+        if (vehiculoController.actualizarCamioneta(camionetaSeleccionada, matricula, marca, modelo, fechaFabricacion,
+                capacidadCargaToneladas, tarifaBase, porcentaje)) {
+            // Refrescar la tabla para mostrar los cambios
+            tblListCamioneta.refresh();
 
-            if (!camioneta.equals(camionetaSeleccionada)) {
-                if (camioneta.getNumeroMatricula().equals(matricula)) {
-                    mostrarAlerta("Error", "Ya existe una camioneta con este número de matrícula");
-                    return;
-                }
-            }
+            // Limpiar los campos después de actualizar
+            limpiarCampos();
+            limpiarSeleccion();
+        } else {
+            App.mostrarAlerta("Error", "Ya existe una camioneta con el núnmero de matrícula " + matricula);
         }
 
-        // Actualizar los datos de la camioneta seleccionada
-        camionetaSeleccionada.setNumeroMatricula(txtMatricula.getText());
-        camionetaSeleccionada.setMarca(txtMarca.getText());
-        camionetaSeleccionada.setModelo(txtModelo.getText());
-        camionetaSeleccionada.setFechaFabricacion(datePickerFechaFabricacion.getValue());
-        camionetaSeleccionada.setTarifaBase(tarifaBase);
-        camionetaSeleccionada.setCapacidadCargaToneladas(capacidadCargaToneladas);
-        camionetaSeleccionada.setPorcentaje(porcentaje);
-
-        // Refrescar la tabla para mostrar los cambios
-        tblListCamioneta.refresh();
-
-        // Limpiar los campos después de actualizar
-        limpiarCampos();
     }
 
     // Método para regresar a la escena anterior
@@ -295,12 +289,9 @@ public class CamionetaViewController {
         tblListCamioneta.getSelectionModel().clearSelection();
     }
 
-    // Método para mostrar alertas
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
+    private void limpiarSeleccion() {
+        tblListCamioneta.getSelectionModel().clearSelection(); // Deseleccionar el cliente en la tabla
+        camionetaSeleccionada = null; // Reiniciar la referencia al cliente seleccionado
     }
+
 }

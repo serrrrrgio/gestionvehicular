@@ -1,5 +1,7 @@
 package co.edu.uniquindio.poo.Model;
 
+import java.time.LocalDate;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -78,15 +80,21 @@ public class Empresa {
         this.vehiculos = vehiculos;
     }
 
-    public void agregarVehiculo(Vehiculo vehiculo) {
-        if (vehiculo instanceof Moto) {
-            motos.add((Moto) vehiculo);
-        } else if (vehiculo instanceof Camioneta) {
-            camionetas.add((Camioneta) vehiculo);
-        } else if (vehiculo instanceof Auto) {
-            autos.add((Auto) vehiculo);
+    // Método para agregar una vehículo verificando que no exista
+    public boolean agregarVehiculo(Vehiculo vehiculo) {
+        boolean agregado = false;
+        if (!VehiculoExistente(vehiculo.getNumeroMatricula())) {
+            if (vehiculo instanceof Moto) {
+                motos.add((Moto) vehiculo);
+            } else if (vehiculo instanceof Camioneta) {
+                camionetas.add((Camioneta) vehiculo);
+            } else if (vehiculo instanceof Auto) {
+                autos.add((Auto) vehiculo);
+            }
+            vehiculos.add(vehiculo);
+            agregado = true;
         }
-        vehiculos.add(vehiculo);
+        return agregado;
     }
 
     public void eliminarVehiculo(Vehiculo vehiculo) {
@@ -100,24 +108,100 @@ public class Empresa {
         vehiculos.remove(vehiculo);
     }
 
+    public boolean VehiculoExistente(String numeroMatricula) {
+        boolean existente = false;
+        for (Vehiculo vehiculo : vehiculos) {
+            if (vehiculo.getNumeroMatricula().equals(numeroMatricula)) {
+                existente = true;
+                break;
+            }
+        }
+        return existente;
+    }
+
+    // Método para actualizar una moto verificando que no exista una con la misma
+    // matricula
+    public boolean actualizarMoto(Moto seleccionada, String matricula, String marca, String modelo,
+            LocalDate fechaFabricacion,
+            double tarifaBase, TipoCaja tipoCaja) {
+        boolean actualizado = true;
+        for (Moto moto : motos) {
+            if (moto != seleccionada && moto.getNumeroMatricula().equals(matricula)) {
+                actualizado = false;
+                return actualizado;
+            }
+        }
+        seleccionada.setNumeroMatricula(matricula);
+        seleccionada.setMarca(marca);
+        seleccionada.setModelo(modelo);
+        seleccionada.setFechaFabricacion(fechaFabricacion);
+        seleccionada.setTarifaBase(tarifaBase);
+        seleccionada.setTipoCaja(tipoCaja);
+        return actualizado;
+    }
+
+    // Método para actualizar un auto verificando que no exista uno con la misma
+    // matricula
+    public boolean actualizarAuto(Auto seleccionado, String numeroMatricula, String marca, String modelo,
+            LocalDate fechaFabricacion, int numeroPuertas, double tarifaBase) {
+        boolean actualizado = true;
+        for (Auto auto : autos) {
+            if (auto != seleccionado && auto.getNumeroMatricula().equals(numeroMatricula)) {
+                actualizado = false;
+                return actualizado;
+            }
+        }
+        seleccionado.setNumeroMatricula(numeroMatricula);
+        seleccionado.setMarca(marca);
+        seleccionado.setModelo(modelo);
+        seleccionado.setFechaFabricacion(fechaFabricacion);
+        seleccionado.setNumeroPuertas(numeroPuertas);
+        seleccionado.setTarifaBase(tarifaBase);
+        return actualizado;
+    }
+
+    // Método para actualizar un camioneta verificando que no exista uno con la
+    // misma matricula
+    public boolean actualizarCamioneta(Camioneta seleccionada, String numeroMatricula, String marca, String modelo,
+            LocalDate fechaFabricacion,
+            double capacidadCargaToneladas, double tarifaBase, double porcentaje) {
+        boolean actualizado = true;
+        for (Camioneta camioneta : camionetas) {
+            if (camioneta != seleccionada && camioneta.getNumeroMatricula().equals(numeroMatricula)) {
+                actualizado = false;
+                return actualizado;
+            }
+        }
+        seleccionada.setNumeroMatricula(numeroMatricula);
+        seleccionada.setMarca(marca);
+        seleccionada.setModelo(modelo);
+        seleccionada.setFechaFabricacion(fechaFabricacion);
+        seleccionada.setCapacidadCargaToneladas(capacidadCargaToneladas);
+        seleccionada.setTarifaBase(tarifaBase);
+        seleccionada.setPorcentaje(porcentaje);
+        return actualizado;
+    }
+
+    // Método para agregar una cliente verificando que no exista
     public boolean agregarCliente(Cliente cliente) {
         boolean agregado = false;
-        if(!clienteExistente(cliente.getTelefono())){
+        if (!clienteExistente(cliente.getTelefono())) {
             clientes.add(cliente);
             agregado = true;
         }
         return agregado;
-        
     }
 
     public void eliminarCliente(Cliente cliente) {
         clientes.remove(cliente);
     }
 
-    public boolean actualizarCliente(Cliente seleccionado, String nombre, String telefono){
+    // Método para actualizar un cliente verificando que no exista una con el mismo
+    // numero de telefono
+    public boolean actualizarCliente(Cliente seleccionado, String nombre, String telefono) {
         boolean actualizado = true;
-        for(Cliente cliente: clientes){
-            if(cliente != seleccionado && cliente.getTelefono().equals(telefono)){
+        for (Cliente cliente : clientes) {
+            if (cliente != seleccionado && cliente.getTelefono().equals(telefono)) {
                 actualizado = false;
                 return actualizado;
             }
@@ -127,17 +211,16 @@ public class Empresa {
         return actualizado;
     }
 
-    public boolean clienteExistente(String telefono){
+    public boolean clienteExistente(String telefono) {
         boolean existente = false;
-        for (Cliente cliente: clientes){
-            if(cliente.getTelefono().equals(telefono)){
+        for (Cliente cliente : clientes) {
+            if (cliente.getTelefono().equals(telefono)) {
                 existente = true;
                 break;
             }
         }
         return existente;
     }
-
 
     public void agregarReserva(Reserva reserva) {
         reservas.add(reserva);
