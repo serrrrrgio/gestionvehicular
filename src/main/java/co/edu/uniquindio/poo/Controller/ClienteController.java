@@ -12,27 +12,27 @@ public class ClienteController {
         this.empresa = empresa;
     }
 
-    public boolean agregarCliente(Cliente cliente){
+    public boolean agregarCliente(Cliente cliente) {
         return empresa.agregarCliente(cliente);
     }
 
-    public void eliminarCliente(Cliente cliente){
+    public void eliminarCliente(Cliente cliente) {
         empresa.eliminarCliente(cliente);
     }
 
-    public boolean actualizarCliente(Cliente seleccionado, String nombre, String telefono){
+    public boolean actualizarCliente(Cliente seleccionado, String nombre, String telefono) {
         return empresa.actualizarCliente(seleccionado, nombre, telefono);
     }
 
-    public void agregarVehiculo(Vehiculo vehiculo){
+    public void agregarVehiculo(Vehiculo vehiculo) {
         empresa.agregarVehiculo(vehiculo);
     }
 
-    public void eliminarVehiculo(Vehiculo vehiculo){
+    public void eliminarVehiculo(Vehiculo vehiculo) {
         empresa.eliminarVehiculo(vehiculo);
     }
 
-    public ObservableList<Cliente> obtenerCLientes(){
+    public ObservableList<Cliente> obtenerCLientes() {
         return empresa.getClientes();
     }
 }

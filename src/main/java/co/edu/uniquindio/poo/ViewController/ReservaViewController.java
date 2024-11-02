@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.App;
+import co.edu.uniquindio.poo.Controller.ReservaController;
 import co.edu.uniquindio.poo.Model.Reserva;
 import co.edu.uniquindio.poo.Model.Vehiculo;
 import co.edu.uniquindio.poo.Model.Cliente;
@@ -61,17 +62,20 @@ public class ReservaViewController {
 
     private Empresa empresa;
 
+    private ReservaController reservaController;
+
     private static Cliente cliente;
 
     @FXML
     public void initialize() {
-        empresa = App.getEmpresa();
-        vehiculos = empresa.getVehiculos();
-
+        reservaController = new ReservaController(App.getEmpresa());
         setVehiculos();
         inicializarData();
+        agregarListener();
+    }
 
-        // Agregar un listener para la selección de una moto en la tabla
+    // Agregar un listener para la selección de una moto en la tabla
+    public void agregarListener() {
         tblListVehiculosDisponibles.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     vehiculoSeleccionado = newValue;
@@ -119,11 +123,12 @@ public class ReservaViewController {
 
     // Método para establecer la lista de motos
     public void setVehiculos() {
-        tblListVehiculosDisponibles.setItems(vehiculos);
+        tblListVehiculosDisponibles.setItems(reservaController.obtenerVehiculos());
     }
 
     @FXML
     public void calcularCosto() {
+        
         if (validarDias(txtDias.getText())) {
             int dias = Integer.parseInt(txtDias.getText());
             double costo = vehiculoSeleccionado.calcularCosto(dias);
@@ -134,6 +139,7 @@ public class ReservaViewController {
         }
 
     }
+
 
     @FXML
     public void regresar(ActionEvent event) {

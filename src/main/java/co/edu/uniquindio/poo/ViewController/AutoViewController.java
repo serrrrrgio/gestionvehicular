@@ -123,14 +123,14 @@ public class AutoViewController {
         String numeroPuertasCadena = txtNumeroPuertas.getText();
 
         if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertasCadena)) {
-            mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
+            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
 
         try {
             double tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
@@ -138,7 +138,7 @@ public class AutoViewController {
         try {
             int numeroPuertas = Integer.parseInt(numeroPuertasCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de número puertas Inválido",
+            App.mostrarAlerta("Formato de número puertas Inválido",
                     "Por favor, ingresa un número válido para el número de puertas.");
             return;
         }
@@ -168,7 +168,7 @@ public class AutoViewController {
     public void eliminarAuto(ActionEvent event) {
         Auto autoSeleccionado = tblListAuto.getSelectionModel().getSelectedItem();
         if (autoSeleccionado == null) {
-            mostrarAlerta("No hay auto seleccionada", "Por favor, selecciona una auto para eliminar.");
+            App.mostrarAlerta("No hay auto seleccionada", "Por favor, selecciona una auto para eliminar.");
             return;
         }
 
@@ -182,7 +182,7 @@ public class AutoViewController {
     @FXML
     public void actualizarAuto(ActionEvent event) {
         if (autoSeleccionado == null) {
-            mostrarAlerta("No hay auto seleccionada", "Por favor, selecciona una auto para actualizar.");
+            App.mostrarAlerta("No hay auto seleccionada", "Por favor, selecciona una auto para actualizar.");
             return;
         }
 
@@ -194,7 +194,7 @@ public class AutoViewController {
         String numeroPuertasCadena = txtNumeroPuertas.getText();
 
         if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertasCadena)) {
-            mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
+            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
 
@@ -202,7 +202,7 @@ public class AutoViewController {
         try {
             tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
@@ -211,7 +211,7 @@ public class AutoViewController {
         try {
             numeroPuertas = Integer.parseInt(numeroPuertasCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
@@ -223,6 +223,8 @@ public class AutoViewController {
 
             // Limpiar los campos después de actualizar
             limpiarCampos();
+
+            limpiarSeleccion();
         } else {
             App.mostrarAlerta("Error", "Ya existe un auto con el número de matrícula " + matricula);
         }
@@ -249,13 +251,8 @@ public class AutoViewController {
         tblListAuto.getSelectionModel().clearSelection();
     }
 
-    // Método para mostrar alertas
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
+    private void limpiarSeleccion() {
+        tblListAuto.getSelectionModel().clearSelection(); // Deseleccionar el cliente en la tabla
+        autoSeleccionado = null; // Reiniciar la referencia al cliente seleccionado
     }
-
 }

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.Model.TipoCaja;
 import co.edu.uniquindio.poo.App;
+import co.edu.uniquindio.poo.Controller.MotoController;
 import co.edu.uniquindio.poo.Model.Empresa;
 import co.edu.uniquindio.poo.Model.Moto;
 import javafx.collections.FXCollections;
@@ -53,22 +54,23 @@ public class MotoViewController {
 
     private Moto motoSeleccionada;
 
-    private Empresa empresa;
-
-    private ObservableList<Moto> motos; // La lista de motos
+    private MotoController motoController;
 
     @FXML
     public void initialize() {
-        empresa = App.getEmpresa();
-        motos = App.getEmpresa().getMotos();
+        motoController = new MotoController(App.getEmpresa());
         setMotos();
 
         inicializarData();
 
+        mostrarInformacionMoto(motoSeleccionada);
+
+    }
+
+    public void agregarListener() {
         // Agregar un listener para la selección de una moto en la tabla
         tblListMoto.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             motoSeleccionada = newValue;
-            mostrarInformacionMoto(newValue);
         });
     }
 
@@ -100,7 +102,7 @@ public class MotoViewController {
 
     // Método para establecer la lista de motos
     public void setMotos() {
-        tblListMoto.setItems(motos);
+        tblListMoto.setItems(motoController.obtenerMotos());
     }
 
     // Método para verificar si los campos están vacíos
@@ -121,38 +123,36 @@ public class MotoViewController {
         TipoCaja tipoCaja = choiceTipoCaja.getValue();
 
         if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, tipoCaja)) {
-            mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
+            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
 
-        double tarifaBase;
         try {
-            tarifaBase = Double.parseDouble(tarifaBaseCadena);
+            double tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
 
-        // Se verifica que no exista una moto con la misma matrícula
-        for (Moto moto : motos) {
-            if (moto.getNumeroMatricula().equals(matricula)) {
-                mostrarAlerta("Error", "La moto ya está registrada");
-                return;
-            }
+        Moto moto = crearMoto();
+
+        if (motoController.agregarVehiculo(moto)) {
+            // Actualiza la tabla
+            setMotos();
+
+            // Limpiar campos después de agregar
+            limpiarCampos();
+        } else {
+            App.mostrarAlerta("Error", "Ya existe una moto con el número de matrícula " + matricula);
         }
 
-        // Crear nueva moto y agregarla a la lista
-        Moto nuevaMoto = new Moto(matricula, marca, modelo, fechaFabricacion, null, tarifaBase, tipoCaja);
+    }
 
-        // Agregar la moto a la lista de motos
-        empresa.agregarVehiculo(nuevaMoto);
-
-        // Actualiza la tabla
-        setMotos();
-
-        // Limpiar campos después de agregar
-        limpiarCampos();
+    public Moto crearMoto() {
+        return new Moto(txtMatricula.getText(), txtMarca.getText(), txtModelo.getText(),
+                datePickerFechaFabricacion.getValue(), null, Integer.parseInt(txtTarifaBase.getText()),
+                choiceTipoCaja.getValue());
     }
 
     // Método para eliminar una moto seleccionada
@@ -160,12 +160,12 @@ public class MotoViewController {
     public void eliminarMoto(ActionEvent event) {
         Moto motoSeleccionada = tblListMoto.getSelectionModel().getSelectedItem();
         if (motoSeleccionada == null) {
-            mostrarAlerta("No hay moto seleccionada", "Por favor, selecciona una moto para eliminar.");
+            App.mostrarAlerta("No hay moto seleccionada", "Por favor, selecciona una moto para eliminar.");
             return;
         }
 
         // Se remueve la moto de la lista
-        empresa.eliminarVehiculo(motoSeleccionada);
+        motoController.eliminarVehiculo(motoSeleccionada);
 
         // Se limpian los campos
         limpiarCampos();
@@ -175,7 +175,7 @@ public class MotoViewController {
     @FXML
     public void actualizarMoto(ActionEvent event) {
         if (motoSeleccionada == null) {
-            mostrarAlerta("No hay moto seleccionada", "Por favor, selecciona una moto para actualizar.");
+            App.mostrarAlerta("No hay moto seleccionada", "Por favor, selecciona una moto para actualizar.");
             return;
         }
 
@@ -187,7 +187,7 @@ public class MotoViewController {
         TipoCaja tipoCaja = choiceTipoCaja.getValue();
 
         if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, tipoCaja)) {
-            mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
+            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
             return;
         }
 
@@ -195,35 +195,24 @@ public class MotoViewController {
         try {
             tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
-            mostrarAlerta("Formato de Tarifa Base Inválido",
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
 
-        // Se verifica que no exista una moto con la misma matrícula
-        for (Moto moto : motos) {
+        if (motoController.actualizarMoto(motoSeleccionada, matricula, marca, modelo, fechaFabricacion, tarifaBase,
+                tipoCaja)) {
+            // Refrescar la tabla para mostrar los cambios
+            tblListMoto.refresh();
 
-            if (!moto.equals(motoSeleccionada)) {
-                if (moto.getNumeroMatricula().equals(matricula)) {
-                    mostrarAlerta("Error", "Ya existe una moto con este número de matrícula");
-                    return;
-                }
-            }
+            // Limpiar los campos después de actualizar
+            limpiarCampos();
+            limpiarSeleccion();
+        }
+        else{
+            App.mostrarAlerta("Error", "Ya existe una moto con el número de matrícula " + matricula);
         }
 
-        // Actualizar los datos de la moto seleccionada
-        motoSeleccionada.setNumeroMatricula(txtMatricula.getText());
-        motoSeleccionada.setMarca(txtMarca.getText());
-        motoSeleccionada.setModelo(txtModelo.getText());
-        motoSeleccionada.setFechaFabricacion(datePickerFechaFabricacion.getValue());
-        motoSeleccionada.setTarifaBase(tarifaBase);
-        motoSeleccionada.setTipoCaja(choiceTipoCaja.getValue());
-
-        // Refrescar la tabla para mostrar los cambios
-        tblListMoto.refresh();
-
-        // Limpiar los campos después de actualizar
-        limpiarCampos();
     }
 
     // Método para regresar a la escena anterior
@@ -246,12 +235,8 @@ public class MotoViewController {
         tblListMoto.getSelectionModel().clearSelection();
     }
 
-    // Método para mostrar alertas
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
+    private void limpiarSeleccion() {
+        tblListMoto.getSelectionModel().clearSelection(); // Deseleccionar el cliente en la tabla
+        motoSeleccionada = null; // Reiniciar la referencia al cliente seleccionado
     }
 }

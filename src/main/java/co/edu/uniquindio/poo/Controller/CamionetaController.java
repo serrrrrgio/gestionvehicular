@@ -14,7 +14,7 @@ public class CamionetaController {
         this.empresa = empresa;
     }
 
-        public ObservableList<Camioneta> obtenerCamionetas(){
+    public ObservableList<Camioneta> obtenerCamionetas() {
         return empresa.getCamionetas();
     }
 

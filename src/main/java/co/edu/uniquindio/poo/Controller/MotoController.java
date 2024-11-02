@@ -29,10 +29,8 @@ public class MotoController {
         return empresa.actualizarMoto(seleccionada, matricula, marca, modelo, fechaFabricacion, tarifaBase, tipoCaja);
     }
 
-    public ObservableList<Moto> obtenerMotos(){
+    public ObservableList<Moto> obtenerMotos() {
         return empresa.getMotos();
     }
-
-
 
 }
