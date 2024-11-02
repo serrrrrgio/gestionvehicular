@@ -3,6 +3,8 @@ package co.edu.uniquindio.poo.ViewController;
 import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.App;
+import co.edu.uniquindio.poo.Controller.AutoController;
+import co.edu.uniquindio.poo.Controller.CamionetaController;
 import co.edu.uniquindio.poo.Model.Auto;
 import co.edu.uniquindio.poo.Model.Empresa;
 import javafx.collections.ObservableList;
@@ -51,23 +53,26 @@ public class AutoViewController {
 
     private Auto autoSeleccionado;
 
-    private Empresa empresa;
-
-    private ObservableList<Auto> autos; // La lista de autos
+    private AutoController autoController;
 
     @FXML
     public void initialize() {
-        autos = App.getEmpresa().getAutos();
-        empresa = App.getEmpresa();
+        autoController = new AutoController(App.getEmpresa());
+
         setAutos();
         // Inicializar columnas de la tabla
 
         inicializarData();
 
+        mostrarInformacionAuto(autoSeleccionado);
+
+    }
+
+    public void agregarListener() {
         // Agregar un listener para la selección de una auto en la tabla
         tblListAuto.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             autoSeleccionado = newValue;
-            mostrarInformacionAuto(newValue);
+
         });
     }
 
@@ -97,7 +102,7 @@ public class AutoViewController {
 
     // Método para establecer la lista de autos
     public void setAutos() {
-        tblListAuto.setItems(autos);
+        tblListAuto.setItems(autoController.obtenerAutos());
     }
 
     // Método para verificar si los campos están vacíos
@@ -122,43 +127,40 @@ public class AutoViewController {
             return;
         }
 
-        double tarifaBase;
         try {
-            tarifaBase = Double.parseDouble(tarifaBaseCadena);
+            double tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
             mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
 
-        int numeroPuertas;
         try {
-            numeroPuertas = Integer.parseInt(numeroPuertasCadena);
+            int numeroPuertas = Integer.parseInt(numeroPuertasCadena);
         } catch (NumberFormatException e) {
             mostrarAlerta("Formato de número puertas Inválido",
                     "Por favor, ingresa un número válido para el número de puertas.");
             return;
         }
 
-        // Se verifica que no exista una auto con la misma matrícula
-        for (Auto auto : autos) {
-            if (auto.getNumeroMatricula().equals(matricula)) {
-                mostrarAlerta("Error", "La auto ya está registrada");
-                return;
-            }
+        Auto auto = crearAuto();
+
+        if (autoController.agregarVehiculo(auto)) {
+            // Actualiza la tabla
+            setAutos();
+
+            // Limpiar campos después de agregar
+            limpiarCampos();
+        } else {
+            App.mostrarAlerta("Error", "El vehículo con número de matrícula " + txtMatricula.getText() + " ya existe");
         }
 
-        // Crear nueva auto y agregarla a la lista
-        Auto nuevoAuto = new Auto(matricula, marca, modelo, fechaFabricacion, numeroPuertas, null, tarifaBase);
+    }
 
-        // Agregar la auto a la lista de motos
-        empresa.agregarVehiculo(nuevoAuto);
-
-        // Actualiza la tabla
-        setAutos();
-
-        // Limpiar campos después de agregar
-        limpiarCampos();
+    public Auto crearAuto() {
+        return new Auto(txtMatricula.getText(), txtMarca.getText(), txtModelo.getText(),
+                datePickerFechaFabricacion.getValue(), Integer.parseInt(txtNumeroPuertas.getText()), null,
+                Integer.parseInt(txtTarifaBase.getText()));
     }
 
     // Método para eliminar una auto seleccionada
@@ -170,8 +172,7 @@ public class AutoViewController {
             return;
         }
 
-        // Se remueve la auto de la lista
-        empresa.eliminarVehiculo(autoSeleccionado);
+        autoController.eliminarVehiculo(autoSeleccionado);
 
         // Se limpian los campos
         limpiarCampos();
@@ -215,30 +216,17 @@ public class AutoViewController {
             return;
         }
 
-        // Se verifica que no exista una auto con la misma matrícula
-        for (Auto auto : autos) {
+        if (autoController.actualizarAuto(autoSeleccionado, matricula, marca, modelo, fechaFabricacion, numeroPuertas,
+                tarifaBase)) {
+            // Refrescar la tabla para mostrar los cambios
+            tblListAuto.refresh();
 
-            if (!auto.equals(autoSeleccionado)) {
-                if (auto.getNumeroMatricula().equals(matricula)) {
-                    mostrarAlerta("Error", "Ya existe una auto con este número de matrícula");
-                    return;
-                }
-            }
+            // Limpiar los campos después de actualizar
+            limpiarCampos();
+        } else {
+            App.mostrarAlerta("Error", "Ya existe un auto con el número de matrícula " + matricula);
         }
 
-        // Actualizar los datos de la auto seleccionada
-        autoSeleccionado.setNumeroMatricula(txtMatricula.getText());
-        autoSeleccionado.setMarca(txtMarca.getText());
-        autoSeleccionado.setModelo(txtModelo.getText());
-        autoSeleccionado.setFechaFabricacion(datePickerFechaFabricacion.getValue());
-        autoSeleccionado.setTarifaBase(tarifaBase);
-        autoSeleccionado.setNumeroPuertas(numeroPuertas);
-
-        // Refrescar la tabla para mostrar los cambios
-        tblListAuto.refresh();
-
-        // Limpiar los campos después de actualizar
-        limpiarCampos();
     }
 
     // Método para regresar a la escena anterior

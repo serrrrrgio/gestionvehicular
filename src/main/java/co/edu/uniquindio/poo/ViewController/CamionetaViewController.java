@@ -3,7 +3,7 @@ package co.edu.uniquindio.poo.ViewController;
 import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.App;
-import co.edu.uniquindio.poo.Controller.VehiculoController;
+import co.edu.uniquindio.poo.Controller.CamionetaController;
 import co.edu.uniquindio.poo.Model.Camioneta;
 import co.edu.uniquindio.poo.Model.Empresa;
 import co.edu.uniquindio.poo.Model.Vehiculo;
@@ -56,11 +56,11 @@ public class CamionetaViewController {
     private Button btnRegresar;
 
     private Camioneta camionetaSeleccionada;
-    private VehiculoController vehiculoController;
+    private CamionetaController camionetaController;
 
     @FXML
     public void initialize() {
-        vehiculoController = new VehiculoController(App.getEmpresa());
+        camionetaController = new CamionetaController(App.getEmpresa());
         setCamionetas();
 
         inicializarData();
@@ -111,7 +111,7 @@ public class CamionetaViewController {
 
     // Método para establecer la lista de camionetas
     public void setCamionetas() {
-        tblListCamioneta.setItems(vehiculoController.obtenerCamionetas());
+        tblListCamioneta.setItems(camionetaController.obtenerCamionetas());
     }
 
     // Método para verificar si los campos están vacíos
@@ -138,27 +138,26 @@ public class CamionetaViewController {
             return;
         }
 
-        double tarifaBase;
+
         try {
-            tarifaBase = Double.parseDouble(tarifaBaseCadena);
+            double tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
             App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
 
-        double capacidadCargaToneladas;
+
         try {
-            capacidadCargaToneladas = Double.parseDouble(capacidadCargaToneladasCadena);
+            double capacidadCargaToneladas = Double.parseDouble(capacidadCargaToneladasCadena);
         } catch (NumberFormatException e) {
             App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
 
-        double porcentaje;
         try {
-            porcentaje = Double.parseDouble(porcentajeCadena);
+            double porcentaje = Double.parseDouble(porcentajeCadena);
         } catch (NumberFormatException e) {
             App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
@@ -168,7 +167,7 @@ public class CamionetaViewController {
         Camioneta camioneta = crearCamioneta();
 
         // Se verifica que no exista una camioneta con la misma matrícula
-        if (vehiculoController.agregarVehiculo(camioneta)) {
+        if (camionetaController.agregarVehiculo(camioneta)) {
             // Actualiza la tabla
             setCamionetas();
 
@@ -197,12 +196,11 @@ public class CamionetaViewController {
         }
 
         // Se remueve la camioneta de la lista
-        vehiculoController.eliminarVehiculo(camionetaSeleccionada);
+        camionetaController.eliminarVehiculo(camionetaSeleccionada);
 
         // Se limpian los campos
         limpiarCampos();
 
-        limpiarSeleccion();
     }
 
     // Método para actualizar los datos de una camioneta seleccionada
@@ -254,11 +252,10 @@ public class CamionetaViewController {
             return;
         }
 
-        if (vehiculoController.actualizarCamioneta(camionetaSeleccionada, matricula, marca, modelo, fechaFabricacion,
+        if (camionetaController.actualizarCamioneta(camionetaSeleccionada, matricula, marca, modelo, fechaFabricacion,
                 capacidadCargaToneladas, tarifaBase, porcentaje)) {
             // Refrescar la tabla para mostrar los cambios
             tblListCamioneta.refresh();
-
             // Limpiar los campos después de actualizar
             limpiarCampos();
             limpiarSeleccion();
