@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo.Controller;
+package co.edu.uniquindio.poo.ViewController;
 
 import java.time.LocalDate;
 
@@ -192,7 +192,7 @@ public class CamionetaController {
         }
 
         // Se remueve la camioneta de la lista
-        empresa.eliminarVehiculo(camionetaSeleccionada);
+        empresa.eliminarVehiculo(camionetaSeleccionada.getNumeroMatricula());
 
         // Se limpian los campos
         limpiarCampos();

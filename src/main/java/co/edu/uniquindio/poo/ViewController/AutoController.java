@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo.Controller;
+package co.edu.uniquindio.poo.ViewController;
 
 import java.time.LocalDate;
 

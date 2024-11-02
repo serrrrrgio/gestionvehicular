@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo.Controller;
+package co.edu.uniquindio.poo.ViewController;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
@@ -96,7 +96,7 @@ public class ReservaController {
             cliente.agregarReserva(reserva);
             vehiculoSeleccionado.setReserva(reserva);
             empresa.agregarReserva(reserva);
-            empresa.eliminarVehiculo(vehiculoSeleccionado);
+            empresa.eliminarVehiculo(vehiculoSeleccionado.getNumeroMatricula());
             App.mostrarAlerta("Reserva agregada exitosamente", "La reserva se ha agregado");
             App.cambiarEscena("/co/edu/uniquindio/poo/ViewController/AgregarCliente.fxml", "Agregar cliente", event,
                     getClass());

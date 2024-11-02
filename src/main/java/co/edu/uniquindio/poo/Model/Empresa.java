@@ -89,16 +89,26 @@ public class Empresa {
         vehiculos.add(vehiculo);
     }
 
-    public void eliminarVehiculo(Vehiculo vehiculo) {
-        if (vehiculo instanceof Moto) {
-            motos.remove((Moto) vehiculo);
-        } else if (vehiculo instanceof Camioneta) {
-            camionetas.remove((Camioneta) vehiculo);
-        } else if (vehiculo instanceof Auto) {
-            autos.remove((Auto) vehiculo);
+    public boolean eliminarVehiculo(String numeroMatricula) {
+        boolean eliminado = false;
+        for(Vehiculo vehiculo: vehiculos){
+            if (vehiculo.getNumeroMatricula().equals(numeroMatricula)){
+                eliminado = true;
+                if(vehiculo instanceof Moto) {
+                    motos.remove((Moto) vehiculo);
+                } else if (vehiculo instanceof Camioneta) {
+                    camionetas.remove((Camioneta) vehiculo);
+                } else if (vehiculo instanceof Auto) {
+                    autos.remove((Auto) vehiculo);
+                }
+                vehiculos.remove(vehiculo);
+                break;   
+            }
         }
-        vehiculos.remove(vehiculo);
+        return eliminado;
     }
+
+
 
     public void agregarCliente(Cliente cliente) {
         clientes.add(cliente);

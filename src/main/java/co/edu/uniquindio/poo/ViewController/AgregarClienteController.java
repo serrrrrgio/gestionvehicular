@@ -1,4 +1,4 @@
-package co.edu.uniquindio.poo.Controller;
+package co.edu.uniquindio.poo.ViewController;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
