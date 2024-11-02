@@ -171,7 +171,7 @@ public class AutoController {
         }
 
         // Se remueve la auto de la lista
-        empresa.eliminarVehiculo(autoSeleccionado);
+        empresa.eliminarVehiculo(autoSeleccionado.getNumeroMatricula());
 
         // Se limpian los campos
         limpiarCampos();

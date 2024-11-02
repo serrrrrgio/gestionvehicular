@@ -165,7 +165,7 @@ public class MotoController {
         }
 
         // Se remueve la moto de la lista
-        empresa.eliminarVehiculo(motoSeleccionada);
+        empresa.eliminarVehiculo(motoSeleccionada.getNumeroMatricula());
 
         // Se limpian los campos
         limpiarCampos();
