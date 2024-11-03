@@ -222,12 +222,28 @@ public class Empresa {
         return existente;
     }
 
-    public void agregarReserva(Reserva reserva) {
-        reservas.add(reserva);
+    public boolean agregarReserva(Reserva reserva) {
+        boolean agregada = false;
+        if(!reservaExistente(reserva.getCodigo())){
+            reservas.add(reserva);
+            agregada = true;
+        }
+        return agregada;
     }
 
     public void eliminarReserva(Reserva reserva) {
         reservas.remove(reserva);
+    }
+
+    public boolean reservaExistente(String codigo){
+        boolean existente = false;
+        for(Reserva reserva: reservas){
+            if(reserva.getCodigo().equals(codigo)){
+                existente = true;
+                break;
+            }
+        }
+        return existente;
     }
 
 }

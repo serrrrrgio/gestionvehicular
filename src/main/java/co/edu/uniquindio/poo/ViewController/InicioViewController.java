@@ -22,13 +22,11 @@ public class InicioViewController {
                 getClass());
     }
 
-    
     @FXML
     public void abrirElegirVehiculo(ActionEvent event) {
         App.cambiarEscena("/co/edu/uniquindio/poo/Vehiculo.fxml", "Elegir Vehículo", event,
                 getClass());
     }
-
 
     @FXML
     public void volver(ActionEvent event) {

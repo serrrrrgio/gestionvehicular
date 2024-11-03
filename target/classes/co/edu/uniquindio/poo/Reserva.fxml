@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -8,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="631.0" prefWidth="1077.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.edu.uniquindio.poo.ViewController.ReservaViewController">
    <children>
-      <Label layoutX="407.0" layoutY="59.0" prefHeight="40.0" prefWidth="276.0" text="Realize su Reserva">
+      <Label layoutX="407.0" layoutY="59.0" prefHeight="27.0" prefWidth="276.0" text="Realize su reserva">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
@@ -33,16 +34,28 @@
          </font>
       </Label>
       <TextField fx:id="txtDias" layoutX="407.0" layoutY="466.0" />
-      <Button fx:id="btnCalcularCostoReserva" layoutX="840.0" layoutY="415.0" mnemonicParsing="false" onAction="#calcularCosto" text="Calcular  costo" />
-      <TextField fx:id="txtCostoReserva" editable="false" layoutX="804.0" layoutY="464.0" />
+      <Button fx:id="btnCalcularCostoReserva" layoutX="724.0" layoutY="493.0" mnemonicParsing="false" onAction="#calcularCosto" text="Calcular  costo" />
+      <TextField fx:id="txtCostoReserva" editable="false" layoutX="857.0" layoutY="493.0" />
       <Button fx:id="btnAgregarReserva" layoutX="500.0" layoutY="539.0" mnemonicParsing="false" onAction="#generarReserva" text="Generar reserva" />
       <TextField fx:id="txtCliente" editable="false" layoutX="782.0" layoutY="316.0" prefHeight="31.0" prefWidth="233.0" />
-      <Label layoutX="857.0" layoutY="268.0" text="CLIENTE">
+      <Label layoutX="857.0" layoutY="268.0" text="Cliente">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
       <Line endX="100.0" layoutX="539.0" layoutY="99.0" startX="-100.0" />
       <Button fx:id="btnRegresar" layoutX="57.0" layoutY="44.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+      <Label layoutX="858.0" layoutY="143.0" text="Vehículo">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtVehiculo" editable="false" layoutX="781.0" layoutY="179.0" prefHeight="31.0" prefWidth="233.0" />
+      <TextField fx:id="txtCodigo" layoutX="857.0" layoutY="438.0" prefHeight="31.0" prefWidth="187.0" />
+      <Label layoutX="754.0" layoutY="440.0" text="Código" textOverrun="LEADING_WORD_ELLIPSIS">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

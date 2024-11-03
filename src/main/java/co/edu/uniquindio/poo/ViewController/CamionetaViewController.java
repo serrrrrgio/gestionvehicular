@@ -5,9 +5,6 @@ import java.time.LocalDate;
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Controller.CamionetaController;
 import co.edu.uniquindio.poo.Model.Camioneta;
-import co.edu.uniquindio.poo.Model.Empresa;
-import co.edu.uniquindio.poo.Model.Vehiculo;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -66,15 +63,13 @@ public class CamionetaViewController {
         inicializarData();
 
         agregarListener();
-
-        mostrarInformacionCamioneta(camionetaSeleccionada);
-
     }
 
     public void agregarListener() {
         // Agregar un listener para la selección de una camioneta en la tabla
         tblListCamioneta.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             camionetaSeleccionada = newValue;
+            mostrarInformacionCamioneta(newValue);
 
         });
     }
@@ -138,15 +133,14 @@ public class CamionetaViewController {
             return;
         }
 
-
+        double tarifaBase;
         try {
-            double tarifaBase = Double.parseDouble(tarifaBaseCadena);
+            tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
             App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
-
 
         try {
             double capacidadCargaToneladas = Double.parseDouble(capacidadCargaToneladasCadena);

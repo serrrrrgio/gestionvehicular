@@ -1,7 +1,6 @@
 package co.edu.uniquindio.poo.ViewController;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,7 +15,6 @@ import co.edu.uniquindio.poo.Controller.ReservaController;
 import co.edu.uniquindio.poo.Model.Reserva;
 import co.edu.uniquindio.poo.Model.Vehiculo;
 import co.edu.uniquindio.poo.Model.Cliente;
-import co.edu.uniquindio.poo.Model.Empresa;
 
 public class ReservaViewController {
 
@@ -48,6 +46,12 @@ public class ReservaViewController {
     private TextField txtCostoReserva;
 
     @FXML
+    private TextField txtCodigo;
+
+    @FXML
+    private TextField txtVehiculo;
+
+    @FXML
     private Button btnCalcularCostoReserva;
 
     @FXML
@@ -56,31 +60,32 @@ public class ReservaViewController {
     @FXML
     private Button btnAgregarReserva;
 
-    private ObservableList<Vehiculo> vehiculos;
-
     private Vehiculo vehiculoSeleccionado;
-
-    private Empresa empresa;
 
     private ReservaController reservaController;
 
     private static Cliente cliente;
 
+    private boolean costoCalculado;
+
     @FXML
     public void initialize() {
+        costoCalculado = false;
         reservaController = new ReservaController(App.getEmpresa());
         setVehiculos();
         inicializarData();
         agregarListener();
+        txtCliente.setText(cliente.getNombre());
     }
 
-    // Agregar un listener para la selección de una moto en la tabla
+
     public void agregarListener() {
         tblListVehiculosDisponibles.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     vehiculoSeleccionado = newValue;
+                    txtVehiculo.setText(vehiculoSeleccionado.getClass().getSimpleName() + ": " + vehiculoSeleccionado.getModelo());
                 });
-        txtCliente.setText(cliente.getNombre());
+        
     }
 
     public void inicializarData() {
@@ -94,19 +99,29 @@ public class ReservaViewController {
 
     @FXML
     public void generarReserva(ActionEvent event) {
-        if (validarDias(txtDias.getText())) {
-            int dias = Integer.parseInt(txtDias.getText());
-            Reserva reserva = new Reserva(dias, cliente, vehiculoSeleccionado);
-            cliente.agregarReserva(reserva);
+        if (!costoCalculado) {
+            App.mostrarAlerta("Error", "Por favor calcule el costo de su reserva");
+            return;
+        }
+
+        else if (txtCodigo.getText().isEmpty()) {
+            App.mostrarAlerta("Error", "Por favor ingrese el codigo de la reserva");
+            return;
+        }
+
+        Reserva reserva = crearReserva();
+        if (reservaController.agregarReserva(reserva)) {
             vehiculoSeleccionado.setReserva(reserva);
-            empresa.agregarReserva(reserva);
-            empresa.eliminarVehiculo(vehiculoSeleccionado);
-            App.mostrarAlerta("Reserva agregada exitosamente", "La reserva se ha agregado");
+            reservaController.eliminarVehiculo(vehiculoSeleccionado);
+            App.mostrarMensaje("Reserva creada", "", "La reserva se ha creado correctamente");
             App.cambiarEscena("/co/edu/uniquindio/poo/Cliente.fxml", "Agregar cliente", event,
                     getClass());
-        } else {
-            App.mostrarAlerta("Error, días inválidos", "Por favor llene el campo de días");
         }
+
+    }
+
+    public Reserva crearReserva() {
+        return new Reserva(Integer.parseInt(txtDias.getText()), txtCodigo.getText(), cliente, vehiculoSeleccionado);
     }
 
     public boolean validarDias(String cadena) {
@@ -128,18 +143,21 @@ public class ReservaViewController {
 
     @FXML
     public void calcularCosto() {
-        
-        if (validarDias(txtDias.getText())) {
-            int dias = Integer.parseInt(txtDias.getText());
-            double costo = vehiculoSeleccionado.calcularCosto(dias);
-            txtCostoReserva.setText(String.valueOf(costo));
-        } else {
-            App.mostrarAlerta("Días inválidos", "Por favor llene el campo de días");
+        if (vehiculoSeleccionado == null) {
+            App.mostrarAlerta("Vehículo no seleccionado", "Por favor seleccione un vehículo para realizar la reserva");
             return;
         }
 
-    }
+        else if (!validarDias(txtDias.getText())) {
+            App.mostrarAlerta("Días inválidos", "Por favor llene el campo de días correctamente");
+            return;
+        }
 
+        int dias = Integer.parseInt(txtDias.getText());
+        double costo = vehiculoSeleccionado.calcularCosto(dias);
+        txtCostoReserva.setText(String.valueOf(costo));
+        costoCalculado = true;
+    }
 
     @FXML
     public void regresar(ActionEvent event) {

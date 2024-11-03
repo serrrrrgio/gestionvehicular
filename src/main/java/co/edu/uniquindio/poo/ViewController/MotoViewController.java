@@ -5,10 +5,8 @@ import java.time.LocalDate;
 import co.edu.uniquindio.poo.Model.TipoCaja;
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Controller.MotoController;
-import co.edu.uniquindio.poo.Model.Empresa;
 import co.edu.uniquindio.poo.Model.Moto;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -52,7 +50,7 @@ public class MotoViewController {
     @FXML
     private Button btnRegresar;
 
-    private Moto motoSeleccionada;
+    Moto motoSeleccionada;
 
     private MotoController motoController;
 
@@ -63,14 +61,14 @@ public class MotoViewController {
 
         inicializarData();
 
-        mostrarInformacionMoto(motoSeleccionada);
-
+        agregarListener();
     }
 
     public void agregarListener() {
         // Agregar un listener para la selección de una moto en la tabla
         tblListMoto.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             motoSeleccionada = newValue;
+            mostrarInformacionMoto(newValue);
         });
     }
 
@@ -127,11 +125,17 @@ public class MotoViewController {
             return;
         }
 
+        double tarifaBase;
         try {
-            double tarifaBase = Double.parseDouble(tarifaBaseCadena);
+            tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
             App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
+            return;
+        }
+
+        if(tarifaBase <= 0){
+            App.mostrarAlerta("Tarifa base inválida", "Por favor ingresar una tarifa mayor que 0");
             return;
         }
 
@@ -151,7 +155,7 @@ public class MotoViewController {
 
     public Moto crearMoto() {
         return new Moto(txtMatricula.getText(), txtMarca.getText(), txtModelo.getText(),
-                datePickerFechaFabricacion.getValue(), null, Integer.parseInt(txtTarifaBase.getText()),
+                datePickerFechaFabricacion.getValue(), null, Double.parseDouble(txtTarifaBase.getText()),
                 choiceTipoCaja.getValue());
     }
 
@@ -208,8 +212,7 @@ public class MotoViewController {
             // Limpiar los campos después de actualizar
             limpiarCampos();
             limpiarSeleccion();
-        }
-        else{
+        } else {
             App.mostrarAlerta("Error", "Ya existe una moto con el número de matrícula " + matricula);
         }
 

@@ -1,7 +1,6 @@
 package co.edu.uniquindio.poo.ViewController;
 
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,7 +48,7 @@ public class ClienteViewController {
     @FXML
     private TableColumn<Cliente, String> tbcReservas;
 
-    private Cliente clienteSeleccionado;
+    Cliente clienteSeleccionado;
 
     private ClienteController clienteController;
 
@@ -62,16 +61,14 @@ public class ClienteViewController {
         inicializarData();
 
         agregarListener();
-
-        mostrarInformacionCliente(clienteSeleccionado);
     }
 
     // Agregar listener para detectar selección de cliente
     private void agregarListener() {
 
         tblListCliente.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            clienteSeleccionado = newValue; // Actualizar clienteSeleccionado
-
+            clienteSeleccionado = newValue; //
+            mostrarInformacionCliente(newValue);
         });
     }
 
@@ -163,8 +160,14 @@ public class ClienteViewController {
 
     @FXML
     public void abrirAgregarReserva(ActionEvent event) {
-        ReservaViewController.setCliente(clienteSeleccionado);
-        App.cambiarEscena("/co/edu/uniquindio/poo/Reserva.fxml", "Elegir Vehículo", event, getClass());
+        if(clienteSeleccionado != null){
+            ReservaViewController.setCliente(clienteSeleccionado);
+            App.cambiarEscena("/co/edu/uniquindio/poo/Reserva.fxml", "Elegir Vehículo", event, getClass());
+        }
+        else{
+            App.mostrarAlerta("Error", "Debe seleccionar un cliente para realizar una reserva");
+        }
+        
     }
 
     @FXML

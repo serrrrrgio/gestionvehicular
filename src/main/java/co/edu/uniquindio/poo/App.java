@@ -60,7 +60,7 @@ public class App extends Application {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
- 
+
     public static void cambiarEscena(String fxml, String titulo, ActionEvent event, Class<?> clase) {
         try {
             FXMLLoader loader = new FXMLLoader(clase.getResource(fxml));

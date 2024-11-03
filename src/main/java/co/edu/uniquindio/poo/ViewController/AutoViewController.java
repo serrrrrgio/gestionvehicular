@@ -4,10 +4,7 @@ import java.time.LocalDate;
 
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Controller.AutoController;
-import co.edu.uniquindio.poo.Controller.CamionetaController;
 import co.edu.uniquindio.poo.Model.Auto;
-import co.edu.uniquindio.poo.Model.Empresa;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -51,7 +48,7 @@ public class AutoViewController {
     @FXML
     private Button btnRegresar;
 
-    private Auto autoSeleccionado;
+    Auto autoSeleccionado;
 
     private AutoController autoController;
 
@@ -64,15 +61,14 @@ public class AutoViewController {
 
         inicializarData();
 
-        mostrarInformacionAuto(autoSeleccionado);
-
+        agregarListener();
     }
 
     public void agregarListener() {
         // Agregar un listener para la selección de una auto en la tabla
         tblListAuto.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             autoSeleccionado = newValue;
-
+            mostrarInformacionAuto(newValue);
         });
     }
 
@@ -127,21 +123,30 @@ public class AutoViewController {
             return;
         }
 
+        double tarifaBase;
         try {
-            double tarifaBase = Double.parseDouble(tarifaBaseCadena);
+            tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
             App.mostrarAlerta("Formato de Tarifa Base Inválido",
                     "Por favor, ingresa un número válido para la tarifa base.");
             return;
         }
 
+        int numeroPuertas;
         try {
-            int numeroPuertas = Integer.parseInt(numeroPuertasCadena);
+            numeroPuertas = Integer.parseInt(numeroPuertasCadena);
         } catch (NumberFormatException e) {
             App.mostrarAlerta("Formato de número puertas Inválido",
                     "Por favor, ingresa un número válido para el número de puertas.");
             return;
         }
+
+        if(numeroPuertas > 8){
+            App.mostrarAlerta("Error", "No puedes ingresar un auto con más de 8 puertas");
+            return;
+        }
+
+        
 
         Auto auto = crearAuto();
 
@@ -160,7 +165,7 @@ public class AutoViewController {
     public Auto crearAuto() {
         return new Auto(txtMatricula.getText(), txtMarca.getText(), txtModelo.getText(),
                 datePickerFechaFabricacion.getValue(), Integer.parseInt(txtNumeroPuertas.getText()), null,
-                Integer.parseInt(txtTarifaBase.getText()));
+                Double.parseDouble(txtTarifaBase.getText()));
     }
 
     // Método para eliminar una auto seleccionada
