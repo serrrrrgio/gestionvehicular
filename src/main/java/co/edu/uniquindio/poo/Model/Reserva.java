@@ -58,9 +58,4 @@ public class Reserva {
     public void setFechaDevolucion(LocalDate fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
     }
-
-    public int calcularDias(){
-        return (int) ChronoUnit.DAYS.between(fechaEntrega, fechaDevolucion);
-    }
-
 }

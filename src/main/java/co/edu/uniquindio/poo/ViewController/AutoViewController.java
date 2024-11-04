@@ -211,7 +211,7 @@ public class AutoViewController {
             numeroPuertas = Integer.parseInt(numeroPuertasCadena);
         } catch (NumberFormatException e) {
             App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor ingresa un número válido para la tarifa base.");
+                    "Por favor ingresa un número válido la cantidad de puertas.");
             return false;
         }
 

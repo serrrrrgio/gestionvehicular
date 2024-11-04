@@ -51,12 +51,12 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <Label layoutX="161.0" layoutY="249.0" text="Fecha fabricacion">
+      <Label layoutX="161.0" layoutY="249.0" text="Fecha fabricación">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="datePickerFechaFabricacion" layoutX="363.0" layoutY="247.0" promptText="Ingrese una fecha" />
+      <DatePicker fx:id="datePickerFechaFabricacion" editable="false" layoutX="363.0" layoutY="247.0" prefHeight="31.0" prefWidth="195.0" promptText="Ingrese una fecha" />
       <Label layoutX="161.0" layoutY="288.0" text="Tarifa base">
          <font>
             <Font size="18.0" />

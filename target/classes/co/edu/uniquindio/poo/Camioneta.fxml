@@ -22,8 +22,8 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <DatePicker fx:id="datePickerFechaFabricacion" layoutX="373.0" layoutY="257.0" promptText="Ingrese una fecha" />
-      <Label layoutX="171.0" layoutY="259.0" text="Fecha fabricacion">
+      <DatePicker fx:id="datePickerFechaFabricacion" editable="false" layoutX="373.0" layoutY="257.0" prefHeight="31.0" prefWidth="176.0" promptText="Ingrese una fecha" />
+      <Label layoutX="171.0" layoutY="259.0" text="Fecha fabricación">
          <font>
             <Font size="18.0" />
          </font>

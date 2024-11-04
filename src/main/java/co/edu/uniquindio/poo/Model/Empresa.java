@@ -1,6 +1,7 @@
 package co.edu.uniquindio.poo.Model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -246,4 +247,12 @@ public class Empresa {
         return existente;
     }
 
+    public int calcularDias(LocalDate fecha1, LocalDate fecha2){
+        return (int) ChronoUnit.DAYS.between(fecha1, fecha2);
+    }
+
+    
+    public boolean validarFechaPosterior(LocalDate fecha1, LocalDate fecha2){
+        return fecha1.isAfter(fecha2) || fecha1.isEqual(fecha2);
+    }
 }
