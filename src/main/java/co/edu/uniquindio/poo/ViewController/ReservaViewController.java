@@ -4,11 +4,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Controller.ReservaController;
@@ -60,6 +62,15 @@ public class ReservaViewController {
     @FXML
     private Button btnAgregarReserva;
 
+    @FXML
+    private Button btnCalcularDias;
+
+    @FXML
+    private DatePicker datePickerFechaEntrega;
+
+    @FXML
+    private DatePicker datePickerFechaDevolucion;
+
     private Vehiculo vehiculoSeleccionado;
 
     private ReservaController reservaController;
@@ -78,14 +89,14 @@ public class ReservaViewController {
         txtCliente.setText(cliente.getNombre());
     }
 
-
     public void agregarListener() {
         tblListVehiculosDisponibles.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     vehiculoSeleccionado = newValue;
-                    txtVehiculo.setText(vehiculoSeleccionado.getClass().getSimpleName() + ": " + vehiculoSeleccionado.getModelo());
+                    txtVehiculo.setText(
+                            vehiculoSeleccionado.getClass().getSimpleName() + ": " + vehiculoSeleccionado.getModelo());
                 });
-        
+
     }
 
     public void inicializarData() {
@@ -99,29 +110,40 @@ public class ReservaViewController {
 
     @FXML
     public void generarReserva(ActionEvent event) {
-        if (!costoCalculado) {
-            App.mostrarAlerta("Error", "Por favor calcule el costo de su reserva");
-            return;
-        }
-
-        else if (txtCodigo.getText().isEmpty()) {
-            App.mostrarAlerta("Error", "Por favor ingrese el codigo de la reserva");
-            return;
-        }
-
         Reserva reserva = crearReserva();
-        if (reservaController.agregarReserva(reserva)) {
-            vehiculoSeleccionado.setReserva(reserva);
-            reservaController.eliminarVehiculo(vehiculoSeleccionado);
-            App.mostrarMensaje("Reserva creada", "", "La reserva se ha creado correctamente");
-            App.cambiarEscena("/co/edu/uniquindio/poo/Cliente.fxml", "Agregar cliente", event,
-                    getClass());
+        if (validarReserva(reserva)) {
+            if (reservaController.agregarReserva(reserva)) {
+                cliente.agregarReserva(reserva);
+                vehiculoSeleccionado.setReserva(reserva);
+                reservaController.eliminarVehiculo(vehiculoSeleccionado);
+                App.mostrarMensaje("Reserva creada", "", "La reserva se ha creado correctamente");
+                App.cambiarEscena("/co/edu/uniquindio/poo/Cliente.fxml", "Agregar cliente", event,
+                        getClass());
+            }
+            else{
+                App.mostrarAlerta("Error", "Ya existe una reserva con el mismo código");
+            }
         }
 
     }
 
+    public boolean validarReserva(Reserva reserva) {
+        if (!costoCalculado) {
+            App.mostrarAlerta("Error", "Por favor calcule el costo de su reserva");
+            return false;
+        }
+
+        else if (txtCodigo.getText().isEmpty()) {
+            App.mostrarAlerta("Error", "Por favor ingrese el codigo de la reserva");
+            return false;
+        }
+        return true;
+
+    }
+
     public Reserva crearReserva() {
-        return new Reserva(Integer.parseInt(txtDias.getText()), txtCodigo.getText(), cliente, vehiculoSeleccionado);
+        return new Reserva(datePickerFechaEntrega.getValue(), datePickerFechaDevolucion.getValue(), txtCodigo.getText(),
+                cliente, vehiculoSeleccionado);
     }
 
     public boolean validarDias(String cadena) {
@@ -149,7 +171,7 @@ public class ReservaViewController {
         }
 
         else if (!validarDias(txtDias.getText())) {
-            App.mostrarAlerta("Días inválidos", "Por favor llene el campo de días correctamente");
+            App.mostrarAlerta("Días inválidos", "Por favor, calcule la cantidad de días de su reserva");
             return;
         }
 
@@ -157,6 +179,26 @@ public class ReservaViewController {
         double costo = vehiculoSeleccionado.calcularCosto(dias);
         txtCostoReserva.setText(String.valueOf(costo));
         costoCalculado = true;
+    }
+
+    @FXML
+    public boolean calcularDias() {
+        if (datePickerFechaEntrega.getValue() == null || datePickerFechaDevolucion.getValue() == null) {
+            App.mostrarAlerta("Error", "Elija una fecha de entrega y una fecha de devolución");
+            return false;
+        }
+
+        if (_calcularDias(datePickerFechaEntrega.getValue(), datePickerFechaDevolucion.getValue()) < 0) {
+            App.mostrarAlerta("Error", "La fecha de devolución debe de ser posterior a la de entrega");
+            return false;
+        }
+
+        txtDias.setText(_calcularDias(datePickerFechaEntrega.getValue(), datePickerFechaDevolucion.getValue()) + "");
+        return true;
+    }
+
+    public int _calcularDias(LocalDate fecha1, LocalDate fecha2){
+        return (int) ChronoUnit.DAYS.between(fecha1, fecha2);
     }
 
     @FXML

@@ -104,10 +104,37 @@ public class MotoViewController {
     }
 
     // Método para verificar si los campos están vacíos
-    boolean camposVacios(String matricula, String marca, String modelo, LocalDate fechaFabricacion, String tarifa,
+    public boolean camposVacios(String matricula, String marca, String modelo, LocalDate fechaFabricacion,
+            String tarifa,
             TipoCaja tipoCaja) {
         return matricula.isEmpty() || marca.isEmpty() || modelo.isEmpty() || fechaFabricacion == null
                 || tarifa.isEmpty() || tipoCaja == null;
+    }
+
+    // Método para verificar que todos los campos tengan un formato válido
+    public boolean camposValidos(String matricula, String marca, String modelo, LocalDate fechaFabricacion,
+            String tarifaBaseCadena,
+            TipoCaja tipoCaja) {
+        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, tipoCaja)) {
+            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
+            return false;
+        }
+
+        double tarifaBase;
+        try {
+            tarifaBase = Double.parseDouble(tarifaBaseCadena);
+        } catch (NumberFormatException e) {
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
+                    "Por favor, ingresa un número válido para la tarifa base.");
+            return false;
+        }
+
+        if (tarifaBase <= 0) {
+            App.mostrarAlerta("Tarifa base inválida", "Por favor ingresar una tarifa mayor que 0");
+            return false;
+        }
+
+        return true;
     }
 
     // Método para agregar una nueva moto
@@ -120,37 +147,20 @@ public class MotoViewController {
         String tarifaBaseCadena = txtTarifaBase.getText();
         TipoCaja tipoCaja = choiceTipoCaja.getValue();
 
-        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, tipoCaja)) {
-            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
-            return;
+        if (camposValidos(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, tipoCaja)) {
+            Moto moto = crearMoto();
+
+            if (motoController.agregarVehiculo(moto)) {
+                // Actualiza la tabla
+                setMotos();
+
+                // Limpiar campos después de agregar
+                limpiarCampos();
+            } else {
+                App.mostrarAlerta("Error", "Ya existe una moto con el número de matrícula " + matricula);
+            }
+
         }
-
-        double tarifaBase;
-        try {
-            tarifaBase = Double.parseDouble(tarifaBaseCadena);
-        } catch (NumberFormatException e) {
-            App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
-        }
-
-        if(tarifaBase <= 0){
-            App.mostrarAlerta("Tarifa base inválida", "Por favor ingresar una tarifa mayor que 0");
-            return;
-        }
-
-        Moto moto = crearMoto();
-
-        if (motoController.agregarVehiculo(moto)) {
-            // Actualiza la tabla
-            setMotos();
-
-            // Limpiar campos después de agregar
-            limpiarCampos();
-        } else {
-            App.mostrarAlerta("Error", "Ya existe una moto con el número de matrícula " + matricula);
-        }
-
     }
 
     public Moto crearMoto() {
@@ -190,30 +200,19 @@ public class MotoViewController {
         String tarifaBaseCadena = txtTarifaBase.getText();
         TipoCaja tipoCaja = choiceTipoCaja.getValue();
 
-        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, tipoCaja)) {
-            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
-            return;
-        }
+        if (camposValidos(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, tipoCaja)) {
+            if (motoController.actualizarMoto(motoSeleccionada, matricula, marca, modelo, fechaFabricacion,
+                    Double.parseDouble(tarifaBaseCadena),
+                    tipoCaja)) {
+                // Refrescar la tabla para mostrar los cambios
+                tblListMoto.refresh();
 
-        double tarifaBase;
-        try {
-            tarifaBase = Double.parseDouble(tarifaBaseCadena);
-        } catch (NumberFormatException e) {
-            App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
-        }
-
-        if (motoController.actualizarMoto(motoSeleccionada, matricula, marca, modelo, fechaFabricacion, tarifaBase,
-                tipoCaja)) {
-            // Refrescar la tabla para mostrar los cambios
-            tblListMoto.refresh();
-
-            // Limpiar los campos después de actualizar
-            limpiarCampos();
-            limpiarSeleccion();
-        } else {
-            App.mostrarAlerta("Error", "Ya existe una moto con el número de matrícula " + matricula);
+                // Limpiar los campos después de actualizar
+                limpiarCampos();
+                limpiarSeleccion();
+            } else {
+                App.mostrarAlerta("Error", "Ya existe una moto con el número de matrícula " + matricula);
+            }
         }
 
     }

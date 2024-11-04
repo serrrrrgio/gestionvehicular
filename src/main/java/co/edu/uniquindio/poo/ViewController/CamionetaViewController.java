@@ -110,10 +110,67 @@ public class CamionetaViewController {
     }
 
     // Método para verificar si los campos están vacíos
-    boolean camposVacios(String matricula, String marca, String modelo, LocalDate fechaFabricacion, String tarifa,
+    public boolean camposVacios(String matricula, String marca, String modelo, LocalDate fechaFabricacion,
+            String tarifa,
             String capacidadCargaToneladas, String porcentaje) {
         return matricula.isEmpty() || marca.isEmpty() || modelo.isEmpty() || fechaFabricacion == null
                 || tarifa.isEmpty() || capacidadCargaToneladas.isEmpty() || porcentaje.isEmpty();
+    }
+
+    public boolean camposValidos(String matricula, String marca, String modelo, LocalDate fechaFabricacion,
+            String tarifaBaseCadena,
+            String capacidadCargaToneladasCadena, String porcentajeCadena) {
+        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena,
+                porcentajeCadena)) {
+            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
+            return false;
+        }
+
+        double tarifaBase;
+        try {
+            tarifaBase = Double.parseDouble(tarifaBaseCadena);
+        } catch (NumberFormatException e) {
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
+                    "Por favor, ingresa un número válido para la tarifa base.");
+            return false;
+        }
+
+        double capacidadCargaToneladas;
+        try {
+            capacidadCargaToneladas = Double.parseDouble(capacidadCargaToneladasCadena);
+        } catch (NumberFormatException e) {
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
+                    "Por favor, ingresa un número válido para la tarifa base.");
+            return false;
+        }
+
+        double porcentaje;
+        try {
+            porcentaje = Double.parseDouble(porcentajeCadena);
+        } catch (NumberFormatException e) {
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
+                    "Por favor, ingresa un número válido para la tarifa base.");
+            return false;
+        }
+
+        if (tarifaBase <= 0) {
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
+                    "Por favor ingresa una tarifa mayor que 0.");
+            return false;
+        }
+
+        if (capacidadCargaToneladas <= 0) {
+            App.mostrarAlerta("Formato de capacidad Inválido",
+                    "Por favor ingresa una capacidad mayor que 0.");
+            return false;
+        }
+
+        if (porcentaje <= 0) {
+            App.mostrarAlerta("Formato de porcentaje Inválido",
+                    "Por favor ingresa un porcentaje mayor que 0.");
+            return false;
+        }
+        return true;
     }
 
     // Método para agregar una nueva camioneta
@@ -127,50 +184,22 @@ public class CamionetaViewController {
         String capacidadCargaToneladasCadena = txtCapacidadCargaToneladas.getText();
         String porcentajeCadena = txtPorcentaje.getText();
 
-        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena,
+        if (camposValidos(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena,
                 porcentajeCadena)) {
-            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
-            return;
-        }
+            Camioneta camioneta = crearCamioneta();
 
-        double tarifaBase;
-        try {
-            tarifaBase = Double.parseDouble(tarifaBaseCadena);
-        } catch (NumberFormatException e) {
-            App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
-        }
+            // Se verifica que no exista una camioneta con la misma matrícula
+            if (camionetaController.agregarVehiculo(camioneta)) {
+                // Actualiza la tabla
+                setCamionetas();
 
-        try {
-            double capacidadCargaToneladas = Double.parseDouble(capacidadCargaToneladasCadena);
-        } catch (NumberFormatException e) {
-            App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
-        }
+                // Limpiar campos después de agregar
+                limpiarCampos();
+            }
 
-        try {
-            double porcentaje = Double.parseDouble(porcentajeCadena);
-        } catch (NumberFormatException e) {
-            App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
-        }
-
-        Camioneta camioneta = crearCamioneta();
-
-        // Se verifica que no exista una camioneta con la misma matrícula
-        if (camionetaController.agregarVehiculo(camioneta)) {
-            // Actualiza la tabla
-            setCamionetas();
-
-            // Limpiar campos después de agregar
-            limpiarCampos();
-        }
-
-        else {
-            App.mostrarAlerta("Alerta", "Ya existe una camioneta con el número de matrícula " + matricula);
+            else {
+                App.mostrarAlerta("Alerta", "Ya existe una camioneta con el número de matrícula " + matricula);
+            }
         }
     }
 
@@ -213,48 +242,21 @@ public class CamionetaViewController {
         String capacidadCargaToneladasCadena = txtCapacidadCargaToneladas.getText();
         String porcentajeCadena = txtPorcentaje.getText();
 
-        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena,
+        if (camposValidos(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, capacidadCargaToneladasCadena,
                 porcentajeCadena)) {
-            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
-            return;
-        }
+            if (camionetaController.actualizarCamioneta(camionetaSeleccionada, matricula, marca, modelo,
+                    fechaFabricacion,
+                    Double.parseDouble(capacidadCargaToneladasCadena), Double.parseDouble(tarifaBaseCadena),
+                    Double.parseDouble(porcentajeCadena))) {
+                // Refrescar la tabla para mostrar los cambios
+                tblListCamioneta.refresh();
+                // Limpiar los campos después de actualizar
+                limpiarCampos();
+                limpiarSeleccion();
+            } else {
+                App.mostrarAlerta("Error", "Ya existe una camioneta con el núnmero de matrícula " + matricula);
+            }
 
-        double tarifaBase;
-        try {
-            tarifaBase = Double.parseDouble(tarifaBaseCadena);
-        } catch (NumberFormatException e) {
-            App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
-        }
-
-        double capacidadCargaToneladas;
-        try {
-            capacidadCargaToneladas = Double.parseDouble(capacidadCargaToneladasCadena);
-        } catch (NumberFormatException e) {
-            App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
-        }
-
-        double porcentaje;
-        try {
-            porcentaje = Double.parseDouble(porcentajeCadena);
-        } catch (NumberFormatException e) {
-            App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
-        }
-
-        if (camionetaController.actualizarCamioneta(camionetaSeleccionada, matricula, marca, modelo, fechaFabricacion,
-                capacidadCargaToneladas, tarifaBase, porcentaje)) {
-            // Refrescar la tabla para mostrar los cambios
-            tblListCamioneta.refresh();
-            // Limpiar los campos después de actualizar
-            limpiarCampos();
-            limpiarSeleccion();
-        } else {
-            App.mostrarAlerta("Error", "Ya existe una camioneta con el núnmero de matrícula " + matricula);
         }
 
     }

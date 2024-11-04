@@ -118,46 +118,19 @@ public class AutoViewController {
         String tarifaBaseCadena = txtTarifaBase.getText();
         String numeroPuertasCadena = txtNumeroPuertas.getText();
 
-        if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertasCadena)) {
-            App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
-            return;
-        }
+        if (camposValidos(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertasCadena)) {
+            Auto auto = crearAuto();
 
-        double tarifaBase;
-        try {
-            tarifaBase = Double.parseDouble(tarifaBaseCadena);
-        } catch (NumberFormatException e) {
-            App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
-        }
+            if (autoController.agregarVehiculo(auto)) {
+                // Actualiza la tabla
+                setAutos();
 
-        int numeroPuertas;
-        try {
-            numeroPuertas = Integer.parseInt(numeroPuertasCadena);
-        } catch (NumberFormatException e) {
-            App.mostrarAlerta("Formato de número puertas Inválido",
-                    "Por favor, ingresa un número válido para el número de puertas.");
-            return;
-        }
-
-        if(numeroPuertas > 8){
-            App.mostrarAlerta("Error", "No puedes ingresar un auto con más de 8 puertas");
-            return;
-        }
-
-        
-
-        Auto auto = crearAuto();
-
-        if (autoController.agregarVehiculo(auto)) {
-            // Actualiza la tabla
-            setAutos();
-
-            // Limpiar campos después de agregar
-            limpiarCampos();
-        } else {
-            App.mostrarAlerta("Error", "El vehículo con número de matrícula " + txtMatricula.getText() + " ya existe");
+                // Limpiar campos después de agregar
+                limpiarCampos();
+            } else {
+                App.mostrarAlerta("Error",
+                        "El vehículo con número de matrícula " + txtMatricula.getText() + " ya existe");
+            }
         }
 
     }
@@ -198,9 +171,30 @@ public class AutoViewController {
         String tarifaBaseCadena = txtTarifaBase.getText();
         String numeroPuertasCadena = txtNumeroPuertas.getText();
 
+        if (camposValidos(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertasCadena)) {
+            if (autoController.actualizarAuto(autoSeleccionado, matricula, marca, modelo, fechaFabricacion,
+                    Integer.parseInt(numeroPuertasCadena),
+                    Double.parseDouble(tarifaBaseCadena))) {
+                // Refrescar la tabla para mostrar los cambios
+                tblListAuto.refresh();
+
+                // Limpiar los campos después de actualizar
+                limpiarCampos();
+
+                limpiarSeleccion();
+            } else {
+                App.mostrarAlerta("Error", "Ya existe un auto con el número de matrícula " + matricula);
+            }
+        }
+    }
+
+    // Método para verificar que todos los campos tengan un formato válido
+    public boolean camposValidos(String matricula, String marca, String modelo, LocalDate fechaFabricacion,
+            String tarifaBaseCadena,
+            String numeroPuertasCadena) {
         if (camposVacios(matricula, marca, modelo, fechaFabricacion, tarifaBaseCadena, numeroPuertasCadena)) {
             App.mostrarAlerta("Campos vacíos", "Por favor llene todos los campos");
-            return;
+            return false;
         }
 
         double tarifaBase;
@@ -208,8 +202,8 @@ public class AutoViewController {
             tarifaBase = Double.parseDouble(tarifaBaseCadena);
         } catch (NumberFormatException e) {
             App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
+                    "Por favor ingresa un número válido para la tarifa base.");
+            return false;
         }
 
         int numeroPuertas;
@@ -217,23 +211,28 @@ public class AutoViewController {
             numeroPuertas = Integer.parseInt(numeroPuertasCadena);
         } catch (NumberFormatException e) {
             App.mostrarAlerta("Formato de Tarifa Base Inválido",
-                    "Por favor, ingresa un número válido para la tarifa base.");
-            return;
+                    "Por favor ingresa un número válido para la tarifa base.");
+            return false;
         }
 
-        if (autoController.actualizarAuto(autoSeleccionado, matricula, marca, modelo, fechaFabricacion, numeroPuertas,
-                tarifaBase)) {
-            // Refrescar la tabla para mostrar los cambios
-            tblListAuto.refresh();
-
-            // Limpiar los campos después de actualizar
-            limpiarCampos();
-
-            limpiarSeleccion();
-        } else {
-            App.mostrarAlerta("Error", "Ya existe un auto con el número de matrícula " + matricula);
+        if (tarifaBase <= 0) {
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
+                    "Por favor ingresa una tarifa mayor que 0.");
+            return false;
         }
 
+        if (numeroPuertas <= 0) {
+            App.mostrarAlerta("Formato de Tarifa Base Inválido",
+                    "Por favor ingresa un número de puertas mayor que 0.");
+            return false;
+        }
+
+        if (numeroPuertas > 8) {
+            App.mostrarAlerta("Formato de número de puertas Inválido",
+                    "Por favor ingresa un número de puertas menor que 8.");
+            return false;
+        }
+        return true;
     }
 
     // Método para regresar a la escena anterior
