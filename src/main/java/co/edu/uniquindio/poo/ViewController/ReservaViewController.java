@@ -10,8 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
-
 import co.edu.uniquindio.poo.App;
 import co.edu.uniquindio.poo.Controller.ReservaController;
 import co.edu.uniquindio.poo.Model.Reserva;
